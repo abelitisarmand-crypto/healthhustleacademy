@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection — HealthHustleAcademy</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container nav-content" style="display: flex; align-items: center; justify-content: space-between; height: 100%;">
+            <a href="index.html" class="logo">
+                <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+                <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+                <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+            </a>
+            
+            <ul class="nav-links" style="display: flex; gap: var(--space-8); font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">
+                <li><a href="index.html#shop" class="nav-link">SHOP</a></li>
+                <li><a href="index.html#best-sellers" class="nav-link">BEST SELLERS</a></li>
+                <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                <li><a href="index.html#blog" class="nav-link">BLOG</a></li>
+            </ul>
+
+            <div class="nav-icons" style="display: flex; gap: var(--space-4); align-items: center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <div class="cart-icon" style="position: relative; cursor: pointer;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section animate-in" id="collection-page" style="padding-top: 40px;">
+        <div class="container">
+            <header style="margin-bottom: 64px;">
+                <span id="collection-breadcrumb" style="font-family: 'Barlow Condensed'; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase;">SHOP / COLLECTIONS</span>
+                <h1 id="collection-title" style="font-size: clamp(48px, 8vw, 72px); margin-top: 12px;">Loading...</h1>
+            </header>
+
+            <div class="product-grid" id="collection-grid">
+                <!-- Products injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+                    <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+                    <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+                </div>
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">The gym you'll actually use.</p>
+            </div>
+            <!-- Same columns as other pages ... -->
+        </div>
+        <div class="container footer-bottom">
+            <span>© 2026 HealthHustleAcademy. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/collection.js"></script>
+
+</body>
+</html>

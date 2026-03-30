@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product — HealthHustleAcademy</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="container nav-content" style="display: flex; align-items: center; justify-content: space-between; height: 100%;">
+            <a href="index.html" class="logo">
+                <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+                <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+                <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+            </a>
+            
+            <ul class="nav-links" style="display: flex; gap: var(--space-8); font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">
+                <li><a href="index.html#shop" class="nav-link">SHOP</a></li>
+                <li><a href="index.html#best-sellers" class="nav-link">BEST SELLERS</a></li>
+                <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                <li><a href="index.html#blog" class="nav-link">BLOG</a></li>
+            </ul>
+
+            <div class="nav-icons" style="display: flex; gap: var(--space-4); align-items: center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <div class="cart-icon" style="position: relative; cursor: pointer;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section animate-in" id="product-page" style="padding-top: 40px;">
+        <div class="container" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px;">
+            <!-- Gallery -->
+            <div class="product-gallery" id="product-gallery">
+                <div class="main-image" style="aspect-ratio: 1/1; background: #21262D; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                    <img id="main-product-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="thumbnails" id="product-thumbnails" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;"></div>
+            </div>
+
+            <!-- Info -->
+            <div class="product-info">
+                 <div style="margin-bottom: 24px;">
+                    <span class="badge" id="product-badge">BEST SELLER</span>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px;">
+                        <span style="color: var(--color-stars);">⭐⭐⭐⭐⭐</span>
+                        <span style="font-size: 13px; color: var(--text-muted);">4.9 (420 reviews)</span>
+                    </div>
+                </div>
+
+                <h1 id="product-title" style="font-size: clamp(36px, 5vw, 48px); margin-bottom: 12px;">Loading...</h1>
+                
+                <div class="product-price" style="margin-bottom: 32px; display: flex; align-items: baseline; gap: 16px;">
+                    <span id="price-current" style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 32px; color: var(--emerald);">$0</span>
+                    <span id="price-compare" style="text-decoration: line-through; color: var(--text-disabled); font-size: 18px;"></span>
+                </div>
+
+                <div id="product-description" style="color: var(--text-secondary); font-size: 16px; line-height: 1.7; margin-bottom: 40px;">
+                    <!-- Description injected here -->
+                </div>
+
+                <!-- Variations / Add to Cart -->
+                <div class="purchase-box" style="background: var(--bg-secondary); padding: 32px; border: 1px solid var(--border); border-radius: 4px;">
+                    <div style="margin-bottom: 24px;">
+                        <label style="font-family: 'Barlow Condensed'; font-weight: 700; font-size: 12px; letter-spacing: 0.1em; color: var(--text-muted); display: block; margin-bottom: 12px;">SELECT SET</label>
+                        <div id="variant-selector" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Variants injected here -->
+                        </div>
+                    </div>
+
+                    <button id="add-to-cart-btn" class="btn btn-primary" style="width: 100%; height: 64px; font-size: 18px;">Loading Kit...</button>
+                    
+                    <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: var(--text-muted);">
+                        <div style="display: flex; align-items: center; gap: 8px;">✓ Free Express Shipping (3-5 Days)</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">✓ 60-Day Risk-Free Trial</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">✓ 30-Day Training Program Included</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- WHAT'S IN THE BOX SECTION -->
+    <section class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <h2 class="hero-headline" style="font-size: clamp(24px, 4vw, 36px); margin-bottom: 48px;">WHAT'S IN THE BOX?</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;" id="box-contents">
+                <div class="box-item">
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">01</div>
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 700; font-size: 20px; margin-bottom: 8px;">PRO-GRIP BANDS</div>
+                    <p style="font-size: 15px; color: var(--text-muted);">5x multi-layered latex bands with reinforced carabiners. 10lb to 50lb resistance.</p>
+                </div>
+                <div class="box-item">
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">02</div>
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 700; font-size: 20px; margin-bottom: 8px;">ALUMINUM HANDLES</div>
+                    <p style="font-size: 15px; color: var(--text-muted);">Anodized aluminum with knurled grip. Same feel as a studio barbell.</p>
+                </div>
+                <div class="box-item">
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">03</div>
+                    <div style="font-family: 'Barlow Condensed'; font-weight: 700; font-size: 20px; margin-bottom: 8px;">DOOR ANCHOR</div>
+                    <p style="font-size: 15px; color: var(--text-muted);">Heavy-duty webbing with protective foam. Fits any standard door.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS SECTION -->
+    <section class="section">
+        <div class="container">
+            <h2 class="hero-headline text-center" style="margin-bottom: 64px;">ENGINEERED FOR PROGRESS</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 64px;">
+                <div class="benefit" style="display: flex; gap: 24px;">
+                    <div style="color: var(--emerald); flex-shrink: 0;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <div>
+                        <h3 style="font-size: 20px; margin-bottom: 8px;">UNBREAKABLE LATEX</h3>
+                        <p style="font-size: 15px; color: var(--text-secondary);">100% natural Thai latex. Layered (not molded) to prevent snapping even after 10,000+ reps.</p>
+                    </div>
+                </div>
+                <div class="benefit" style="display: flex; gap: 24px;">
+                    <div style="color: var(--emerald); flex-shrink: 0;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg></div>
+                    <div>
+                        <h3 style="font-size: 20px; margin-bottom: 8px;">QUICK-CLIP SYSTEM</h3>
+                        <p style="font-size: 15px; color: var(--text-secondary);">Stainless steel carabiners. Switch resistance levels in under 3 seconds between sets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 16px;">
+                    <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+                    <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+                    <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+                </div>
+                <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">The gym you'll actually use.</p>
+                <div style="display: flex; gap: 16px; color: var(--text-muted);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8.01 9.8V15H8v-3h2.01V9.6c0-1.98 1.17-3.1 3-3.1.88 0 1.8.16 1.8.16v1.98h-1.01c-.98 0-1.29.61-1.29 1.23V12h2.25l-.36 3h-1.89v6.8c4.57-.93 8.01-4.96 8.01-9.8z"></path></svg>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>SHOP</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#shop">Lose Weight</a></li>
+                    <li><a href="index.html#shop">Build Strength</a></li>
+                    <li><a href="index.html#shop">Move More</a></li>
+                    <li><a href="index.html#shop">Recover Faster</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>COMPANY</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>© 2026 HealthHustleAcademy. All rights reserved.</span>
+            <div style="display: flex; gap: 12px; opacity: 0.5;">
+                <span>VISA</span><span>MC</span><span>AMEX</span><span>PAYPAL</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="assets/js/product.js"></script>
+
+    <style>
+        @media (max-width: 992px) {
+            #product-page > .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</body>
+</html>
