@@ -83,40 +83,17 @@ function renderProduct(product) {
   // Add to Cart btn
   const atcBtn = document.getElementById('add-to-cart-btn');
   atcBtn.textContent = 'ADD TO CART →';
-  atcBtn.addEventListener('click', handleAddToCart);
+  atcBtn.addEventListener('click', () => {
+    if (window.handleAddToCart) {
+      window.handleAddToCart(selectedVariantId, atcBtn);
+    }
+  });
 
   // Transition in
   document.getElementById('product-page').classList.add('visible');
 }
 
-async function handleAddToCart() {
-  const atcBtn = document.getElementById('add-to-cart-btn');
-  atcBtn.disabled = true;
-  atcBtn.textContent = 'ADDING...';
-
-  try {
-    let cartId = localStorage.getItem('shopify_cart_id');
-    let checkoutUrl = '';
-
-    if (!cartId) {
-      const cartData = await createCart();
-      cartId = cartData.cartCreate.cart.id;
-      checkoutUrl = cartData.cartCreate.cart.checkoutUrl;
-      localStorage.setItem('shopify_cart_id', cartId);
-      localStorage.setItem('shopify_checkout_url', checkoutUrl);
-    }
-
-    const addData = await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
-    
-    // For MVP, redirect immediately to checkout or show a toast
-    window.location.href = localStorage.getItem('shopify_checkout_url');
-
-  } catch (error) {
-    console.error('Cart Error:', error);
-    atcBtn.textContent = 'ERROR - TRY AGAIN';
-    atcBtn.disabled = false;
-  }
-}
+// Global handleAddToCart is now used from main.js
 
 // Custom styles for active variant
 const style = document.createElement('style');

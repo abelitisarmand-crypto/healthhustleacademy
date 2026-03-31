@@ -1,23 +1,30 @@
-import { getProducts, getCollectionByHandle, createCart, addToCart } from './shopify.js';
+import { getProducts, getCollectionByHandle, createCart, addToCart, getCart } from './shopify.js';
 
-// ─── CART & DRAWER STATE ──────────────────────────────────────────────────────
+// CART & DRAWER STATE
 let cartId = localStorage.getItem('shopify_cart_id') || null;
 const cartDrawer = document.getElementById('cart-drawer');
 const cartOverlay = document.getElementById('cart-overlay');
+const checkoutBtn = document.getElementById('checkout-btn');
 
-function updateCartBadge(count) {
+window.updateCartBadge = function(count) {
   localStorage.setItem('shopify_cart_count', count);
-  document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+  document.querySelectorAll('.cart-count').forEach(el => {
+    el.textContent = count;
+    el.style.transform = 'scale(1.2)';
+    setTimeout(() => { if (el) el.style.transform = 'scale(1)'; }, 200);
+  });
 }
 
-function openCart() {
+window.openCart = function() {
+  if (!cartDrawer || !cartOverlay) return;
   cartDrawer.classList.add('open');
   cartOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   renderCart();
 }
 
-function closeCart() {
+window.closeCart = function() {
+  if (!cartDrawer || !cartOverlay) return;
   cartDrawer.classList.remove('open');
   cartOverlay.classList.remove('open');
   document.body.style.overflow = '';
@@ -25,30 +32,76 @@ function closeCart() {
 
 async function renderCart() {
   const container = document.getElementById('cart-items');
+  const totalEl = document.getElementById('cart-total');
   if (!container) return;
 
-  if (!cartId) {
+  if (!cartId || cartId === 'undefined') {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
+    if (totalEl) totalEl.textContent = '$0.00';
     return;
   }
 
-  // Simplified for MVP: In a real app, you'd fetch the full cart object here.
-  // For now, we'll tell the user we're loading.
   container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Updating cart...</p>';
   
-  // Note: Actual cart fetching logic would go here using shopifyQuery
+  const data = await getCart(cartId);
+  const cart = data?.cart;
+
+  if (!cart || !cart.lines || cart.lines.edges.length === 0) {
+    container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
+    if (totalEl) totalEl.textContent = '$0.00';
+    return;
+  }
+
+  if (totalEl) totalEl.textContent = `$${parseFloat(cart.cost.totalAmount.amount).toFixed(2)}`;
+  
+  if (cart.checkoutUrl) {
+    localStorage.setItem('shopify_checkout_url', cart.checkoutUrl);
+  }
+
+  if (checkoutBtn) {
+    checkoutBtn.onclick = () => {
+      const url = localStorage.getItem('shopify_checkout_url');
+      if (url) window.location.href = url;
+    };
+  }
+
+  container.innerHTML = cart.lines.edges.map(({ node }) => {
+    const variant = node.merchandise;
+    const product = variant.product;
+    const imgUrl = product.images.edges[0]?.node.url || '';
+
+    return `
+      <div style="display: flex; gap: 16px; margin-bottom: 24px; align-items: center;">
+        <div style="width: 80px; height: 80px; background: #21262D; border-radius: 4px; overflow: hidden; flex-shrink: 0;">
+          <img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1;">
+          <h4 style="font-size: 14px; margin-bottom: 4px; font-family: 'Barlow Condensed'; font-weight: 700;">${product.title.toUpperCase()}</h4>
+          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">${variant.title !== 'Default Title' ? variant.title : ''}</div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-weight: 700; color: var(--emerald);">$${parseFloat(variant.price.amount).toFixed(2)}</div>
+            <div style="font-size: 13px;">QTY: ${node.quantity}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 async function ensureCart() {
-  if (!cartId) {
+  if (!cartId || cartId === 'undefined' || cartId === 'null') {
     const data = await createCart();
-    cartId = data?.cartCreate?.cart?.id;
+    const cart = data?.cartCreate?.cart;
+    cartId = cart?.id;
+    if (cart?.checkoutUrl) {
+      localStorage.setItem('shopify_checkout_url', cart.checkoutUrl);
+    }
     localStorage.setItem('shopify_cart_id', cartId);
   }
   return cartId;
 }
 
-async function handleAddToCart(variantId, btn) {
+window.handleAddToCart = async function(variantId, btn) {
   const original = btn.textContent;
   btn.textContent = 'ADDING...';
   btn.disabled = true;
@@ -56,27 +109,27 @@ async function handleAddToCart(variantId, btn) {
   try {
     const id = await ensureCart();
     const result = await addToCart(id, [{ merchandiseId: variantId, quantity: 1 }]);
-    const lines = result?.cartLinesAdd?.cart?.lines?.edges || [];
-    const total = lines.reduce((sum, { node }) => sum + node.quantity, 0);
-    updateCartBadge(total);
+    const cart = result?.cartLinesAdd?.cart;
+    if (cart?.checkoutUrl) {
+      localStorage.setItem('shopify_checkout_url', cart.checkoutUrl);
+    }
+    window.updateCartBadge(cart?.totalQuantity || 0);
     
-    btn.textContent = '✓ ADDED!';
-    btn.style.background = '#10B981';
+    btn.textContent = 'ADDED!';
     
-    // Auto-open drawer
     setTimeout(() => {
-      openCart();
+      window.openCart();
       btn.textContent = original;
-      btn.style.background = '';
       btn.disabled = false;
-    }, 800);
+    }, 600);
   } catch (e) {
-    btn.textContent = 'ERROR — RETRY';
+    console.error('Add to cart error:', e);
+    btn.textContent = 'ERROR';
     btn.disabled = false;
   }
 }
 
-// ─── CUSTOM CURSOR ────────────────────────────────────────────────────────────
+// CUSTOM CURSOR
 const cursor = document.getElementById('custom-cursor');
 let mouseX = 0, mouseY = 0;
 let cursorX = 0, cursorY = 0;
@@ -89,18 +142,17 @@ document.addEventListener('mousemove', (e) => {
 function animateCursor() {
   let dx = mouseX - cursorX;
   let dy = mouseY - cursorY;
-  cursorX += dx * 0.15;
-  cursorY += dy * 0.15;
+  cursorX += dx * 0.12; 
+  cursorY += dy * 0.12;
   
   if (cursor) {
-    cursor.style.left = `${cursorX}px`;
-    cursor.style.top = `${cursorY}px`;
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
   }
   requestAnimationFrame(animateCursor);
 }
 animateCursor();
 
-const interactiveElements = 'a, button, .faq-question, .tab-btn, .cart-icon';
+const interactiveElements = 'a, button, .faq-question, .tab-btn, .cart-icon, .product-card';
 document.addEventListener('mouseover', (e) => {
   if (e.target.closest(interactiveElements)) cursor?.classList.add('active');
 });
@@ -108,28 +160,43 @@ document.addEventListener('mouseout', (e) => {
   if (e.target.closest(interactiveElements)) cursor?.classList.remove('active');
 });
 
-// ─── HERO & PARALLAX ──────────────────────────────────────────────────────────
+// HERO & PARALLAX
 const heroHeadline = document.querySelector('.hero-headline');
-const heroImage = document.querySelector('.hero');
+const heroSection = document.querySelector('.hero');
 
-window.addEventListener('scroll', () => {
-  const scrolled = window.pageYOffset;
-  if (heroImage) {
-    heroImage.style.backgroundPositionY = `${scrolled * 0.5}px`;
+if (heroHeadline && heroHeadline.classList.contains('animate-stagger')) {
+  const lines = heroHeadline.querySelectorAll('span');
+  lines.forEach((line, lineIdx) => {
+    const words = line.textContent.trim().split(/\s+/);
+    line.textContent = '';
+    words.forEach((word, wordIdx) => {
+      const span = document.createElement('span');
+      span.textContent = word + (wordIdx === words.length - 1 ? '' : ' ');
+      span.style.transitionDelay = `${(lineIdx * 0.3) + (wordIdx * 0.05)}s`;
+      line.appendChild(span);
+    });
+  });
+}
+
+function updateParallax() {
+  const scrolled = window.scrollY;
+  if (heroSection) {
+    heroSection.style.backgroundPositionY = `${scrolled * 0.4}px`;
   }
-});
+}
 
-// ─── NUMBER COUNTERS ──────────────────────────────────────────────────────────
+// NUMBER COUNTERS
 const animateNumbers = (el) => {
   const target = parseInt(el.textContent);
-  let count = 0;
+  if (isNaN(target)) return;
   const duration = 2000;
   const startTime = performance.now();
 
   const update = (currentTime) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const current = Math.floor(progress * target);
+    const easedProgress = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+    const current = Math.floor(easedProgress * target);
     el.textContent = current.toString().padStart(2, '0');
     if (progress < 1) requestAnimationFrame(update);
   };
@@ -147,7 +214,7 @@ const numberObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.problem-number').forEach(n => numberObserver.observe(n));
 
-// ─── PRODUCT LOADING ──────────────────────────────────────────────────────────
+// PRODUCT LOADING
 const VARIANT_IDS = {
   'recovery-massage-gun-deep-tissue-relief': '45114806665250',
   'foam-roller-pro-full-body-recovery': '45114804437026',
@@ -165,7 +232,7 @@ function createProductCard(product) {
   card.innerHTML = `
     <a href="product.html?handle=${product.handle}" style="text-decoration:none; color:inherit;">
       <div style="aspect-ratio: 4/3; background: #21262D; overflow: hidden;">
-        ${imgUrl ? `<img src="${imgUrl}" alt="${product.title}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#8B949E;">No image</div>'}
+        ${imgUrl ? `<img src="${imgUrl}" alt="${product.title}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#8B949E;">No image</div>'}
       </div>
       <div style="padding: 24px 24px 12px;">
         <h3 style="font-size:18px;margin-bottom:8px;line-height:1.3; font-family: 'Anton'; letter-spacing: 0.02em;">${product.title.toUpperCase()}</h3>
@@ -174,7 +241,7 @@ function createProductCard(product) {
     </a>
     <div style="padding: 0 24px 24px;">
       <button class="btn btn-primary atc-btn" style="width:100%;height:48px;" data-variant="${variantId}">
-        ADD TO CART →
+        ADD TO CART
       </button>
     </div>
   `;
@@ -207,11 +274,14 @@ async function loadProducts(handle = null) {
   products.forEach(({ node: product }, i) => {
     const card = createProductCard(product);
     container.appendChild(card);
-    setTimeout(() => card.classList.add('visible'), i * 100);
+    setTimeout(() => {
+      card.classList.add('visible');
+      sectionObserver.observe(card);
+    }, i * 100);
   });
 }
 
-// ─── INIT & EVENTS ────────────────────────────────────────────────────────────
+// INIT & EVENTS
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const tabMap = { 'LOSE WEIGHT': 'lose-weight', 'BUILD STRENGTH': 'build-strength', 'MOVE MORE': 'move-more', 'RECOVER FASTER': 'recover-faster' };
@@ -221,53 +291,42 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
-document.querySelector('.cart-icon')?.addEventListener('click', openCart);
+document.querySelectorAll('.cart-icon').forEach(icon => {
+  icon.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.openCart();
+  });
+});
 document.getElementById('close-cart')?.addEventListener('click', closeCart);
 document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
 
-// FAQ Accordion Fix (for dynamic interaction)
+// FAQ Accordion
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
     item.classList.toggle('active');
-    btn.querySelector('span').textContent = item.classList.contains('active') ? '−' : '+';
+    btn.querySelector('span').textContent = item.classList.contains('active') ? '-' : '+';
   });
 });
 
 // Section Observer
-const observer = new IntersectionObserver((entries) => {
+const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.animate-in').forEach(el => sectionObserver.observe(el));
+
+// Scroll events
+window.addEventListener('scroll', () => {
+  updateParallax();
+}, { passive: true });
 
 document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge(localStorage.getItem('shopify_cart_count') || 0);
+  const initialCount = localStorage.getItem('shopify_cart_count') || 0;
+  updateCartBadge(initialCount);
   loadProducts();
   
-  // Stagger reveal hero
   setTimeout(() => {
     if (heroHeadline) heroHeadline.classList.add('visible');
-  }, 300);
-});
-�─────
-document.querySelectorAll('.faq-question').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.parentElement;
-    item.classList.toggle('active');
-    btn.querySelector('span').textContent = item.classList.contains('active') ? '−' : '+';
-  });
-});
-
-// ─── INTERSECTION OBSERVER ────────────────────────────────────────────────────
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  updateCartBadge(cartCount);
-  loadProducts();
+  }, 400);
 });

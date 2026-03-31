@@ -102,6 +102,13 @@ export async function createCart() {
         cart {
           id
           checkoutUrl
+          totalQuantity
+          cost {
+            totalAmount {
+              amount
+              currencyCode
+            }
+          }
         }
       }
     }
@@ -116,6 +123,14 @@ export async function addToCart(cartId, lines) {
       cartLinesAdd(cartId: $cartId, lines: $lines) {
         cart {
           id
+          checkoutUrl
+          totalQuantity
+          cost {
+            totalAmount {
+              amount
+              currencyCode
+            }
+          }
           lines(first: 10) {
             edges {
               node {
@@ -123,7 +138,11 @@ export async function addToCart(cartId, lines) {
                 quantity
                 merchandise {
                   ... on ProductVariant {
+                    id
                     title
+                    price {
+                      amount
+                    }
                     product {
                       title
                     }
@@ -162,6 +181,13 @@ export async function getCollectionByHandle(handle, first = 10) {
                   node {
                     url
                     altText
+                  }
+                }
+              }
+              variants(first: 1) {
+                edges {
+                  node {
+                    id
                   }
                 }
               }
