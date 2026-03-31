@@ -4,6 +4,13 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/cart/:path*",
+      "destination": "https://5e2bf2-59.myshopify.com/cart/:path*",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

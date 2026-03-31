@@ -8,7 +8,7 @@ const cartDrawer = document.getElementById('cart-drawer');
 const cartOverlay = document.getElementById('cart-overlay');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-window.updateCartBadge = function(count) {
+function updateCartBadge(count) {
   localStorage.setItem('shopify_cart_count', count);
   document.querySelectorAll('.cart-count').forEach(el => {
     el.textContent = count;
@@ -16,6 +16,17 @@ window.updateCartBadge = function(count) {
     setTimeout(() => { if (el) el.style.transform = 'scale(1)'; }, 200);
   });
 }
+window.updateCartBadge = updateCartBadge;
+
+// Truly Paranoid Checkout URL Storage
+function saveCheckoutUrl(url) {
+  if (!url || !url.includes('myshopify.com')) {
+    console.error('[CRITICAL] Invalid checkout URL attempt:', url);
+    return;
+  }
+  localStorage.setItem('shopify_checkout_url', url);
+}
+window.saveCheckoutUrl = saveCheckoutUrl;
 
 // SECTION OBSERVER (Defined early to avoid hoisting issues)
 const sectionObserver = new IntersectionObserver((entries) => {
@@ -52,8 +63,9 @@ function getAbsoluteUrl(url) {
 // SANITIZE ANY OLD RELATIVE URLS IMMEDIATELY
 (function sanitize() {
   const url = localStorage.getItem('shopify_checkout_url');
-  if (url && !url.startsWith('http') && url.includes('/cart/')) {
-    localStorage.setItem('shopify_checkout_url', getAbsoluteUrl(url));
+  if (url && (!url.startsWith('http') || !url.includes('myshopify.com'))) {
+    console.log('[SANITIZE] Fixing legacy or invalid checkout URL');
+    saveCheckoutUrl(getAbsoluteUrl(url));
   }
 })();
 
@@ -108,11 +120,7 @@ async function renderCart(cartData = null) {
   if (totalEl) totalEl.textContent = `$${parseFloat(cart.cost.totalAmount.amount).toFixed(2)}`;
   
   if (cart.checkoutUrl) {
-    const absUrl = getAbsoluteUrl(cart.checkoutUrl);
-    localStorage.setItem('shopify_checkout_url', absUrl);
-    if (checkoutBtn) {
-      checkoutBtn.onclick = () => window.location.href = absUrl;
-    }
+    saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
   }
 
   container.innerHTML = cart.lines.edges.map(({ node }) => {
@@ -244,7 +252,7 @@ async function ensureCart() {
     const cart = data?.cartCreate?.cart;
     cartId = cart?.id;
     if (cart?.checkoutUrl) {
-      localStorage.setItem('shopify_checkout_url', getAbsoluteUrl(cart.checkoutUrl));
+      saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
     }
     localStorage.setItem('shopify_cart_id', cartId);
   }
@@ -271,7 +279,7 @@ async function handleAddToCart(variantId, btn) {
     }
 
     if (cart.checkoutUrl) {
-      localStorage.setItem('shopify_checkout_url', getAbsoluteUrl(cart.checkoutUrl));
+      saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
     }
     window.updateCartBadge(cart.totalQuantity || 0);
     
@@ -427,7 +435,7 @@ if (mobileMenuBtn && navLinks) {
 // Initial observe
 document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => sectionObserver.observe(el));
 
-// GLOBAL CHECKOUT HIJACKER (Hard Mode)
+// GLOBAL CHECKOUT HIJACKER (Hard Mode v3 - Extreme Paranoia)
 document.addEventListener('click', (e) => {
   const target = e.target.closest('#checkout-btn, a[href*="/cart/c/"]');
   if (target) {
@@ -436,15 +444,17 @@ document.addEventListener('click', (e) => {
     
     // Always trust the stored URL from localStorage and FORCE it to be absolute
     const storedUrl = localStorage.getItem('shopify_checkout_url');
-    const finalUrl = getAbsoluteUrl(storedUrl);
     
-    console.log('[HARD MODE] Checkout request intercepted. Forcing redirect to:', finalUrl);
-    
-    if (finalUrl && finalUrl.startsWith('http')) {
-      window.top.location.href = finalUrl;
+    // Check if URL is valid myshopify link
+    if (storedUrl && storedUrl.includes('myshopify.com')) {
+      console.log('[HARD MODE] Valid Checkout Redirect:', storedUrl);
+      window.open(storedUrl, '_blank');
     } else {
-      // Emergency fallback if storage is empty
-      window.top.location.href = 'https://5e2bf2-59.myshopify.com';
+      // Fallback — build URL from cartId or use root cart
+      const currentCartId = localStorage.getItem('shopify_cart_id');
+      const fallbackUrl = `${SHOPIFY_CHECKOUT_DOMAIN}/cart`;
+      console.warn('[HARD MODE] Invalid URL found. Using fallback:', fallbackUrl);
+      window.open(fallbackUrl, '_blank');
     }
   }
 }, true);
