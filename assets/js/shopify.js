@@ -200,3 +200,50 @@ export async function getCollectionByHandle(handle, first = 10) {
   const data = await shopifyQuery(query, { handle, first });
   return data?.collection;
 }
+
+// Fetch cart by id
+export async function getCart(cartId) {
+  const query = `
+    query getCart($cartId: ID!) {
+      cart(id: $cartId) {
+        id
+        checkoutUrl
+        totalQuantity
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        lines(first: 20) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price {
+                    amount
+                  }
+                  product {
+                    title
+                    images(first: 1) {
+                      edges {
+                        node {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  return await shopifyQuery(query, { cartId });
+}

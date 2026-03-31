@@ -129,90 +129,13 @@ window.handleAddToCart = async function(variantId, btn) {
   }
 }
 
-// CUSTOM CURSOR
-const cursor = document.getElementById('custom-cursor');
-let mouseX = 0, mouseY = 0;
-let cursorX = 0, cursorY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function animateCursor() {
-  let dx = mouseX - cursorX;
-  let dy = mouseY - cursorY;
-  cursorX += dx * 0.12; 
-  cursorY += dy * 0.12;
-  
-  if (cursor) {
-    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-  }
-  requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
 const interactiveElements = 'a, button, .faq-question, .tab-btn, .cart-icon, .product-card';
-document.addEventListener('mouseover', (e) => {
-  if (e.target.closest(interactiveElements)) cursor?.classList.add('active');
-});
-document.addEventListener('mouseout', (e) => {
-  if (e.target.closest(interactiveElements)) cursor?.classList.remove('active');
-});
 
 // HERO & PARALLAX
 const heroHeadline = document.querySelector('.hero-headline');
 const heroSection = document.querySelector('.hero');
 
-if (heroHeadline && heroHeadline.classList.contains('animate-stagger')) {
-  const lines = heroHeadline.querySelectorAll('span');
-  lines.forEach((line, lineIdx) => {
-    const words = line.textContent.trim().split(/\s+/);
-    line.textContent = '';
-    words.forEach((word, wordIdx) => {
-      const span = document.createElement('span');
-      span.textContent = word + (wordIdx === words.length - 1 ? '' : ' ');
-      span.style.transitionDelay = `${(lineIdx * 0.3) + (wordIdx * 0.05)}s`;
-      line.appendChild(span);
-    });
-  });
-}
-
-function updateParallax() {
-  const scrolled = window.scrollY;
-  if (heroSection) {
-    heroSection.style.backgroundPositionY = `${scrolled * 0.4}px`;
-  }
-}
-
-// NUMBER COUNTERS
-const animateNumbers = (el) => {
-  const target = parseInt(el.textContent);
-  if (isNaN(target)) return;
-  const duration = 2000;
-  const startTime = performance.now();
-
-  const update = (currentTime) => {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const easedProgress = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-    const current = Math.floor(easedProgress * target);
-    el.textContent = current.toString().padStart(2, '0');
-    if (progress < 1) requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
-};
-
-const numberObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting && !entry.target.dataset.animated) {
-      animateNumbers(entry.target);
-      entry.target.dataset.animated = 'true';
-    }
-  });
-}, { threshold: 1 });
-
-document.querySelectorAll('.problem-number').forEach(n => numberObserver.observe(n));
+// UTILITIES
 
 // PRODUCT LOADING
 const VARIANT_IDS = {
@@ -228,11 +151,11 @@ function createProductCard(product) {
   const variantId = `gid://shopify/ProductVariant/${VARIANT_IDS[product.handle] || ''}`;
 
   const card = document.createElement('div');
-  card.className = 'product-card glass-card animate-in';
+  card.className = 'product-card animate-in';
   card.innerHTML = `
     <a href="product.html?handle=${product.handle}" style="text-decoration:none; color:inherit;">
       <div style="aspect-ratio: 4/3; background: #21262D; overflow: hidden;">
-        ${imgUrl ? `<img src="${imgUrl}" alt="${product.title}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#8B949E;">No image</div>'}
+        ${imgUrl ? `<img src="${imgUrl}" alt="${product.title}" style="width:100%;height:100%;object-fit:cover;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#8B949E;">No image</div>'}
       </div>
       <div style="padding: 24px 24px 12px;">
         <h3 style="font-size:18px;margin-bottom:8px;line-height:1.3; font-family: 'Anton'; letter-spacing: 0.02em;">${product.title.toUpperCase()}</h3>
@@ -300,6 +223,20 @@ document.querySelectorAll('.cart-icon').forEach(icon => {
 document.getElementById('close-cart')?.addEventListener('click', closeCart);
 document.getElementById('cart-overlay')?.addEventListener('click', closeCart);
 
+// Global Add to Cart listener for static buttons
+document.querySelectorAll('.atc-btn').forEach(btn => {
+  if (!btn.dataset.bound) {
+    btn.addEventListener('click', (e) => {
+      const variantId = btn.dataset.variant;
+      if (variantId) {
+        e.preventDefault();
+        window.handleAddToCart(variantId, btn);
+      }
+    });
+    btn.dataset.bound = 'true';
+  }
+});
+
 // FAQ Accordion
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -318,15 +255,10 @@ document.querySelectorAll('.animate-in').forEach(el => sectionObserver.observe(e
 
 // Scroll events
 window.addEventListener('scroll', () => {
-  updateParallax();
 }, { passive: true });
 
 document.addEventListener('DOMContentLoaded', () => {
   const initialCount = localStorage.getItem('shopify_cart_count') || 0;
   updateCartBadge(initialCount);
   loadProducts();
-  
-  setTimeout(() => {
-    if (heroHeadline) heroHeadline.classList.add('visible');
-  }, 400);
 });

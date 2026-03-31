@@ -66,13 +66,13 @@ function renderCollection(collection) {
     const imgUrl = product.images.edges[0]?.node.url || 'https://via.placeholder.com/400x300';
     
     const card = document.createElement('div');
-    card.className = 'product-card animate-in';
+    card.className = 'product-card';
     const variantId = `gid://shopify/ProductVariant/${product.variants?.edges[0]?.node.id.split('/').pop() || ''}`; // Fallback or mapping needed if VARIANT_IDS not here
     
     card.innerHTML = `
       <a href="product.html?handle=${product.handle}" style="text-decoration:none; color:inherit;">
         <div style="aspect-ratio: 4/3; background: #21262D; overflow: hidden;">
-            <img src="${imgUrl}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);">
+            <img src="${imgUrl}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div style="padding: 24px 24px 12px;">
             <h3 style="font-size: 18px; margin-bottom: 8px; line-height: 1.3; font-family: 'Anton'; letter-spacing: 0.02em;">${product.title.toUpperCase()}</h3>
