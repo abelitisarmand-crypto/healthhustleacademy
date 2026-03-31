@@ -1,4 +1,4 @@
-import { getProducts, getCollectionByHandle, createCart, addToCart, getCart } from './shopify.js';
+import { getProducts, getCollectionByHandle, createCart, addToCart, getCart } from './shopify.js?v=1.1';
 
 // CART & DRAWER STATE
 let cartId = localStorage.getItem('shopify_cart_id') || null;

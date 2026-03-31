@@ -1,4 +1,4 @@
-import { getProductByHandle, createCart, addToCart } from './shopify.js';
+import { getProductByHandle, createCart, addToCart } from './shopify.js?v=1.1';
 
 // Get handle from URL
 const urlParams = new URL(window.location.href).searchParams;
