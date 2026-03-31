@@ -63,33 +63,110 @@ function parseDescription(raw) {
   return { intro, features, formatted };
 }
 
-function renderProduct(product) {
-  const { intro, features, formatted } = parseDescription(product.description);
+const PRODUCT_COPY = {
+  'walking-pad-for-home-office-quiet-under-desk-treadmill': {
+    subtitle: 'Burn 200–400 calories a day without leaving your desk.',
+    description: 'The average remote worker sits 10+ hours a day. This ultra-quiet walking pad fits under any desk — start walking at 0.6 mph during calls, hit 5 mph when you close the laptop. No gym. No commute. Just results.',
+    features: [
+      { icon: '🔇', title: 'Near-Silent Motor', text: '40 dB. Use it on Zoom calls without anyone knowing' },
+      { icon: '⚡', title: '0.6–5 MPH', text: 'Walk slowly while working, speed up when done' },
+      { icon: '📊', title: 'LED Display', text: 'Tracks steps, distance, calories, time' },
+      { icon: '🏠', title: 'Fits Any Space', text: 'Slides under desk or bed. No assembly required' },
+    ],
+    perfectFor: ['Remote workers', 'People with sedentary jobs', 'Anyone who wants to move more'],
+    variantLabel: 'SELECT SIZE'
+  },
+  'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
+    subtitle: 'Professional-grade recovery. Without the $400 price tag.',
+    description: 'Theragun charges $400 for percussion therapy. We put the same deep-tissue relief in your hands for $79. 8 interchangeable heads, a powerful quiet motor, and 12mm amplitude — everything you need to recover faster and train harder tomorrow.',
+    features: [
+      { icon: '💪', title: '12mm Amplitude', text: 'Deep enough to reach real muscle tissue, not just the surface' },
+      { icon: '🔇', title: 'Quiet Motor', text: 'Strong enough to feel it, quiet enough for the living room' },
+      { icon: '🎯', title: '8 Attachment Heads', text: 'Targeting every muscle group from neck to calves' },
+      { icon: '🔋', title: 'Long Battery Life', text: 'Hours of use per charge, USB-C charging' },
+    ],
+    perfectFor: ['Post-workout recovery', 'Desk workers with tight shoulders', 'Athletes', 'Chronic muscle tension']
+  },
+  'yoga-foam-roller': {
+    subtitle: '5 minutes of rolling = 30 minutes of stretching.',
+    description: 'Most people skip recovery because it takes too long. 5 minutes with this foam roller before bed increases blood flow, breaks up knots, and has you waking up actually ready to move. Used by physios. Priced for everyone.',
+    features: [
+      { icon: '🏋️', title: 'High-Density EVA', text: 'Firm enough to actually work on deep tissue' },
+      { icon: '📐', title: 'Full-Length 33cm', text: 'Works back, legs, glutes, shoulders' },
+      { icon: '🎨', title: '6 Colors', text: 'Pick what matches your space or your vibe' },
+      { icon: '✈️', title: 'Portable', text: 'Take it to the gym, hotel, office' },
+    ],
+    perfectFor: ['Post-workout', 'Morning mobility', 'Office recovery', 'Travel athletes'],
+    variantLabel: 'CHOOSE YOUR COLOR'
+  },
+  '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
+    subtitle: 'Everything you need to train. Nothing you don\'t.',
+    description: '5 resistance bands (10–50 lbs), door anchor, handles. Fits in a backpack. Works in 6 square feet. The entire kit costs less than one month at a gym — and comes with a 30-day program so you actually know what to do with it.',
+    features: [
+      { icon: '💪', title: '5 Resistance Levels', text: '10, 20, 30, 40, 50 lbs. Beginner to advanced' },
+      { icon: '🚪', title: 'Door Anchor Included', text: 'Full upper body training without a rack' },
+      { icon: '🎒', title: 'Fits in a Backpack', text: 'Train at home, hotel, or the park' },
+      { icon: '📋', title: '30-Day Program Included', text: 'No guesswork. Just follow Day 1' },
+    ],
+    perfectFor: ['Home gym beginners', 'Travelers', 'People with no space for equipment']
+  }
+};
 
-  // Title & Intro
+function renderProduct(product) {
+  const copy = PRODUCT_COPY[product.handle];
+  const { formatted } = parseDescription(product.description);
+
+  // Title & Subtitle & Intro
   const titleEl = document.getElementById('product-title');
+  const subtitleEl = document.getElementById('product-subtitle');
   const descEl = document.getElementById('product-description');
+  
   if (titleEl) titleEl.textContent = product.title.toUpperCase();
-  if (descEl) descEl.innerHTML = intro;
+  if (subtitleEl) subtitleEl.textContent = copy ? copy.subtitle : '';
+  if (descEl) descEl.innerHTML = copy ? copy.description : product.description.split('•')[0];
   
   document.title = `${product.title} — HealthHustleAcademy`;
 
-  // Feature Grid (Why You'll Love It)
+  // Feature Grid
   const featureGrid = document.getElementById('feature-grid');
-  if (featureGrid && features.length > 0) {
-    featureGrid.innerHTML = features.map((f, i) => `
+  if (featureGrid) {
+    const featuresToRender = copy ? copy.features : parseDescription(product.description).features;
+    featureGrid.innerHTML = featuresToRender.map((f, i) => `
       <div class="feature-item animate-in" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 4px;">
-        <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 16px;">0${i+1}</div>
-        <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 20px; margin-bottom: 12px; letter-spacing: 0.02em;">${f.title}</h3>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">${f.desc}</p>
+        <div style="font-size: 24px; margin-bottom: 20px;">${f.icon || '⚡'}</div>
+        <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">0${i+1} / CORE FEATURE</div>
+        <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 22px; margin-bottom: 12px; letter-spacing: 0.02em;">${f.title}</h3>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">${f.text || f.desc}</p>
       </div>
     `).join('');
   }
 
-  // Full Details
+  // Full Details (Filtered to remove redundancy if premium copy is used)
   const detailsEl = document.getElementById('formatted-description');
   if (detailsEl) {
-    detailsEl.innerHTML = formatted;
+    if (copy) {
+      // If we have premium copy, just show the technical specs from the description
+      // usually everything after the first set of bullets
+      const specs = product.description.split(/[A-Z]{5,}:/);
+      if (specs.length > 1) {
+        detailsEl.innerHTML = '<h4 style="margin-bottom: 24px; font-family: \'Barlow Condensed\'; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--text-primary);">WHAT\'S IN THE BOX</h4>' + 
+                             '<ul><li>' + specs.slice(1).join('</li><li>').replace(/•/g, '').trim() + '</li></ul>';
+      } else {
+        detailsEl.innerHTML = formatted;
+      }
+    } else {
+      detailsEl.innerHTML = formatted;
+    }
+  }
+
+  // Perfect For Section
+  const perfectTags = document.getElementById('perfect-for-tags');
+  if (perfectTags && copy && copy.perfectFor) {
+    perfectTags.innerHTML = copy.perfectFor.map(tag => `
+      <span style="background: #10B98115; color: var(--emerald); border: 1px solid #10B98130; padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">${tag}</span>
+    `).join('');
+  } else if (document.getElementById('perfect-for-section')) {
+    document.getElementById('perfect-for-section').style.display = 'none';
   }
 
   // Gallery
@@ -104,16 +181,20 @@ function renderProduct(product) {
     thumbs.innerHTML = '';
     product.images.edges.forEach((img, idx) => {
       const thumb = document.createElement('div');
+      thumb.className = 'thumb-pill';
       thumb.style.aspectRatio = '1/1';
       thumb.style.background = '#21262D';
       thumb.style.borderRadius = '2px';
       thumb.style.cursor = 'pointer';
       thumb.style.overflow = 'hidden';
+      thumb.style.border = '2px solid transparent';
       thumb.innerHTML = `<img src="${img.node.url}" style="width: 100%; height: 100%; object-fit: cover;">`;
       
       thumb.addEventListener('click', () => {
         mainImg.src = img.node.url;
         mainImg.alt = img.node.altText;
+        document.querySelectorAll('.thumb-pill').forEach(t => t.style.borderColor = 'transparent');
+        thumb.style.borderColor = 'var(--emerald)';
       });
       thumbs.appendChild(thumb);
     });
@@ -124,6 +205,12 @@ function renderProduct(product) {
   if (priceEl && product.variants?.edges?.length > 0) {
     const firstPrice = product.variants.edges[0].node.price?.amount || 0;
     priceEl.textContent = `$${parseFloat(firstPrice).toFixed(2)}`;
+  }
+
+  // Variants Label
+  const varLabel = document.getElementById('variant-label');
+  if (varLabel && copy && copy.variantLabel) {
+    varLabel.textContent = copy.variantLabel;
   }
 
   // Variants
@@ -152,6 +239,8 @@ function renderProduct(product) {
         selectedVariantId = variant.id;
         document.querySelectorAll('.variant-pill').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        // Update price
+        if (priceEl) priceEl.textContent = `$${parseFloat(variant.price?.amount || 0).toFixed(2)}`;
       });
       varBox.appendChild(btn);
     });
@@ -183,34 +272,6 @@ function renderProduct(product) {
   if (window.sectionObserver) {
     document.querySelectorAll('.animate-in').forEach(el => window.sectionObserver.observe(el));
   }
-}
-
-// Custom styles for active variant
-if (!document.getElementById('pdp-custom-styles')) {
-  const style = document.createElement('style');
-  style.id = 'pdp-custom-styles';
-  style.innerHTML = `
-    .variant-pill.active {
-      border-color: var(--emerald) !important;
-      background: var(--emerald-glow);
-    }
-    #formatted-description ul {
-      margin-left: 20px;
-      margin-bottom: 24px;
-      list-style: disc;
-    }
-    #formatted-description li {
-      margin-bottom: 8px;
-    }
-    .feature-item {
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .feature-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--emerald) !important;
-    }
-  `;
-  document.head.appendChild(style);
 }
 
 initPDP();

@@ -1031,11 +1031,12 @@ img {
   font-family: 'Barlow Condensed';
   font-weight: 800;
   font-size: 20px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   color: var(--text-primary);
-  margin: 48px 0 24px;
+  margin: 64px 0 32px;
   text-transform: uppercase;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--emerald);
+  display: inline-block;
   padding-bottom: 8px;
 }
 
@@ -1053,9 +1054,31 @@ img {
 }
 
 #formatted-description li::before {
-  content: '→';
+  content: '✓';
   position: absolute;
   left: 0;
   color: var(--emerald);
   font-weight: 900;
+}
+
+/* Custom PDP Scroll Animations */
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-in.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Variant Pill Premium State */
+.variant-pill {
+    transition: all 0.2s ease;
+}
+.variant-pill.active {
+    border-color: var(--emerald) !important;
+    background: rgba(16, 185, 129, 0.05) !important;
+    box-shadow: 0 0 0 1px var(--emerald);
 }
