@@ -983,8 +983,8 @@ img {
 }
 
 .fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .animate-stagger span {
@@ -995,8 +995,8 @@ img {
 }
 
 .animate-stagger.visible span {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .animate-stagger.visible span:nth-child(1) { transition-delay: 0.1s; }

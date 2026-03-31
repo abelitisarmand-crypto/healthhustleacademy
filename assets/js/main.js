@@ -15,6 +15,15 @@ window.updateCartBadge = function(count) {
   });
 }
 
+// SECTION OBSERVER (Defined early to avoid hoisting issues)
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { 
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
 function getAbsoluteUrl(url) {
   if (!url) return '';
   if (url.startsWith('http')) return url;
@@ -372,17 +381,15 @@ if (mobileMenuBtn && navLinks) {
   });
 }
 
-// Section Observer
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { 
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+// Initial observe
+document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => sectionObserver.observe(el));
 
-document.querySelectorAll('.animate-in').forEach(el => sectionObserver.observe(el));
-document.querySelectorAll('.animate-stagger').forEach(el => sectionObserver.observe(el));
+// Fail-safe: Force visible after 2 seconds if still hidden
+setTimeout(() => {
+  document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => {
+    if (!el.classList.contains('visible')) el.classList.add('visible');
+  });
+}, 2500);
 
 // Scroll events
 window.addEventListener('scroll', () => {
