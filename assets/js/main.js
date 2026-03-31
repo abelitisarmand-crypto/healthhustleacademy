@@ -33,6 +33,14 @@ function getAbsoluteUrl(url) {
   return `${SHOPIFY_CHECKOUT_DOMAIN}${path}`;
 }
 
+// SANITIZE ANY OLD RELATIVE URLS IMMEDIATELY
+(function sanitize() {
+  const url = localStorage.getItem('shopify_checkout_url');
+  if (url && !url.startsWith('http') && url.includes('/cart/')) {
+    localStorage.setItem('shopify_checkout_url', getAbsoluteUrl(url));
+  }
+})();
+
 window.openCart = function(cartData = null) {
   if (!cartDrawer || !cartOverlay) return;
   cartDrawer.classList.add('open');
