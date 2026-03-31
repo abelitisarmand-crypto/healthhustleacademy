@@ -254,7 +254,7 @@ img {
 }
 
 .btn-primary::after {
-  content: " →";
+  content: "";
   margin-left: 8px;
   font-weight: 300;
   transition: transform 0.2s;
