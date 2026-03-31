@@ -160,9 +160,15 @@ async function renderUpsells(cart) {
   // Suggest these handles if not in cart
   const suggestHandles = ['yoga-foam-roller', 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads'];
   
-  const filteredProducts = allProducts.filter(p => suggestHandles.includes(p.handle) && !currentHandles.includes(p.handle));
+  let filteredProducts = allProducts.filter(p => suggestHandles.includes(p.handle) && !currentHandles.includes(p.handle));
+
+  // HARD MODE FALLBACK: If suggested items not found, just take first 2 that aren't in cart
+  if (filteredProducts.length === 0) {
+    filteredProducts = allProducts.filter(p => !currentHandles.includes(p.handle)).slice(0, 2);
+  }
 
   if (filteredProducts.length === 0) {
+    console.warn('Upsells: No suitable products found after filtering.');
     upsellContainer.style.display = 'none';
     return;
   }
