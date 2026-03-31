@@ -413,11 +413,20 @@ document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el 
 document.addEventListener('click', (e) => {
   const target = e.target.closest('#checkout-btn, a[href*="/cart/c/"]');
   if (target) {
-    const rawUrl = target.href || localStorage.getItem('shopify_checkout_url');
-    if (rawUrl && !rawUrl.startsWith('http')) {
-      e.preventDefault();
-      const finalUrl = getAbsoluteUrl(rawUrl);
-      window.location.href = finalUrl;
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Always trust the stored URL from localStorage and FORCE it to be absolute
+    const storedUrl = localStorage.getItem('shopify_checkout_url');
+    const finalUrl = getAbsoluteUrl(storedUrl);
+    
+    console.log('[HARD MODE] Checkout request intercepted. Forcing redirect to:', finalUrl);
+    
+    if (finalUrl && finalUrl.startsWith('http')) {
+      window.top.location.href = finalUrl;
+    } else {
+      // Emergency fallback if storage is empty
+      window.top.location.href = 'https://5e2bf2-59.myshopify.com';
     }
   }
 }, true);
