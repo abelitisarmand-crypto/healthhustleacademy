@@ -2,6 +2,12 @@ import { getProducts, getCollectionByHandle, createCart, addToCart, getCart, upd
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
+// CART & DRAWER STATE
+let cartId = localStorage.getItem('shopify_cart_id') || null;
+const cartDrawer = document.getElementById('cart-drawer');
+const cartOverlay = document.getElementById('cart-overlay');
+const checkoutBtn = document.getElementById('checkout-btn');
+
 window.updateCartBadge = function(count) {
   localStorage.setItem('shopify_cart_count', count);
   document.querySelectorAll('.cart-count').forEach(el => {
@@ -379,6 +385,19 @@ if (mobileMenuBtn && navLinks) {
 
 // Initial observe
 document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => sectionObserver.observe(el));
+
+// GLOBAL CHECKOUT HIJACKER (Hard Mode)
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('#checkout-btn, a[href*="/cart/c/"]');
+  if (target) {
+    const rawUrl = target.href || localStorage.getItem('shopify_checkout_url');
+    if (rawUrl && !rawUrl.startsWith('http')) {
+      e.preventDefault();
+      const finalUrl = getAbsoluteUrl(rawUrl);
+      window.location.href = finalUrl;
+    }
+  }
+}, true);
 
 // Scroll events
 window.addEventListener('scroll', () => {
