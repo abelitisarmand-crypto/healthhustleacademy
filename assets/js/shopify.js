@@ -154,6 +154,7 @@ export async function addToCart(cartId, lines) {
                       amount
                     }
                     product {
+                      id
                       title
                       images(first: 1) {
                         edges {
@@ -203,6 +204,7 @@ export async function updateCartLines(cartId, lines) {
                       amount
                     }
                     product {
+                      id
                       title
                       images(first: 1) {
                         edges {
@@ -315,6 +317,7 @@ export async function getCart(cartId) {
                     amount
                   }
                   product {
+                    id
                     title
                     images(first: 1) {
                       edges {
