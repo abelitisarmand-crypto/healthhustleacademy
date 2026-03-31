@@ -179,16 +179,16 @@ async function renderUpsells(cart) {
   const productsData = await getProducts(50);
   const allProducts = productsData?.products?.edges.map(e => e.node) || [];
   
-  const currentHandles = cart.lines.edges.map(e => e.node.merchandise.product.handle);
+  const currentProductIds = cart.lines.edges.map(e => e.node.merchandise.product.id);
   
   // Suggest these handles if not in cart
   const suggestHandles = ['yoga-foam-roller', 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads'];
   
-  let filteredProducts = allProducts.filter(p => suggestHandles.includes(p.handle) && !currentHandles.includes(p.handle));
+  let filteredProducts = allProducts.filter(p => suggestHandles.includes(p.handle) && !currentProductIds.includes(p.id));
 
   // HARD MODE FALLBACK: If suggested items not found, just take first 2 that aren't in cart
   if (filteredProducts.length === 0) {
-    filteredProducts = allProducts.filter(p => !currentHandles.includes(p.handle)).slice(0, 2);
+    filteredProducts = allProducts.filter(p => !currentProductIds.includes(p.id)).slice(0, 2);
   }
 
   if (filteredProducts.length === 0) {
