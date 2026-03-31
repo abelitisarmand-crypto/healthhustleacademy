@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Lost Your Way? | HealthHustleAcademy</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <style>
+        body {
+            background-color: var(--bg-primary);
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+        }
+        .error-container {
+            max-width: 600px;
+        }
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 15vw;
+            line-height: 1;
+            margin: 0;
+            color: var(--bg-secondary);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .error-code {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--emerald);
+            font-size: 4vw;
+            -webkit-text-stroke: 0;
+            white-space: nowrap;
+        }
+        .error-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            letter-spacing: 0.05em;
+            margin-top: -20px;
+            text-transform: uppercase;
+        }
+        .error-msg {
+            color: var(--text-muted);
+            margin: 24px 0 40px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container animate-in">
+        <div style="position: relative;">
+            <h1>404</h1>
+            <div class="error-code">OUT OF BOUNDS</div>
+        </div>
+        <h2 class="error-title">You've wandered off the track.</h2>
+        <p class="error-msg">
+            The page you're looking for doesn't exist or has been moved to a different workout block. Let's get you back to headquarters.
+        </p>
+        <a href="index.html" class="btn btn-primary btn-glow" style="display: inline-block; padding: 16px 40px;">
+            BACK TO HOME →
+        </a>
+    </div>
+
+    <script>
+        // Simple animation trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.error-container').style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
