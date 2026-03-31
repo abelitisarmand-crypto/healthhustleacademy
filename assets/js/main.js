@@ -151,7 +151,8 @@ async function renderUpsells(cart) {
   if (!upsellContainer || !upsellList) return;
 
   // Fetch real products to get fresh images
-  const productsData = await getProducts(10);
+  // Fetch more products to ensure we find the roller/gun
+  const productsData = await getProducts(50);
   const allProducts = productsData?.products?.edges.map(e => e.node) || [];
   
   const currentHandles = cart.lines.edges.map(e => e.node.merchandise.product.handle);

@@ -56,6 +56,13 @@ export async function getProducts(first = 20) {
                 }
               }
             }
+            variants(first: 1) {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
           }
         }
       }
