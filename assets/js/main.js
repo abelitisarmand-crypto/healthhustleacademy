@@ -156,7 +156,7 @@ async function renderUpsells(cart) {
   // Potential upsells
   const potentialUpsells = [
     { handle: 'yoga-foam-roller', title: 'Yoga Foam Roller', price: 29, variantId: '45114804437026', img: 'https://cdn.shopify.com/s/files/1/0744/4034/3874/files/roller.jpg' },
-    { handle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads', title: 'Massage Gun PRO', price: 89, variantId: '45114806665250', img: 'https://cdn.shopify.com/s/files/1/0744/4034/3874/files/gun.jpg' }
+    { handle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads', title: 'Massage Gun PRO', price: 89, variantId: '45114806665250', img: 'assets/images/massage_gun.jpg' }
   ];
 
   const filtered = potentialUpsells.filter(u => !currentHandles.includes(u.handle)).slice(0, 2);
