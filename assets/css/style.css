@@ -1013,13 +1013,34 @@ img {
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   border: 1px solid var(--border-subtle);
   background: var(--bg-secondary);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .feature-item:hover {
   transform: translateY(-8px);
   border-color: var(--emerald);
   box-shadow: 0 12px 30px rgba(16, 185, 129, 0.15);
+}
+
+.icon-box {
+    width: 48px;
+    height: 48px;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--emerald);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.icon-box svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.5;
 }
 
 #formatted-description {
@@ -1063,14 +1084,17 @@ img {
 
 /* Custom PDP Scroll Animations */
 .animate-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1; /* Guaranteed visibility */
+  transform: translateY(0);
 }
 
-.animate-in.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+.visible.animate-in {
+  animation: premiumFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes premiumFadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Variant Pill Premium State */

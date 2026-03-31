@@ -63,57 +63,85 @@ function parseDescription(raw) {
   return { intro, features, formatted };
 }
 
-const PRODUCT_COPY = {
-  'walking-pad-for-home-office-quiet-under-desk-treadmill': {
+const ICONS = {
+  MOTOR: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
+  SPEED: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L7 22l2-10H1L13 2z"/></svg>`,
+  DISPLAY: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`,
+  COMPACT: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  MUSCLE: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM12 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM20 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>`,
+  ATTACH: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`,
+  BATTERY: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="15"/></svg>`,
+  ROLL: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+  RULER: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 3 11l8 8M14 3l8 8-8 8M17 11H3"/></svg>`,
+  PALETTE: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.688-1.688h1.954c3.106 0 5.586-2.513 5.586-5.625 0-4.814-4.48-8.75-10-8.75Z"/></svg>`,
+  PROGRAM: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M9 14h6M9 18h6M9 10h6"/></svg>`,
+  BACKPACK: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10Z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5M8 10h8M8 18h8"/></svg>`,
+  DOOR: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`
+};
+
+const PRODUCT_COPY = [
+  {
+    match: ['walking-pad', 'treadmill'],
     subtitle: 'Burn 200–400 calories a day without leaving your desk.',
     description: 'The average remote worker sits 10+ hours a day. This ultra-quiet walking pad fits under any desk — start walking at 0.6 mph during calls, hit 5 mph when you close the laptop. No gym. No commute. Just results.',
     features: [
-      { icon: '🔇', title: 'Near-Silent Motor', text: '40 dB. Use it on Zoom calls without anyone knowing' },
-      { icon: '⚡', title: '0.6–5 MPH', text: 'Walk slowly while working, speed up when done' },
-      { icon: '📊', title: 'LED Display', text: 'Tracks steps, distance, calories, time' },
-      { icon: '🏠', title: 'Fits Any Space', text: 'Slides under desk or bed. No assembly required' },
+      { icon: ICONS.MOTOR, title: 'Near-Silent Motor', text: '40 dB. Use it on Zoom calls without anyone knowing' },
+      { icon: ICONS.SPEED, title: '0.6–5 MPH', text: 'Walk slowly while working, speed up when done' },
+      { icon: ICONS.DISPLAY, title: 'LED Display', text: 'Tracks steps, distance, calories, time' },
+      { icon: ICONS.COMPACT, title: 'Fits Any Space', text: 'Slides under desk or bed. No assembly required' },
     ],
     perfectFor: ['Remote workers', 'People with sedentary jobs', 'Anyone who wants to move more'],
     variantLabel: 'SELECT SIZE'
   },
-  'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
+  {
+    match: ['massage-gun', 'percussion'],
     subtitle: 'Professional-grade recovery. Without the $400 price tag.',
     description: 'Theragun charges $400 for percussion therapy. We put the same deep-tissue relief in your hands for $79. 8 interchangeable heads, a powerful quiet motor, and 12mm amplitude — everything you need to recover faster and train harder tomorrow.',
     features: [
-      { icon: '💪', title: '12mm Amplitude', text: 'Deep enough to reach real muscle tissue, not just the surface' },
-      { icon: '🔇', title: 'Quiet Motor', text: 'Strong enough to feel it, quiet enough for the living room' },
-      { icon: '🎯', title: '8 Attachment Heads', text: 'Targeting every muscle group from neck to calves' },
-      { icon: '🔋', title: 'Long Battery Life', text: 'Hours of use per charge, USB-C charging' },
+      { icon: ICONS.MUSCLE, title: '12mm Amplitude', text: 'Deep enough to reach real muscle tissue, not just the surface' },
+      { icon: ICONS.MOTOR, title: 'Quiet Motor', text: 'Strong enough to feel it, quiet enough for the living room' },
+      { icon: ICONS.ATTACH, title: '8 Attachment Heads', text: 'Targeting every muscle group from neck to calves' },
+      { icon: ICONS.BATTERY, title: 'Long Battery Life', text: 'Hours of use per charge, USB-C charging' },
     ],
     perfectFor: ['Post-workout recovery', 'Desk workers with tight shoulders', 'Athletes', 'Chronic muscle tension']
   },
-  'yoga-foam-roller': {
+  {
+    match: ['foam-roller'],
     subtitle: '5 minutes of rolling = 30 minutes of stretching.',
     description: 'Most people skip recovery because it takes too long. 5 minutes with this foam roller before bed increases blood flow, breaks up knots, and has you waking up actually ready to move. Used by physios. Priced for everyone.',
     features: [
-      { icon: '🏋️', title: 'High-Density EVA', text: 'Firm enough to actually work on deep tissue' },
-      { icon: '📐', title: 'Full-Length 33cm', text: 'Works back, legs, glutes, shoulders' },
-      { icon: '🎨', title: '6 Colors', text: 'Pick what matches your space or your vibe' },
-      { icon: '✈️', title: 'Portable', text: 'Take it to the gym, hotel, office' },
+      { icon: ICONS.MUSCLE, title: 'High-Density EVA', text: 'Firm enough to actually work on deep tissue' },
+      { icon: ICONS.RULER, title: 'Full-Length 33cm', text: 'Works back, legs, glutes, shoulders' },
+      { icon: ICONS.PALETTE, title: '6 Colors', text: 'Pick what matches your space or your vibe' },
+      { icon: ICONS.COMPACT, title: 'Portable', text: 'Take it to the gym, hotel, office' },
     ],
     perfectFor: ['Post-workout', 'Morning mobility', 'Office recovery', 'Travel athletes'],
     variantLabel: 'CHOOSE YOUR COLOR'
   },
-  '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
+  {
+    match: ['resistance-band', 'starter-kit'],
     subtitle: 'Everything you need to train. Nothing you don\'t.',
     description: '5 resistance bands (10–50 lbs), door anchor, handles. Fits in a backpack. Works in 6 square feet. The entire kit costs less than one month at a gym — and comes with a 30-day program so you actually know what to do with it.',
     features: [
-      { icon: '💪', title: '5 Resistance Levels', text: '10, 20, 30, 40, 50 lbs. Beginner to advanced' },
-      { icon: '🚪', title: 'Door Anchor Included', text: 'Full upper body training without a rack' },
-      { icon: '🎒', title: 'Fits in a Backpack', text: 'Train at home, hotel, or the park' },
-      { icon: '📋', title: '30-Day Program Included', text: 'No guesswork. Just follow Day 1' },
+      { icon: ICONS.MUSCLE, title: '5 Resistance Levels', text: '10, 20, 30, 40, 50 lbs. Beginner to advanced' },
+      { icon: ICONS.DOOR, title: 'Door Anchor Included', text: 'Full upper body training without a rack' },
+      { icon: ICONS.BACKPACK, title: 'Fits in a Backpack', text: 'Train at home, hotel, or the park' },
+      { icon: ICONS.PROGRAM, title: '30-Day Program Included', text: 'No guesswork. Just follow Day 1' },
     ],
     perfectFor: ['Home gym beginners', 'Travelers', 'People with no space for equipment']
   }
-};
+];
+
+function getPremiumCopy(product) {
+  const handle = product.handle.toLowerCase();
+  const title = product.title.toLowerCase();
+  return PRODUCT_COPY.find(copy => 
+    copy.match.some(keyword => handle.includes(keyword) || title.includes(keyword))
+  );
+}
 
 function renderProduct(product) {
-  const copy = PRODUCT_COPY[product.handle];
+  const copy = getPremiumCopy(product);
   const { formatted } = parseDescription(product.description);
 
   // Title & Subtitle & Intro
@@ -133,7 +161,7 @@ function renderProduct(product) {
     const featuresToRender = copy ? copy.features : parseDescription(product.description).features;
     featureGrid.innerHTML = featuresToRender.map((f, i) => `
       <div class="feature-item animate-in" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 4px;">
-        <div style="font-size: 24px; margin-bottom: 20px;">${f.icon || '⚡'}</div>
+        <div class="icon-box">${f.icon || '⚡'}</div>
         <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">0${i+1} / CORE FEATURE</div>
         <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 22px; margin-bottom: 12px; letter-spacing: 0.02em;">${f.title}</h3>
         <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">${f.text || f.desc}</p>
