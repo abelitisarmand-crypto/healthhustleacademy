@@ -168,6 +168,76 @@ export async function addToCart(cartId, lines) {
   return await shopifyQuery(query, { cartId, lines });
 }
 
+// Update Cart Quantity
+export async function updateCartLines(cartId, lines) {
+  const query = `
+    mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+      cartLinesUpdate(cartId: $cartId, lines: $lines) {
+        cart {
+          id
+          checkoutUrl
+          totalQuantity
+          cost {
+            totalAmount {
+              amount
+              currencyCode
+            }
+          }
+          lines(first: 20) {
+            edges {
+              node {
+                id
+                quantity
+                merchandise {
+                  ... on ProductVariant {
+                    id
+                    title
+                    price {
+                      amount
+                    }
+                    product {
+                      title
+                      images(first: 1) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+  return await shopifyQuery(query, { cartId, lines });
+}
+
+// Remove Cart Line
+export async function removeCartLines(cartId, lineIds) {
+  const query = `
+    mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+      cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
+        cart {
+          id
+          totalQuantity
+          checkoutUrl
+          cost {
+            totalAmount {
+              amount
+            }
+          }
+        }
+      }
+    }
+  `;
+  return await shopifyQuery(query, { cartId, lineIds });
+}
+
 // Fetch collection products
 export async function getCollectionByHandle(handle, first = 10) {
   const query = `

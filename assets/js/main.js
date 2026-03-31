@@ -1,4 +1,4 @@
-import { getProducts, getCollectionByHandle, createCart, addToCart, getCart } from './shopify.js?v=1.1';
+import { getProducts, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=1.1';
 
 // CART & DRAWER STATE
 let cartId = localStorage.getItem('shopify_cart_id') || null;
@@ -86,21 +86,104 @@ async function renderCart(cartData = null) {
     const imgUrl = product.images.edges[0]?.node.url || '';
 
     return `
-      <div style="display: flex; gap: 16px; margin-bottom: 24px; align-items: center;">
-        <div style="width: 80px; height: 80px; background: #21262D; border-radius: 4px; overflow: hidden; flex-shrink: 0;">
+      <div style="display: flex; gap: 16px; margin-bottom: 24px; align-items: center;" class="cart-item" data-line-id="${node.id}">
+        <div style="width: 70px; height: 70px; background: #21262D; border-radius: 4px; overflow: hidden; flex-shrink: 0;">
           <img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div style="flex: 1;">
-          <h4 style="font-size: 14px; margin-bottom: 4px; font-family: 'Barlow Condensed'; font-weight: 700;">${product.title.toUpperCase()}</h4>
-          <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">${variant.title !== 'Default Title' ? variant.title : ''}</div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+            <h4 style="font-size: 13px; font-family: 'Barlow Condensed'; font-weight: 700; color: white;">${product.title.toUpperCase()}</h4>
+            <button onclick="window.changeQuantity('${node.id}', ${node.quantity}, -${node.quantity})" style="background: none; border: none; color: var(--text-disabled); cursor: pointer; font-size: 10px;">REMOVE</button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">${variant.title !== 'Default Title' ? variant.title : ''}</div>
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 700; color: var(--emerald);">$${parseFloat(variant.price.amount).toFixed(2)}</div>
-            <div style="font-size: 13px;">QTY: ${node.quantity}</div>
+            <div style="font-weight: 700; color: var(--emerald); font-size: 14px;">$${parseFloat(variant.price.amount).toFixed(2)}</div>
+            <div style="display: flex; align-items: center; gap: 12px; background: #0D1117; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border);">
+              <button onclick="window.changeQuantity('${node.id}', ${node.quantity}, -1)" style="background: none; border: none; color: white; cursor: pointer; padding: 0 4px;">–</button>
+              <span style="font-size: 13px; font-weight: 700; min-width: 12px; text-align: center;">${node.quantity}</span>
+              <button onclick="window.changeQuantity('${node.id}', ${node.quantity}, 1)" style="background: none; border: none; color: white; cursor: pointer; padding: 0 4px;">+</button>
+            </div>
           </div>
         </div>
       </div>
     `;
   }).join('');
+
+  // Trigger Upsells
+  renderUpsells(cart);
+}
+
+window.changeQuantity = async function(lineId, currentQuantity, delta) {
+  const newQty = currentQuantity + delta;
+  if (!cartId) return;
+
+  if (newQty <= 0) {
+    const result = await removeCartLines(cartId, [lineId]);
+    if (result) {
+      const cart = result.cartLinesRemove.cart;
+      window.updateCartBadge(cart.totalQuantity);
+      renderCart(cart);
+    }
+  } else {
+    const result = await updateCartLines(cartId, [{ id: lineId, quantity: newQty }]);
+    if (result) {
+      const cart = result.cartLinesUpdate.cart;
+      window.updateCartBadge(cart.totalQuantity);
+      renderCart(cart);
+    }
+  }
+}
+
+async function renderUpsells(cart) {
+  const upsellContainer = document.getElementById('cart-upsells');
+  const upsellList = document.getElementById('upsell-list');
+  if (!upsellContainer || !upsellList) return;
+
+  // Simple heuristic: if we don't have certain items, suggest them
+  const currentHandles = cart.lines.edges.map(e => e.node.merchandise.product.handle);
+  
+  // Potential upsells
+  const potentialUpsells = [
+    { handle: 'yoga-foam-roller', title: 'Yoga Foam Roller', price: 29, variantId: '45114804437026', img: 'https://cdn.shopify.com/s/files/1/0744/4034/3874/files/roller.jpg' },
+    { handle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads', title: 'Massage Gun PRO', price: 89, variantId: '45114806665250', img: 'https://cdn.shopify.com/s/files/1/0744/4034/3874/files/gun.jpg' }
+  ];
+
+  const filtered = potentialUpsells.filter(u => !currentHandles.includes(u.handle)).slice(0, 2);
+
+  if (filtered.length === 0) {
+    upsellContainer.style.display = 'none';
+    return;
+  }
+
+  upsellContainer.style.display = 'block';
+  upsellList.innerHTML = filtered.map(u => `
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-subtle);">
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <img src="${u.img}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 2px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed';">${u.title.toUpperCase()}</div>
+          <div style="font-size: 10px; color: var(--emerald);">$${u.price}.00</div>
+        </div>
+      </div>
+      <button onclick="window.addUpsell('${u.variantId}', this)" style="background: var(--emerald); color: black; border: none; padding: 4px 12px; border-radius: 2px; font-size: 10px; font-weight: 800; cursor: pointer; transition: 0.2s;">
+        ADD +
+      </button>
+    </div>
+  `).join('');
+}
+
+window.addUpsell = async function(variantId, btn) {
+  const original = btn.textContent;
+  btn.textContent = '...';
+  btn.disabled = true;
+  
+  if (!cartId) return;
+  const result = await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
+  if (result) {
+    const cart = result.cartLinesAdd.cart;
+    window.updateCartBadge(cart.totalQuantity);
+    renderCart(cart);
+  }
 }
 
 async function ensureCart() {
