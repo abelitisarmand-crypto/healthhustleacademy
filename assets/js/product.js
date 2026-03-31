@@ -14,10 +14,18 @@ async function initPDP() {
     return;
   }
 
+  console.log('Fetching handle:', handle);
   const data = await getProductByHandle(handle);
-  const product = data?.product;
-  if (!product) {
+  console.log('Shopify data:', data);
+
+  // Handle both { product: {...} } and direct product object responses
+  const product = data?.product || (data?.id ? data : null);
+
+  if (!product || !product.title) {
+    console.error('Product not found or invalid data structure:', data);
     document.getElementById('product-title').textContent = 'Product Not Found';
+    const mainImg = document.getElementById('main-product-img');
+    if (mainImg) mainImg.style.display = 'none';
     return;
   }
 
@@ -27,8 +35,10 @@ async function initPDP() {
 
 function renderProduct(product) {
   // Title & Desc
-  document.getElementById('product-title').textContent = product.title;
-  document.getElementById('product-description').innerHTML = product.description;
+  const titleEl = document.getElementById('product-title');
+  const descEl = document.getElementById('product-description');
+  if (titleEl) titleEl.textContent = product.title || 'Product';
+  if (descEl) descEl.innerHTML = product.description || '';
   
   // Also show in the bottom section if it's long enough or as a duplicate for better UX
   const extraInfo = document.getElementById('dynamic-extra-info');
@@ -41,8 +51,10 @@ function renderProduct(product) {
 
   // Gallery
   const mainImg = document.getElementById('main-product-img');
-  mainImg.src = product.images.edges[0]?.node.url;
-  mainImg.alt = product.images.edges[0]?.node.altText;
+  if (mainImg && product.images?.edges?.length > 0) {
+    mainImg.src = product.images.edges[0].node.url;
+    mainImg.alt = product.images.edges[0].node.altText || product.title;
+  }
 
   const thumbs = document.getElementById('product-thumbnails');
   product.images.edges.forEach((img, idx) => {
@@ -60,6 +72,13 @@ function renderProduct(product) {
     });
     thumbs.appendChild(thumb);
   });
+
+  // Price
+  const priceEl = document.getElementById('price-current');
+  if (priceEl && product.variants?.edges?.length > 0) {
+    const firstPrice = product.variants.edges[0].node.price?.amount || 0;
+    priceEl.textContent = `$${parseFloat(firstPrice).toFixed(2)}`;
+  }
 
   // Variants
   const varBox = document.getElementById('variant-selector');
