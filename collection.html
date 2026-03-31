@@ -15,22 +15,22 @@
 
     <!-- NAVIGATION -->
     <nav class="nav">
-        <div class="container nav-content" style="display: flex; align-items: center; justify-content: space-between; height: 100%;">
+        <div class="container nav-content">
             <a href="index.html" class="logo">
                 <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
                 <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
                 <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
             </a>
             
-            <ul class="nav-links" style="display: flex; gap: var(--space-8); font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="index.html#shop" class="nav-link">SHOP</a></li>
                 <li><a href="index.html#best-sellers" class="nav-link">BEST SELLERS</a></li>
                 <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
                 <li><a href="index.html#blog" class="nav-link">BLOG</a></li>
             </ul>
 
-            <div class="nav-icons" style="display: flex; gap: var(--space-4); align-items: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <div class="nav-icons">
+                <svg class="mobile-nav-toggle" id="mobile-menu-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 <div class="cart-icon" style="position: relative; cursor: pointer;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     <span class="cart-count">0</span>
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js?v=1.1"></script>
     <script type="module" src="assets/js/collection.js?v=1.1"></script>
 
 </body>

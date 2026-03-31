@@ -14,7 +14,8 @@ async function initPDP() {
     return;
   }
 
-  const product = await getProductByHandle(handle);
+  const data = await getProductByHandle(handle);
+  const product = data?.product;
   if (!product) {
     document.getElementById('product-title').textContent = 'Product Not Found';
     return;
@@ -67,7 +68,7 @@ function renderProduct(product) {
     btn.style.alignItems = 'center';
     btn.innerHTML = `
       <span style="font-weight: 600;">${variant.title}</span>
-      <span style="font-family: 'Barlow Condensed'; font-weight: 700;">$${variant.price.amount}</span>
+      <span style="font-family: 'Barlow Condensed'; font-weight: 700;">$${parseFloat(variant.price?.amount || 0).toFixed(2)}</span>
     `;
 
     if (idx === 0) selectedVariantId = variant.id;

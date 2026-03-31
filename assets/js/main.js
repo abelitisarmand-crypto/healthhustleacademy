@@ -51,20 +51,25 @@ async function renderCart(cartData = null) {
   if (!cart || !cart.lines || cart.lines.edges.length === 0) {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
     if (totalEl) totalEl.textContent = '$0.00';
+    // Still bind checkout if we have a URL from a previous successful add
+    const savedUrl = localStorage.getItem('shopify_checkout_url');
+    if (checkoutBtn && savedUrl) {
+      checkoutBtn.style.display = 'block';
+      checkoutBtn.onclick = () => window.location.href = savedUrl;
+    } else if (checkoutBtn) {
+      checkoutBtn.style.display = 'none';
+    }
     return;
   }
 
+  if (checkoutBtn) checkoutBtn.style.display = 'block';
   if (totalEl) totalEl.textContent = `$${parseFloat(cart.cost.totalAmount.amount).toFixed(2)}`;
   
   if (cart.checkoutUrl) {
     localStorage.setItem('shopify_checkout_url', cart.checkoutUrl);
-  }
-
-  if (checkoutBtn) {
-    checkoutBtn.onclick = () => {
-      const url = localStorage.getItem('shopify_checkout_url');
-      if (url) window.location.href = url;
-    };
+    if (checkoutBtn) {
+      checkoutBtn.onclick = () => window.location.href = cart.checkoutUrl;
+    }
   }
 
   container.innerHTML = cart.lines.edges.map(({ node }) => {
@@ -133,8 +138,11 @@ window.handleAddToCart = async function(variantId, btn) {
       btn.disabled = false;
     }, 600);
   } catch (e) {
-    console.error('Add to cart error:', e);
-    btn.textContent = 'ERROR';
+    console.error('Add to cart critical error:', e);
+    // If it fails, maybe the cartId is stale? Try clearing it for next time.
+    localStorage.removeItem('shopify_cart_id');
+    cartId = null;
+    btn.textContent = 'RETRY';
     btn.disabled = false;
   }
 }
@@ -256,12 +264,32 @@ document.querySelectorAll('.faq-question').forEach(btn => {
   });
 });
 
+// Mobile Menu Toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const navLinks = document.getElementById('nav-links');
+
+if (mobileMenuBtn && navLinks) {
+  mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+}
+
 // Section Observer
 const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  entries.forEach(e => { 
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('.animate-in').forEach(el => sectionObserver.observe(el));
+document.querySelectorAll('.animate-stagger').forEach(el => sectionObserver.observe(el));
 
 // Scroll events
 window.addEventListener('scroll', () => {

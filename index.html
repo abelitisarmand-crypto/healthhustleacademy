@@ -16,26 +16,26 @@
     </div>
 
     <!-- NAVIGATION -->
-    <nav class="nav">
-        <div class="container nav-content" style="display: flex; align-items: center; justify-content: space-between; height: 100%;">
-            <div class="logo">
+    <nav class="nav glass">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
                 <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
                 <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
                 <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
-            </div>
+            </a>
             
-            <ul class="nav-links" style="display: flex; gap: var(--space-8); font-family: 'Barlow Condensed'; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#shop" class="nav-link">SHOP</a></li>
                 <li><a href="#best-sellers" class="nav-link">BEST SELLERS</a></li>
                 <li><a href="#about" class="nav-link">ABOUT</a></li>
                 <li><a href="#blog" class="nav-link">BLOG</a></li>
             </ul>
 
-            <div class="nav-icons" style="display: flex; gap: var(--space-4); align-items: center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <div class="nav-icons">
+                <svg class="mobile-nav-toggle" id="mobile-menu-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 <div class="cart-icon" style="position: relative; cursor: pointer;">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                    <span class="cart-count" style="position: absolute; top: -6px; right: -8px; background: var(--emerald); color: black; font-size: 9px; font-weight: 900; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">0</span>
+                    <span class="cart-count">0</span>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="hero-content">
                 <span style="color: var(--emerald); font-family: 'Barlow Condensed'; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;">THE GYM YOU'LL ACTUALLY USE</span>
                 
-                <h1 class="hero-headline" style="margin-top: 12px; margin-bottom: 24px;">
+                <h1 class="hero-headline fade-up animate-stagger" style="margin-top: 12px; margin-bottom: 24px;">
                     <span>TRIED THE GYM.</span>
                     <span>QUIT TWICE.</span>
                     <span class="text-emerald">FINALLY FIGURED IT OUT AT HOME.</span>
@@ -69,9 +69,9 @@
                     <div>Free shipping &nbsp;·&nbsp; 30-day returns &nbsp;·&nbsp; ⭐ 4.9 · 2,000+ customers</div>
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <div style="display: flex;">
-                            <img src="assets/images/avatar1.jpg" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary);">
-                            <img src="assets/images/avatar2.jpg" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary); margin-left:-8px;">
-                            <img src="assets/images/avatar3.jpg" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary); margin-left:-8px;">
+                            <img src="/Users/sashagun/.gemini/antigravity/brain/cf6c137e-fad6-431f-aa8d-31d6f2e6f618/avatar_male_fitness_1774940497817.png" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary);">
+                            <img src="/Users/sashagun/.gemini/antigravity/brain/cf6c137e-fad6-431f-aa8d-31d6f2e6f618/avatar_female_fitness_1774940515623.png" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary); margin-left:-8px;">
+                            <img src="/Users/sashagun/.gemini/antigravity/brain/cf6c137e-fad6-431f-aa8d-31d6f2e6f618/avatar_male_senior_fitness_1774940534409.png" alt="" style="width:24px; height:24px; border-radius:50%; border:2px solid var(--bg-primary); margin-left:-8px;">
                         </div>
                         <span>Join 12,500+ athletes training at home</span>
                     </div>
@@ -89,28 +89,28 @@
     <!-- TRUST STRIP -->
     <div class="trust-strip">
         <div class="container trust-grid">
-            <div class="trust-item">
+            <div class="trust-item glass" style="padding: 16px; border-radius: 4px;">
                 <div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 18H19M5 18V9M5 18H3M19 18V9M19 18H21M5 9L12 3L19 9M5 9H19M11 13H13M11 15H13"></path></svg></div>
                 <div class="trust-text">
                     <div class="trust-title">FREE SHIPPING</div>
                     <div class="trust-sub">On all orders $50+</div>
                 </div>
             </div>
-            <div class="trust-item">
+            <div class="trust-item glass" style="padding: 16px; border-radius: 4px;">
                 <div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
                 <div class="trust-text">
                     <div class="trust-title">30-DAY RETURNS</div>
                     <div class="trust-sub">No questions asked</div>
                 </div>
             </div>
-            <div class="trust-item">
+            <div class="trust-item glass" style="padding: 16px; border-radius: 4px;">
                 <div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
                 <div class="trust-text">
                     <div class="trust-title">4.9 RATING</div>
                     <div class="trust-sub">From 2,000+ customers</div>
                 </div>
             </div>
-            <div class="trust-item">
+            <div class="trust-item glass" style="padding: 16px; border-radius: 4px;">
                 <div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg></div>
                 <div class="trust-text">
                     <div class="trust-title">US SUPPORT</div>
@@ -125,7 +125,7 @@
         <div class="container">
             <h2 class="hero-headline" style="font-size: clamp(36px, 5vw, 56px); margin-bottom: 40px;">DOES THIS SOUND FAMILIAR?</h2>
             
-            <div class="problem-grid">
+            <div class="problem-grid animate-in">
                 <div class="problem-item">
                     <div class="problem-number">01</div>
                     <div class="problem-title">BOUGHT EQUIPMENT COLLECTING DUST</div>
@@ -158,11 +158,11 @@
             
             <div class="offer-content">
                 <div class="offer-badges">
-                    <span class="badge">BEST POPULAR</span>
+                    <span class="badge" id="best-sellers">BEST POPULAR</span>
                     <span class="badge">FREE PROGRAM INCLUDED</span>
                 </div>
 
-                <h2 style="font-weight: 900; font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px;">THE 20-MINUTE HOME GYM STARTER KIT</h2>
+                <h2 class="animate-in" style="font-weight: 900; font-size: clamp(28px, 4vw, 42px); margin-bottom: 16px;">THE 20-MINUTE HOME GYM STARTER KIT</h2>
                 
                 <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 24px;">Everything you need to rebuild your body from the comfort of your living room. No commute. No crowds. No excuses.</p>
 
@@ -198,13 +198,13 @@
     </section>
 
     <!-- HOW IT WORKS SECTION -->
-    <section class="section how-it-works">
+    <section class="section how-it-works" id="about">
         <div class="container">
             <h2 class="hero-headline" style="white-space: pre-line; text-align: center;">THREE STEPS.
                 <span class="text-emerald">FIRST WORKOUT TODAY.</span>
             </h2>
 
-            <div class="steps-grid">
+            <div class="steps-grid animate-in">
                 <!-- SVG Connector line placeholder for JS animation -->
                 <div class="step-item">
                     <div class="step-number">STEP 01</div>
@@ -236,7 +236,7 @@
             <h2 class="hero-headline text-center" style="font-size: clamp(36px, 5vw, 64px);">REAL RESULTS.</h2>
             <p class="text-secondary text-center" style="max-width: 600px; margin: 12px auto 0; font-size: 17px;">Not influencers. Not models. People who used to make the same excuses you do.</p>
 
-            <div class="results-grid">
+            <div class="results-grid animate-in">
                 <div class="review-card">
                     <div class="review-meta">Maria K. · Texas · Verified buyer</div>
                     <div class="review-quote">"I've spent thousands on unused memberships. For the price of one month at Equinox, I have everything I need in my living room. Down 2 dress sizes in 8 weeks."</div>
@@ -274,7 +274,7 @@
 
             <div class="product-grid" id="product-container">
                 <!-- Products will be dynamically injected here via shopify.js or rendered statically for now -->
-                <div class="product-card">
+                <div class="product-card glass">
                     <div style="aspect-ratio: 4/3; background: #21262D; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
                         [Product Image]
                     </div>
@@ -360,7 +360,7 @@
     </section>
 
     <!-- EMAIL CAPTURE -->
-    <section class="section email-section">
+    <section class="section email-section" id="blog">
         <div class="container email-grid">
             <div class="email-info">
                 <div class="email-label">FREE RESOURCE</div>

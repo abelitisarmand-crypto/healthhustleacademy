@@ -21,9 +21,12 @@ async function shopifyQuery(query, variables = {}) {
     }
 
     const json = await response.json();
+    if (json.errors) {
+      console.error('Shopify GraphQL Errors:', json.errors);
+    }
     return json.data;
   } catch (error) {
-    console.error('Shopify Query Error:', error);
+    console.error('Shopify Fetch Error:', error);
     return null;
   }
 }
