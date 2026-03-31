@@ -180,6 +180,8 @@ async function renderUpsells(cart) {
   const allProducts = productsData?.products?.edges.map(e => e.node) || [];
   
   const currentProductIds = cart.lines.edges.map(e => e.node.merchandise.product.id);
+  console.log('[DEBUG] Cart Product IDs:', currentProductIds);
+  console.log('[DEBUG] All Product Handles in Store:', allProducts.map(p => p.handle));
   
   // Suggest these handles if not in cart
   const suggestHandles = ['yoga-foam-roller', 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads'];
