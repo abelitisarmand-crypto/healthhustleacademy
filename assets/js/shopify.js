@@ -238,6 +238,35 @@ export async function removeCartLines(cartId, lineIds) {
           cost {
             totalAmount {
               amount
+              currencyCode
+            }
+          }
+          lines(first: 20) {
+            edges {
+              node {
+                id
+                quantity
+                merchandise {
+                  ... on ProductVariant {
+                    id
+                    title
+                    price {
+                      amount
+                    }
+                    product {
+                      id
+                      title
+                      images(first: 1) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
