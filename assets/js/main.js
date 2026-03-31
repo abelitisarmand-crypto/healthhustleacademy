@@ -1,10 +1,6 @@
 import { getProducts, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=1.1';
 
-// CART & DRAWER STATE
-let cartId = localStorage.getItem('shopify_cart_id') || null;
-const cartDrawer = document.getElementById('cart-drawer');
-const cartOverlay = document.getElementById('cart-overlay');
-const checkoutBtn = document.getElementById('checkout-btn');
+const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
 window.updateCartBadge = function(count) {
   localStorage.setItem('shopify_cart_count', count);
@@ -27,8 +23,8 @@ const sectionObserver = new IntersectionObserver((entries) => {
 function getAbsoluteUrl(url) {
   if (!url) return '';
   if (url.startsWith('http')) return url;
-  // Ensure relative URLs are prepended with the Shopify domain
-  return `https://5e2bf2-59.myshopify.com${url.startsWith('/') ? '' : '/'}${url}`;
+  const path = url.startsWith('/') ? url : `/${url}`;
+  return `${SHOPIFY_CHECKOUT_DOMAIN}${path}`;
 }
 
 window.openCart = function(cartData = null) {
