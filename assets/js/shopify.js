@@ -145,6 +145,13 @@ export async function addToCart(cartId, lines) {
                     }
                     product {
                       title
+                      images(first: 1) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
                     }
                   }
                 }

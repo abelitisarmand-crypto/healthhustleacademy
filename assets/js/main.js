@@ -15,12 +15,12 @@ window.updateCartBadge = function(count) {
   });
 }
 
-window.openCart = function() {
+window.openCart = function(cartData = null) {
   if (!cartDrawer || !cartOverlay) return;
   cartDrawer.classList.add('open');
   cartOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
-  renderCart();
+  renderCart(cartData);
 }
 
 window.closeCart = function() {
@@ -30,21 +30,23 @@ window.closeCart = function() {
   document.body.style.overflow = '';
 }
 
-async function renderCart() {
+async function renderCart(cartData = null) {
   const container = document.getElementById('cart-items');
   const totalEl = document.getElementById('cart-total');
   if (!container) return;
 
-  if (!cartId || cartId === 'undefined') {
-    container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
-    if (totalEl) totalEl.textContent = '$0.00';
-    return;
-  }
+  let cart = cartData;
 
-  container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Updating cart...</p>';
-  
-  const data = await getCart(cartId);
-  const cart = data?.cart;
+  if (!cart) {
+    if (!cartId || cartId === 'undefined') {
+      container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
+      if (totalEl) totalEl.textContent = '$0.00';
+      return;
+    }
+    container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Updating cart...</p>';
+    const data = await getCart(cartId);
+    cart = data?.cart;
+  }
 
   if (!cart || !cart.lines || cart.lines.edges.length === 0) {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
@@ -108,17 +110,25 @@ window.handleAddToCart = async function(variantId, btn) {
 
   try {
     const id = await ensureCart();
+    if (!id) throw new Error("Failed to create cart");
+
     const result = await addToCart(id, [{ merchandiseId: variantId, quantity: 1 }]);
     const cart = result?.cartLinesAdd?.cart;
-    if (cart?.checkoutUrl) {
+    
+    if (!cart) {
+      console.error("Shopify error details:", result);
+      throw new Error("Product not added to Shopify cart");
+    }
+
+    if (cart.checkoutUrl) {
       localStorage.setItem('shopify_checkout_url', cart.checkoutUrl);
     }
-    window.updateCartBadge(cart?.totalQuantity || 0);
+    window.updateCartBadge(cart.totalQuantity || 0);
     
     btn.textContent = 'ADDED!';
     
     setTimeout(() => {
-      window.openCart();
+      window.openCart(cart);
       btn.textContent = original;
       btn.disabled = false;
     }, 600);
