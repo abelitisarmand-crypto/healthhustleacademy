@@ -954,3 +954,55 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* Feature Grid (Gymshark/WHOOP Style) */
+.feature-item {
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.feature-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--emerald);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.15);
+}
+
+#formatted-description {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#formatted-description h4 {
+  font-family: 'Barlow Condensed';
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  margin: 48px 0 24px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+#formatted-description ul {
+  list-style: none;
+  padding: 0;
+}
+
+#formatted-description li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+#formatted-description li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--emerald);
+  font-weight: 900;
+}
