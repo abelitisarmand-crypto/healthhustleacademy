@@ -108,7 +108,9 @@ async function ensureCart() {
   return cartId;
 }
 
-window.handleAddToCart = async function(variantId, btn) {
+window.handleAddToCart = handleAddToCart;
+
+async function handleAddToCart(variantId, btn) {
   const original = btn.textContent;
   btn.textContent = 'ADDING...';
   btn.disabled = true;
@@ -157,10 +159,10 @@ const heroSection = document.querySelector('.hero');
 
 // PRODUCT LOADING
 const VARIANT_IDS = {
-  'recovery-massage-gun-deep-tissue-relief': '45114806665250',
-  'foam-roller-pro-full-body-recovery': '45114804437026',
-  'the-20-minute-home-gym-starter-kit': '45114801061922',
-  'under-desk-walking-pad-move-more-burn-more': '45114785234978',
+  'walking-pad-for-home-office-quiet-under-desk-treadmill': '45114785234978',
+  '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': '45114801061922',
+  'yoga-foam-roller': '45114804437026',
+  'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': '45114806665250',
 };
 
 function createProductCard(product) {

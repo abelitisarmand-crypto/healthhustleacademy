@@ -29,6 +29,14 @@ function renderProduct(product) {
   // Title & Desc
   document.getElementById('product-title').textContent = product.title;
   document.getElementById('product-description').innerHTML = product.description;
+  
+  // Also show in the bottom section if it's long enough or as a duplicate for better UX
+  const extraInfo = document.getElementById('dynamic-extra-info');
+  const extraDesc = document.getElementById('extra-description');
+  if (extraInfo && extraDesc) {
+    extraDesc.innerHTML = product.description;
+    extraInfo.style.display = 'block';
+  }
   document.title = `${product.title} — HealthHustleAcademy`;
 
   // Gallery
