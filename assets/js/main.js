@@ -384,13 +384,6 @@ if (mobileMenuBtn && navLinks) {
 // Initial observe
 document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => sectionObserver.observe(el));
 
-// Fail-safe: Force visible after 2 seconds if still hidden
-setTimeout(() => {
-  document.querySelectorAll('.animate-in, .animate-stagger, .fade-up').forEach(el => {
-    if (!el.classList.contains('visible')) el.classList.add('visible');
-  });
-}, 2500);
-
 // Scroll events
 window.addEventListener('scroll', () => {
 }, { passive: true });

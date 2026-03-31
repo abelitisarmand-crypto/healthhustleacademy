@@ -26,7 +26,7 @@
             
             <ul class="nav-links" id="nav-links">
                 <li><a href="#shop" class="nav-link">SHOP</a></li>
-                <li><a href="#best-sellers" class="nav-link">BEST SELLERS</a></li>
+                <li><a href="#starter-kit" class="nav-link">BEST SELLERS</a></li>
                 <li><a href="#about" class="nav-link">ABOUT</a></li>
                 <li><a href="#blog" class="nav-link">BLOG</a></li>
             </ul>
@@ -227,6 +227,7 @@
 
     <!-- REAL RESULTS SECTION -->
     <section class="section results-section" id="results">
+        <div id="reviews"></div>
         <div class="container">
             <div class="rating-row">
                 <span class="stars">⭐⭐⭐⭐⭐</span>
@@ -463,6 +464,11 @@
         <div id="cart-items" style="flex: 1; overflow-y: auto; padding: 24px;">
             <!-- Cart items injected here -->
             <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>
+        </div>
+        <!-- UPSELL SECTION -->
+        <div id="cart-upsells" style="padding: 20px 24px; border-top: 1px dashed var(--border); background: rgba(16, 185, 129, 0.03); display: none;">
+            <h4 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 13px; letter-spacing: 0.1em; color: var(--emerald); margin-bottom: 16px; text-transform: uppercase;">Unmissable Add-ons</h4>
+            <div id="upsell-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
         </div>
         <div style="padding: 24px; border-top: 1px solid var(--border); background: var(--bg-secondary);">
             <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 18px;">
