@@ -28,9 +28,25 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 function getAbsoluteUrl(url) {
   if (!url) return '';
-  if (url.startsWith('http')) return url;
-  const path = url.startsWith('/') ? url : `/${url}`;
-  return `${SHOPIFY_CHECKOUT_DOMAIN}${path}`;
+  
+  // If it already contains our target shopify domain, it's good
+  if (url.includes('5e2bf2-59.myshopify.com')) return url;
+  
+  // If it's absolute but on the WRONG domain (like healthhustleacademy.com), extract the path
+  let path = url;
+  if (url.startsWith('http')) {
+    try {
+      const urlObj = new URL(url);
+      path = urlObj.pathname + urlObj.search;
+    } catch (e) {
+      // Fallback for weird formats
+      const parts = url.split('.com');
+      path = parts[1] || url;
+    }
+  }
+  
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return `${SHOPIFY_CHECKOUT_DOMAIN}${cleanPath}`;
 }
 
 // SANITIZE ANY OLD RELATIVE URLS IMMEDIATELY
