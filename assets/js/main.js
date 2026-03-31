@@ -150,37 +150,45 @@ async function renderUpsells(cart) {
   const upsellList = document.getElementById('upsell-list');
   if (!upsellContainer || !upsellList) return;
 
-  // Simple heuristic: if we don't have certain items, suggest them
+  // Fetch real products to get fresh images
+  const productsData = await getProducts(10);
+  const allProducts = productsData?.products?.edges.map(e => e.node) || [];
+  
   const currentHandles = cart.lines.edges.map(e => e.node.merchandise.product.handle);
   
-  // Potential upsells
-  const potentialUpsells = [
-    { handle: 'yoga-foam-roller', title: 'Yoga Foam Roller', price: 29, variantId: '45114804437026', img: 'https://cdn.shopify.com/s/files/1/0744/4034/3874/files/roller.jpg' },
-    { handle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads', title: 'Massage Gun PRO', price: 89, variantId: '45114806665250', img: 'assets/images/massage_gun.jpg' }
-  ];
+  // Suggest these handles if not in cart
+  const suggestHandles = ['yoga-foam-roller', 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads'];
+  
+  const filteredProducts = allProducts.filter(p => suggestHandles.includes(p.handle) && !currentHandles.includes(p.handle));
 
-  const filtered = potentialUpsells.filter(u => !currentHandles.includes(u.handle)).slice(0, 2);
-
-  if (filtered.length === 0) {
+  if (filteredProducts.length === 0) {
     upsellContainer.style.display = 'none';
     return;
   }
 
   upsellContainer.style.display = 'block';
-  upsellList.innerHTML = filtered.map(u => `
-    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-subtle);">
-      <div style="display: flex; gap: 12px; align-items: center;">
-        <img src="${u.img}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 2px;">
-        <div>
-          <div style="font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed';">${u.title.toUpperCase()}</div>
-          <div style="font-size: 10px; color: var(--emerald);">$${u.price}.00</div>
+  upsellList.innerHTML = filteredProducts.map(p => {
+    const imgUrl = p.images.edges[0]?.node.url || '';
+    const price = p.priceRange.minVariantPrice.amount;
+    const variantId = p.variants.edges[0]?.node.id;
+
+    return `
+      <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-subtle);">
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <div style="width: 40px; height: 40px; background: #21262D; border-radius: 2px; overflow: hidden; flex-shrink: 0;">
+            ${imgUrl ? `<img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
+          </div>
+          <div>
+            <div style="font-size: 11px; font-weight: 700; font-family: 'Barlow Condensed';">${p.title.toUpperCase()}</div>
+            <div style="font-size: 10px; color: var(--emerald);">$${parseFloat(price).toFixed(2)}</div>
+          </div>
         </div>
+        <button onclick="window.addUpsell('${variantId}', this)" style="background: var(--emerald); color: black; border: none; padding: 4px 12px; border-radius: 2px; font-size: 10px; font-weight: 800; cursor: pointer; transition: 0.2s;">
+          ADD +
+        </button>
       </div>
-      <button onclick="window.addUpsell('${u.variantId}', this)" style="background: var(--emerald); color: black; border: none; padding: 4px 12px; border-radius: 2px; font-size: 10px; font-weight: 800; cursor: pointer; transition: 0.2s;">
-        ADD +
-      </button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 window.addUpsell = async function(variantId, btn) {
