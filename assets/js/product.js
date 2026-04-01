@@ -178,6 +178,7 @@ async function init() {
   try {
     const data = await getProductByHandle(handle);
     product = data?.product || data;
+    if (product && !product.handle) product.handle = handle;
   } catch (e) {
     console.warn('Shopify API failed, using mock fallbacks.');
   }

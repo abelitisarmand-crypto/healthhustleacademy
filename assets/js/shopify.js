@@ -78,6 +78,7 @@ export async function getProductByHandle(handle) {
       product(handle: $handle) {
         id
         title
+        handle
         description
         images(first: 5) {
           edges {
