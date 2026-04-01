@@ -8,8 +8,8 @@
 </head>
 <body style="background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif;">
 
-  <!-- Sticky ATC Header (Thin Strip) -->
-  <div id="sticky-atc" class="sticky-atc" style="display:none; position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(13,17,23,0.98); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:8px 24px; align-items:center; justify-content:space-between; height: 50px;">
+  <!-- Sticky ATC Header (Thin Strip with Glassmorphism) -->
+  <div id="sticky-atc" class="sticky-atc glass-panel" style="display:none; position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); padding:8px 24px; align-items:center; justify-content:space-between; height: 50px;">
     <div style="display:flex; align-items:center; gap:12px;">
       <div id="sticky-img-container" style="width:32px; height:32px; background:var(--bg-secondary); border-radius:2px; overflow:hidden;">
         <img id="sticky-img" src="" style="width:100%; height:100%; object-fit:cover;">
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <header class="header glass" style="position: sticky; top: 0; z-index: 100;">
+  <header class="header nav glass-panel" style="position: sticky; top: 0; z-index: 100;">
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
       <a href="index.html" class="logo" style="font-family: 'Anton'; font-size: 24px; color: white;">HEALTHHUSTLE<span style="color: var(--emerald);">ACADEMY</span></a>
       <div style="display: flex; gap: 24px; align-items: center;">
@@ -40,7 +40,8 @@
 
   <main>
     <!-- BLOCK 1: HERO -->
-    <section class="pdp-hero" id="pdp-hero" style="padding: 60px 0 80px;">
+    <section class="pdp-hero animate-in" id="pdp-hero" style="padding: 60px 0 80px; position:relative;">
+      <div class="hero-glow"></div>
       <div class="container">
         <!-- Social Proof First (Verified Buyers) -->
         <div class="hero-rating-line">
@@ -50,7 +51,7 @@
 
         <div class="pdp-layout" style="margin-top: 24px;">
           <!-- Left: Gallery -->
-          <div class="pdp-gallery">
+          <div class="pdp-gallery hover-scale">
             <div id="main-image-container" style="aspect-ratio: 1/1; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
               <img id="main-product-image" src="" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
@@ -64,7 +65,7 @@
             <h1 id="product-h1" style="font-family: 'Anton'; font-size: clamp(32px, 4vw, 64px); line-height: 0.95; margin-bottom: 20px; text-transform: uppercase;"></h1>
             <p id="product-subtitle-p" style="font-size: 18px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; font-weight: 500;"></p>
 
-            <div style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 4px; margin-bottom: 32px;">
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 4px; margin-bottom: 32px;" class="glass-panel">
               <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
                 <div>
                   <div id="urgency-stock" style="margin-bottom: 8px; font-family: 'Barlow Condensed'; font-weight: 900; font-size: 13px; color: var(--emerald); letter-spacing: 0.05em; display:none;"></div>
@@ -83,7 +84,7 @@
               </div>
 
               <!-- Trust Badges Under ATC -->
-              <div class="atc-trust-badges" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+              <div class="atc-trust-badges animate-stagger" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
                 <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:var(--text-muted);">
                   <span>🔒</span> SSL Secure Checkout
                 </div>
@@ -111,7 +112,7 @@
             </div>
 
             <!-- Trust Row -->
-            <div id="trust-row-pdp" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; font-size: 11px; font-family: 'Barlow Condensed'; font-weight: 700; color: var(--text-muted);">
+            <div id="trust-row-pdp" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; font-size: 11px; font-family: 'Barlow Condensed'; font-weight: 700; color: var(--text-muted);" class="animate-in">
               <div>✓ FREE SHIPPING</div>
               <div>✓ 60-DAY GUARANTEE</div>
               <div>✓ SHIPS IN 3–5 DAYS</div>
@@ -122,7 +123,7 @@
     </section>
 
     <!-- TRUST BAR (Emerald Strip) -->
-    <div style="background: var(--emerald); color: black; padding: 16px 0; font-family: 'Barlow Condensed'; font-weight: 900; font-size: 13px; letter-spacing: 0.1em; overflow: hidden;">
+    <div style="background: var(--emerald); color: black; padding: 16px 0; font-family: 'Barlow Condensed'; font-weight: 900; font-size: 13px; letter-spacing: 0.1em; overflow: hidden;" class="animate-in">
       <div class="container" style="display: flex; justify-content: space-around; gap: 40px; white-space: nowrap;">
         <div id="tb-shipping" style="display: flex; align-items: center; gap: 8px;"></div>
         <div id="tb-guarantee" style="display: flex; align-items: center; gap: 8px;"></div>
@@ -132,52 +133,52 @@
     </div>
 
     <!-- BLOCK 2: PROBLEM → SOLUTION -->
-    <section class="problem-section" style="padding: 100px 0; background: var(--bg-primary);">
+    <section class="problem-section fade-up" style="padding: 100px 0; background: var(--bg-primary);">
       <div class="container" style="max-width: 800px; text-align: center;">
         <p style="font-family: 'Barlow Condensed'; color: var(--emerald); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 24px;">YOU KNOW THE FEELING.</p>
         <h2 id="problem-headline" style="font-family: 'Anton'; font-size: clamp(32px, 5vw, 64px); line-height: 0.95; margin-bottom: 32px; text-transform: uppercase;"></h2>
         <p id="problem-text" style="font-size: 19px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 60px;"></p>
         
-        <div id="transformation-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid var(--border); padding-top: 40px;">
+        <div id="transformation-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid var(--border); padding-top: 40px;" class="animate-stagger">
           <!-- 4 Transformation icons injected -->
         </div>
       </div>
     </section>
 
     <!-- BLOCK 3: DEMO / HOW IT WORKS -->
-    <section class="hiw-section" style="padding: 100px 0; background: var(--bg-secondary);">
+    <section class="hiw-section animate-in" style="padding: 100px 0; background: var(--bg-secondary);">
       <div class="container">
         <h2 style="text-align: center; font-family: 'Anton'; font-size: clamp(32px, 5vw, 48px); margin-bottom: 80px; letter-spacing: 0.02em;">THREE STEPS. FIRST SESSION TODAY.</h2>
-        <div id="hiw-steps" style="display: flex; justify-content: space-between; position: relative; gap: 24px;">
+        <div id="hiw-steps" style="display: flex; justify-content: space-between; position: relative; gap: 24px;" class="animate-stagger">
           <!-- Steps injected -->
         </div>
       </div>
     </section>
 
     <!-- BLOCK 4: BENEFITS -->
-    <section class="benefits-grid-section" id="benefits-anchor" style="background: var(--border);">
+    <section class="benefits-grid-section fade-up" id="benefits-anchor" style="background: var(--border);">
       <div id="benefits-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;">
         <!-- Injected -->
       </div>
     </section>
 
     <!-- BLOCK 5: SOCIAL PROOF -->
-    <section class="reviews-section" style="padding: 100px 0; background: var(--bg-secondary);">
+    <section class="reviews-section animate-in" style="padding: 100px 0; background: var(--bg-secondary);">
       <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px;">
           <h2 style="font-family: 'Anton'; font-size: 48px; letter-spacing: 0.02em;">REAL RESULTS</h2>
           <div style="font-family: 'Barlow Condensed'; font-weight: 700; color: var(--emerald);">VERIFIED ★★★★★</div>
         </div>
-        <div id="reviews-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div id="reviews-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" class="animate-stagger">
           <!-- 3 specific reviews injected -->
         </div>
       </div>
     </section>
 
     <!-- BLOCK 6: OFFER -->
-    <section id="offer-section" style="padding: 100px 0; background: var(--bg-primary);">
+    <section id="offer-section" style="padding: 100px 0; background: var(--bg-primary);" class="fade-up">
       <div class="container" style="max-width: 600px;">
-        <div class="offer-block">
+        <div class="offer-block glass-panel hover-scale">
           <span class="savings-badge" id="offer-badge">LIMITED TIME DEAL</span>
           <div style="margin-bottom: 24px;">
              <span class="price-was" id="offer-price-was">$0.00</span>
@@ -193,22 +194,22 @@
         </div>
 
         <!-- BUNDLE UPSELL (Inside Offer or below) -->
-        <div id="bundle-section" style="margin-top: 60px;"></div>
+        <div id="bundle-section" style="margin-top: 60px;" class="animate-in"></div>
       </div>
     </section>
 
     <!-- BLOCK 7: OBJECTION HANDLING -->
-    <section id="objections-section" style="padding: 100px 0; background: var(--bg-secondary); border-top: 1px solid var(--border);">
+    <section id="objections-section" style="padding: 100px 0; background: var(--bg-secondary); border-top: 1px solid var(--border);" class="fade-up">
       <div class="container" style="max-width: 800px;">
          <h2 style="font-family: 'Anton'; font-size: 40px; margin-bottom: 60px; text-align: center;">STILL SKEPTICAL?</h2>
-         <div id="objection-grid">
+         <div id="objection-grid" class="animate-stagger">
            <!-- Injected -->
          </div>
       </div>
     </section>
 
     <!-- BLOCK 8: FAQ -->
-    <section class="faq-section" style="padding: 100px 0; background: var(--bg-primary);">
+    <section class="faq-section animate-in" style="padding: 100px 0; background: var(--bg-primary);">
       <div class="container" style="max-width: 800px;">
         <h2 style="font-family: 'Anton'; font-size: 40px; margin-bottom: 60px; text-align: center;">YOUR QUESTIONS, ANSWERED.</h2>
         <div id="pdp-faq" style="display: flex; flex-direction: column; gap: 8px;">
@@ -218,7 +219,7 @@
     </section>
 
     <!-- BLOCK 9: FINAL CTA -->
-    <section id="final-cta-section" style="padding: 140px 0; text-align: center; background: var(--bg-secondary);">
+    <section id="final-cta-section" style="padding: 140px 0; text-align: center; background: var(--bg-secondary);" class="fade-up">
       <div class="container">
         <p style="font-family: 'Barlow Condensed'; color: var(--emerald); font-size: 13px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 24px;">NO MORE WAITING</p>
         <h2 id="final-cta-headline" style="font-family: 'Anton'; font-size: clamp(48px, 8vw, 84px); line-height: 0.85; margin-bottom: 40px; text-transform: uppercase;">READY TO FEEL BETTER TOMORROW?</h2>

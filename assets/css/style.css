@@ -1391,3 +1391,87 @@ img {
 .variant-btn:hover {
   border-color: var(--text-muted);
 }
+
+/* ── PDP PHASE 8: VISUAL RESTORATION ── */
+
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+}
+
+.animate-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay logic */
+.animate-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.animate-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.animate-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.animate-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+
+/* Global Glass Class */
+.glass-panel {
+  background: rgba(22, 27, 34, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Hover Scale */
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* ── MAPPING OLD CLASSES TO NEW DESIGN ── */
+.glass {
+  background: rgba(13, 17, 23, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trust-item.glass {
+  background: rgba(22, 27, 34, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}

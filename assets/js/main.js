@@ -476,3 +476,25 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge(initialCount);
   loadProducts();
 });
+
+/* ── PHASE 8: GLOBAL ANIMATION OBSERVER ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Once visible, stop observing to save resources
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with animation classes
+  const animateElements = document.querySelectorAll('.animate-in, .fade-up, .animate-stagger');
+  animateElements.forEach(el => observer.observe(el));
+});
