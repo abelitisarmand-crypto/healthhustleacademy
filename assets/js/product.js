@@ -33,7 +33,7 @@ const PRODUCT_COPY = {
   'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
     h1: "YOUR BACK CALLED. IT'S DONE WAITING.",
     subtitle: 'Professional deep-tissue recovery — at home, in 10 minutes, for $79.',
-    problemHeadline: 'YOU KNOW THE FEELING.',
+    problemHeadline: "EVERY QUESTION YOU'RE AFRAID TO ASK",
     problemText: 'You sit for 8 hours. Your neck locks up. Your shoulders ache by 3pm. You\'ve tried stretching, ibuprofen, and just ignoring it. None of it sticks.\nThis does.',
     transformations: [
       { icon: 'muscle', text: 'Stiff to Supple' },

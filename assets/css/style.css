@@ -74,6 +74,7 @@ h1, h2, h3, h4, .headline {
   line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .hero-headline {
@@ -1474,4 +1475,14 @@ img {
   background: rgba(22, 27, 34, 0.6) !important;
   backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* ── FAQ & OBJECTION CENTERING ── */
+.objection-q, .faq-question {
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+.objection-a, .faq-answer {
+  text-align: center !important;
 }
