@@ -1257,3 +1257,137 @@ img {
   border-color: var(--emerald);
   color: black;
 }
+
+/* ── PDP PHASE 6: CONVERSION BLOCKS ── */
+
+.offer-block {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 40px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.price-was {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+.price-now {
+  color: white;
+  font-size: 48px;
+  font-weight: 900;
+  font-family: 'Anton', sans-serif;
+}
+
+.savings-badge {
+  background: var(--emerald);
+  color: black;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.objection-item {
+  margin-bottom: 40px;
+}
+
+.objection-q {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--emerald);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.objection-a {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.hero-rating-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.hero-results-stars {
+  color: var(--color-stars);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 32px;
+}
+
+.comparison-table td {
+  padding: 16px;
+  border: 1px solid var(--border);
+}
+
+.comparison-table .gym {
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.comparison-table .product {
+  background: rgba(16, 185, 129, 0.05);
+  font-weight: 700;
+}
+
+/* ── PDP PHASE 7: POLISH & TRUST ── */
+
+.sticky-atc {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transform: translateY(-100%);
+  opacity: 0;
+  display: none;
+}
+
+.sticky-atc.visible {
+  display: flex !important;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.atc-trust-badges div {
+  transition: opacity 0.3s ease;
+}
+
+.atc-trust-badges div:hover {
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+#ship-timer {
+  animation: pulse-emerald 2s infinite ease-in-out;
+}
+
+@keyframes pulse-emerald {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+.variant-btn.active {
+  border-color: var(--emerald) !important;
+  background: rgba(16, 185, 129, 0.05) !important;
+}
+
+.variant-btn:hover {
+  border-color: var(--text-muted);
+}
