@@ -1106,3 +1106,154 @@ img {
     background: rgba(16, 185, 129, 0.05) !important;
     box-shadow: 0 0 0 1px var(--emerald);
 }
+
+/* ── PDP REDESIGN: NIKE MEET GYMSHARK ── */
+
+.sticky-atc {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.sticky-atc.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pdp-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
+}
+
+@media (max-width: 991px) {
+  .pdp-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+.trust-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.benefit-card {
+  background: var(--bg-secondary);
+  padding: 60px 40px;
+  transition: background 0.3s ease;
+}
+
+.benefit-card:hover {
+  background: var(--bg-card);
+}
+
+.benefit-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 20px;
+  color: var(--emerald);
+}
+
+.benefit-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.benefit-text {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.hiw-step {
+  flex: 1;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.hiw-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--emerald);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.review-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 40px;
+  border-radius: 4px;
+}
+
+.review-badge {
+  display: inline-block;
+  background: var(--emerald);
+  color: black;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 24px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 0 24px 24px;
+}
+
+.btn-primary.bundle-btn {
+  background: white;
+  color: black;
+  border: 1px solid white;
+}
+
+.btn-primary.bundle-btn:hover {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: black;
+}

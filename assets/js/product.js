@@ -1,305 +1,390 @@
-import { getProductByHandle, createCart, addToCart } from './shopify.js?v=1.1';
+import { getProductByHandle, addToCart } from './shopify.js?v=1.1';
+import { ICONS } from '../icons/icons.js';
 
-// Get handle from URL
-const urlParams = new URL(window.location.href).searchParams;
-const handle = urlParams.get('handle');
+// Configuration & Data
+const PRODUCT_COPY = {
+  'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
+    h1: "YOUR BACK CALLED. IT'S DONE WAITING.",
+    subtitle: 'Professional deep-tissue recovery — at home, in 10 minutes, for $79.',
+    problemHeadline: 'YOU SIT FOR 8 HOURS AND WONDER WHY YOUR NECK IS WRECKED.',
+    problemText: 'Ibuprofen. Stretching. Ignoring it. None of it sticks. This does.',
+    finalCta: 'FEEL BETTER TOMORROW.',
+    features: [
+      { icon: 'muscle', title: 'FEEL IT IN 60 SECONDS', text: '12mm amplitude hits real muscle tissue, not just the surface' },
+      { icon: 'quiet', title: 'USE IT ANYWHERE', text: 'Quieter than your TV. Use it during Netflix. Your partner won\'t notice.' },
+      { icon: 'heads', title: 'FULL BODY COVERAGE', text: '8 heads for neck, shoulders, back, legs, feet. One device.' },
+      { icon: 'battery', title: 'HOURS PER CHARGE', text: 'USB-C. Long battery life. Never dies mid-session.' },
+    ],
+    reviews: [
+      { name: 'Maria K.', city: 'Texas', quote: 'I used to spend $80/month on massage therapy. Now I do it myself every night. My neck hasn\'t felt this good in years.', badge: 'PAIN-FREE · 3 MONTHS' },
+      { name: 'James L.', city: 'California', quote: 'Legitimately the same quality as the $400 one my gym has. I use it after every workout and my recovery is completely different.', badge: 'DAILY USER · 5 MONTHS' },
+      { name: 'Sandra P.', city: 'Florida', quote: 'At 51, I thought this level of recovery was only for athletes. It\'s not. My back pain is gone.', badge: 'PAIN-FREE AT 51' },
+    ],
+    bundleProductHandle: 'yoga-foam-roller',
+    bundleTitle: 'RECOVERY BUNDLE',
+    bundleSavings: 15,
+    urgencyText: 'left at this price',
+    faq: [
+      { q: 'Is this as good as a Theragun?', a: 'Same percussion technology. Theragun charges $400 for the brand name. You\'re paying $79 for the device that does the same job.' },
+      { q: 'Will I actually use it?', a: '10 minutes before bed. That\'s the habit. Most customers reach for it 4–5x per week after the first week — because it works.' },
+      { q: 'What if it doesn\'t work for me?', a: '60-day guarantee. Use it every day for 2 months. If you don\'t feel the difference — full refund. No forms, no questions.' },
+      { q: 'How long does the battery last?', a: 'Several hours of use per charge via USB-C. Most people charge it once a week.' },
+    ],
+  },
+  'walking-pad-for-home-office-quiet-under-desk-treadmill': {
+    h1: 'BURN 300 CALORIES WITHOUT LEAVING YOUR DESK.',
+    subtitle: 'The quietest way to move more — during Zoom calls, Netflix, or lunch breaks.',
+    problemHeadline: 'REMOTE WORK IS MAKING YOU HEAVIER. YOU KNOW IT.',
+    problemText: 'The gym is 20 minutes away. Parking is a nightmare. By 6pm you\'re done. This fits under your desk. And under your budget.',
+    finalCta: 'START MOVING TODAY.',
+    features: [
+      { icon: 'steps', title: 'BURN WHILE YOU WORK', text: '0.6 mph during calls. 5 mph when you\'re done. You decide.' },
+      { icon: 'quiet', title: '40 DECIBELS', text: 'Quieter than your keyboard. Your mic won\'t pick it up on calls.' },
+      { icon: 'display', title: 'TRACK EVERYTHING', text: 'Steps, calories, distance, time — LED display, always visible.' },
+      { icon: 'compact', title: 'SLIDES UNDER ANY DESK', text: '4.7 inches tall. No assembly. In use in under 60 seconds.' },
+    ],
+    reviews: [
+      { name: 'David R.', city: 'New York', quote: 'I walk 8,000 steps a day without changing anything about my routine. I just put it under my desk and walk during meetings.', badge: '8K STEPS DAILY' },
+      { name: 'Lisa M.', city: 'Texas', quote: 'Down 14 lbs in 3 months. I didn\'t change my diet. I just started walking during work hours. This thing is insane.', badge: '−14 LBS · 3 MONTHS' },
+      { name: 'Tom H.', city: 'California', quote: 'My doctor told me to move more. Couldn\'t make the gym work with my schedule. This was the answer. Blood pressure is down.', badge: 'DOCTOR RECOMMENDED' },
+    ],
+    bundleProductHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
+    bundleTitle: 'MOVE + RECOVER BUNDLE',
+    bundleSavings: 20,
+    urgencyText: 'left at this price',
+    faq: [
+      { q: 'Will this fit under my desk?', a: 'Yes. It\'s 4.7 inches tall. Fits under any standard desk with at least 5 inches of clearance.' },
+      { q: 'Is it loud on Zoom calls?', a: '40dB at walking speed. That\'s quieter than a normal conversation. Your mic won\'t pick it up.' },
+      { q: 'What if I never use it?', a: '60-day guarantee. Walk on it daily for 2 months. If it\'s collecting dust — full refund. We\'ve never had that happen, but the offer stands.' },
+      { q: 'How fast does it go?', a: '0.6 to 5 mph. Walking mode for desk use, faster speeds for actual workouts.' },
+    ],
+  },
+  '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
+    h1: 'YOUR ENTIRE HOME GYM. FITS IN A BACKPACK.',
+    subtitle: '5 resistance bands + door anchor + 30-day program. Start Day 1 today.',
+    problemHeadline: 'YOU\'VE BOUGHT EQUIPMENT THAT BECAME A CLOTHES RACK.',
+    problemText: 'The commute killed your gym streak. The dumbbells collect dust. This is different — because it comes with a system. Open the PDF and follow Day 1.',
+    finalCta: 'BUILD YOUR HOME GYM TODAY.',
+    features: [
+      { icon: 'resistance', title: '10 TO 50 LBS RESISTANCE', text: 'Beginner to advanced. Five bands, five levels, one kit.' },
+      { icon: 'anchor', title: 'DOOR ANCHOR INCLUDED', text: 'Full upper body training without a rack or a gym.' },
+      { icon: 'backpack', title: 'TRAIN ANYWHERE', text: 'Home, hotel, park. Fits in the bag your laptop goes in.' },
+      { icon: 'program', title: '30-DAY PROGRAM INCLUDED', text: 'No guesswork. Open Day 1 and follow along. That\'s it.' },
+    ],
+    reviews: [
+      { name: 'Ashley T.', city: 'Florida', quote: 'I\'ve tried 3 home workout setups. This is the first one I\'ve actually stuck with. The program made the difference.', badge: 'CONSISTENT · 4 MONTHS' },
+      { name: 'Marcus B.', city: 'Georgia', quote: 'Lost 22 lbs using only this kit. No gym. No expensive equipment. Just these bands and the program.', badge: '−22 LBS · 5 MONTHS' },
+      { name: 'Priya S.', city: 'Illinois', quote: 'As a busy mom, I have 20 minutes max. This kit was designed for exactly that. I use it every morning before the kids wake up.', badge: 'BUSY MOM · DAILY USER' },
+    ],
+    bundleProductHandle: 'yoga-foam-roller',
+    bundleTitle: 'TRAIN + RECOVER BUNDLE',
+    bundleSavings: 10,
+    urgencyText: 'left',
+    faq: [
+      { q: 'Will this actually work if I\'m a beginner?', a: 'The 10lb band is genuinely beginner level. The 30-day program starts at Day 1 — not "Day 1 if you already know what you\'re doing."' },
+      { q: 'How long are the workouts?', a: '20 minutes. Designed specifically for people who don\'t have more time than that.' },
+      { q: 'Does it work for strength building, not just cardio?', a: 'Yes. Resistance training builds muscle the same way weights do. The program covers legs, arms, core, and back.' },
+      { q: 'What if the bands snap?', a: '60-day guarantee covers everything. We\'ll replace or refund, no questions.' },
+    ],
+  },
+  'yoga-foam-roller': {
+    h1: '5 MINUTES OF ROLLING = 30 MINUTES OF STRETCHING.',
+    subtitle: 'High-density foam roller used by physios. Priced for everyone.',
+    problemHeadline: 'YOU SKIP RECOVERY BECAUSE IT TAKES TOO LONG.',
+    problemText: 'Foam rolling used to feel like a chore. High-density EVA changes that — 5 minutes and you feel the difference. Used by physios on $200/hr clients.',
+    finalCta: 'FEEL BETTER TOMORROW MORNING.',
+    features: [
+      { icon: 'bloodflow', title: 'INCREASE BLOOD FLOW', text: 'Wake up actually ready to move. Not stiff. Not sore.' },
+      { icon: 'knots', title: 'BREAK UP KNOTS', text: 'Works back, legs, glutes, IT band — wherever you\'re tight.' },
+      { icon: 'colors', title: '6 COLORS', text: 'Pick what matches your space, your kit, or your vibe.' },
+      { icon: 'portable', title: 'TAKE IT ANYWHERE', text: 'Gym, hotel, office. It goes where you go.' },
+    ],
+    reviews: [
+      { name: 'Jennifer K.', city: 'Arizona', quote: 'My physical therapist recommended foam rolling. I bought the expensive one first — same result with this.', badge: 'PT RECOMMENDED' },
+      { name: 'Carlos M.', city: 'Texas', quote: 'I use this every night before bed. My legs feel completely different in the morning. Worth 10x the price.', badge: 'DAILY USER' },
+      { name: 'Rachel H.', city: 'New York', quote: 'I\'m a runner. This is non-negotiable for my recovery. IT band issues gone after 2 weeks of consistent rolling.', badge: 'IT BAND FIXED' },
+    ],
+    bundleProductHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
+    bundleTitle: 'FULL RECOVERY BUNDLE',
+    bundleSavings: 15,
+    urgencyText: 'left at this price',
+    faq: [
+      { q: 'Is this firm enough to actually work?', a: 'High-density EVA — the same material physios use. Firm enough to reach real muscle tissue, not soft enough to be useless.' },
+      { q: 'What size is it?', a: '33cm x 14cm. Full-length for back and legs. Long enough to actually work.' },
+      { q: 'Does color affect quality?', a: 'No. Same material, same density, same quality. Pick what you like.' },
+      { q: 'Can I use it if I\'m new to foam rolling?', a: 'Yes. Start with 60 seconds per muscle group. It might be intense at first — that\'s normal and it passes within a week.' },
+    ],
+  },
+};
 
 // State
 let currentProduct = null;
 let selectedVariantId = null;
 
-async function initPDP() {
-  if (!handle) {
-    window.location.href = 'index.html';
-    return;
-  }
+// Initialization
+const handle = new URLSearchParams(window.location.search).get('handle');
 
-  console.log('Fetching handle:', handle);
+async function init() {
+  if (!handle) { window.location.href = 'index.html'; return; }
   const data = await getProductByHandle(handle);
-  console.log('Shopify data:', data);
-
-  // Handle both { product: {...} } and direct product object responses
-  const product = data?.product || (data?.id ? data : null);
-
-  if (!product || !product.title) {
-    console.error('Product not found or invalid data structure:', data);
-    document.getElementById('product-title').textContent = 'Product Not Found';
-    const mainImg = document.getElementById('main-product-img');
-    if (mainImg) mainImg.style.display = 'none';
-    return;
-  }
-
+  const product = data?.product || data;
+  if (!product) { console.error('Product not found'); return; }
   currentProduct = product;
   renderProduct(product);
-}
-
-function parseDescription(raw) {
-  if (!raw) return { intro: '', features: [], fullText: '' };
-  
-  // Clean raw text (remove multiple spaces/lines)
-  const clean = raw.replace(/\s+/g, ' ').trim();
-  
-  // Split by bullets •
-  const parts = raw.split('•').map(p => p.trim()).filter(p => p.length > 5);
-  
-  // First part is usually the intro
-  const intro = parts[0]?.split(/[A-Z]{5,}:/)[0] || '';
-  
-  // Features are parts that look like bullets
-  const features = parts.slice(0, 4).map(f => {
-    // Try to extract a title (Uppercase words at the start)
-    const match = f.match(/^([A-Z\s]{3,}:?)/);
-    const title = match ? match[1].replace(':', '').trim() : 'FEATURE';
-    const desc = f.replace(match ? match[0] : '', '').trim();
-    return { title, desc };
-  });
-
-  // Formatted full text
-  const formatted = raw
-    .replace(/•\s*/g, '</li><li>')
-    .replace(/([A-Z\s]{5,}:?)/g, '</ul><h4 style="margin: 32px 0 16px; font-family: \'Barlow Condensed\'; font-weight: 800; font-size: 18px; letter-spacing: 0.05em; color: var(--text-primary);">$1</h4><ul><li>')
-    .replace(/^<\/ul>/, '') + '</li></ul>';
-
-  return { intro, features, formatted };
-}
-
-const ICONS = {
-  MOTOR: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
-  SPEED: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L7 22l2-10H1L13 2z"/></svg>`,
-  DISPLAY: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`,
-  COMPACT: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
-  MUSCLE: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM12 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM20 12c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/></svg>`,
-  ATTACH: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`,
-  BATTERY: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="2" y="7" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="15"/></svg>`,
-  ROLL: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
-  RULER: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 3 11l8 8M14 3l8 8-8 8M17 11H3"/></svg>`,
-  PALETTE: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.688-1.688h1.954c3.106 0 5.586-2.513 5.586-5.625 0-4.814-4.48-8.75-10-8.75Z"/></svg>`,
-  PROGRAM: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M9 14h6M9 18h6M9 10h6"/></svg>`,
-  BACKPACK: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10Z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5M8 10h8M8 18h8"/></svg>`,
-  DOOR: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`
-};
-
-const PRODUCT_COPY = [
-  {
-    match: ['walking-pad', 'treadmill'],
-    subtitle: 'Burn 200–400 calories a day without leaving your desk.',
-    description: 'The average remote worker sits 10+ hours a day. This ultra-quiet walking pad fits under any desk — start walking at 0.6 mph during calls, hit 5 mph when you close the laptop. No gym. No commute. Just results.',
-    features: [
-      { icon: ICONS.MOTOR, title: 'Near-Silent Motor', text: '40 dB. Use it on Zoom calls without anyone knowing' },
-      { icon: ICONS.SPEED, title: '0.6–5 MPH', text: 'Walk slowly while working, speed up when done' },
-      { icon: ICONS.DISPLAY, title: 'LED Display', text: 'Tracks steps, distance, calories, time' },
-      { icon: ICONS.COMPACT, title: 'Fits Any Space', text: 'Slides under desk or bed. No assembly required' },
-    ],
-    perfectFor: ['Remote workers', 'People with sedentary jobs', 'Anyone who wants to move more'],
-    variantLabel: 'SELECT SIZE'
-  },
-  {
-    match: ['massage-gun', 'percussion'],
-    subtitle: 'Professional-grade recovery. Without the $400 price tag.',
-    description: 'Theragun charges $400 for percussion therapy. We put the same deep-tissue relief in your hands for $79. 8 interchangeable heads, a powerful quiet motor, and 12mm amplitude — everything you need to recover faster and train harder tomorrow.',
-    features: [
-      { icon: ICONS.MUSCLE, title: '12mm Amplitude', text: 'Deep enough to reach real muscle tissue, not just the surface' },
-      { icon: ICONS.MOTOR, title: 'Quiet Motor', text: 'Strong enough to feel it, quiet enough for the living room' },
-      { icon: ICONS.ATTACH, title: '8 Attachment Heads', text: 'Targeting every muscle group from neck to calves' },
-      { icon: ICONS.BATTERY, title: 'Long Battery Life', text: 'Hours of use per charge, USB-C charging' },
-    ],
-    perfectFor: ['Post-workout recovery', 'Desk workers with tight shoulders', 'Athletes', 'Chronic muscle tension']
-  },
-  {
-    match: ['foam-roller'],
-    subtitle: '5 minutes of rolling = 30 minutes of stretching.',
-    description: 'Most people skip recovery because it takes too long. 5 minutes with this foam roller before bed increases blood flow, breaks up knots, and has you waking up actually ready to move. Used by physios. Priced for everyone.',
-    features: [
-      { icon: ICONS.MUSCLE, title: 'High-Density EVA', text: 'Firm enough to actually work on deep tissue' },
-      { icon: ICONS.RULER, title: 'Full-Length 33cm', text: 'Works back, legs, glutes, shoulders' },
-      { icon: ICONS.PALETTE, title: '6 Colors', text: 'Pick what matches your space or your vibe' },
-      { icon: ICONS.COMPACT, title: 'Portable', text: 'Take it to the gym, hotel, office' },
-    ],
-    perfectFor: ['Post-workout', 'Morning mobility', 'Office recovery', 'Travel athletes'],
-    variantLabel: 'CHOOSE YOUR COLOR'
-  },
-  {
-    match: ['resistance-band', 'starter-kit'],
-    subtitle: 'Everything you need to train. Nothing you don\'t.',
-    description: '5 resistance bands (10–50 lbs), door anchor, handles. Fits in a backpack. Works in 6 square feet. The entire kit costs less than one month at a gym — and comes with a 30-day program so you actually know what to do with it.',
-    features: [
-      { icon: ICONS.MUSCLE, title: '5 Resistance Levels', text: '10, 20, 30, 40, 50 lbs. Beginner to advanced' },
-      { icon: ICONS.DOOR, title: 'Door Anchor Included', text: 'Full upper body training without a rack' },
-      { icon: ICONS.BACKPACK, title: 'Fits in a Backpack', text: 'Train at home, hotel, or the park' },
-      { icon: ICONS.PROGRAM, title: '30-Day Program Included', text: 'No guesswork. Just follow Day 1' },
-    ],
-    perfectFor: ['Home gym beginners', 'Travelers', 'People with no space for equipment']
-  }
-];
-
-function getPremiumCopy(product) {
-  const handle = product.handle.toLowerCase();
-  const title = product.title.toLowerCase();
-  return PRODUCT_COPY.find(copy => 
-    copy.match.some(keyword => handle.includes(keyword) || title.includes(keyword))
-  );
+  setupStickyHeader();
 }
 
 function renderProduct(product) {
-  const copy = getPremiumCopy(product);
-  const { formatted } = parseDescription(product.description);
+  const copy = PRODUCT_COPY[product.handle] || PRODUCT_COPY[Object.keys(PRODUCT_COPY).find(k => product.handle.includes(k))];
+  if (!copy) { console.warn('Missing premium copy for handle:', product.handle); }
 
-  // Title & Subtitle & Intro
-  const titleEl = document.getElementById('product-title');
-  const subtitleEl = document.getElementById('product-subtitle');
-  const descEl = document.getElementById('product-description');
-  
-  if (titleEl) titleEl.textContent = product.title.toUpperCase();
-  if (subtitleEl) subtitleEl.textContent = copy ? copy.subtitle : '';
-  if (descEl) descEl.innerHTML = copy ? copy.description : product.description.split('•')[0];
-  
+  // 1. HERO BLOCK
+  document.getElementById('product-h1').textContent = copy?.h1 || product.title;
+  document.getElementById('product-subtitle-p').textContent = copy?.subtitle || '';
   document.title = `${product.title} — HealthHustleAcademy`;
 
-  // Feature Grid
-  const featureGrid = document.getElementById('feature-grid');
-  if (featureGrid) {
-    const featuresToRender = copy ? copy.features : parseDescription(product.description).features;
-    featureGrid.innerHTML = featuresToRender.map((f, i) => `
-      <div class="feature-item animate-in" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 32px; border-radius: 4px;">
-        <div class="icon-box">${f.icon || '⚡'}</div>
-        <div style="font-family: 'Barlow Condensed'; font-weight: 900; font-size: 14px; color: var(--emerald); margin-bottom: 12px;">0${i+1} / CORE FEATURE</div>
-        <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 22px; margin-bottom: 12px; letter-spacing: 0.02em;">${f.title}</h3>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">${f.text || f.desc}</p>
+  // Gallery
+  const mainImg = document.getElementById('main-product-image');
+  if (mainImg) mainImg.src = product.images.edges[0]?.node.url;
+  
+  const thumbs = document.getElementById('thumbnails');
+  if (thumbs) {
+    thumbs.innerHTML = product.images.edges.map((edge, i) => `
+      <img src="${edge.node.url}" class="thumb ${i === 0 ? 'active' : ''}" onclick="window.updateGallery('${edge.node.url}', this)" style="width:80px; height:80px; object-fit:cover; border-radius:2px; cursor:pointer; border:1px solid var(--border); ${i === 0 ? 'border-color:var(--emerald)' : ''}">
+    `).join('');
+  }
+
+  // Stars
+  document.getElementById('pdp-stars').innerHTML = Array(5).fill(ICONS.star).join('');
+
+  // Variants & Price
+  const variantBox = document.getElementById('variant-selector-pdp');
+  const priceEl = document.getElementById('product-price');
+  const splitEl = document.getElementById('payment-split');
+  
+  if (product.variants.edges.length > 0) {
+    selectedVariantId = product.variants.edges[0].node.id;
+    const updatePrice = (variant) => {
+      priceEl.textContent = `$${parseFloat(variant.price.amount).toFixed(2)}`;
+      splitEl.textContent = `$${(parseFloat(variant.price.amount) / 4).toFixed(2)}`;
+      document.getElementById('sticky-price').textContent = priceEl.textContent;
+      
+      // Urgency Logic
+      const urgencyEl = document.getElementById('urgency-badge');
+      const qty = variant.quantityAvailable || 0;
+      if (qty > 0 && qty < 100) {
+        urgencyEl.textContent = `⚡ Only ${qty} ${copy?.urgencyText || 'left'}`;
+        urgencyEl.style.display = 'block';
+      } else {
+        urgencyEl.style.display = 'none';
+      }
+    };
+    
+    updatePrice(product.variants.edges[0].node);
+
+    variantBox.innerHTML = product.variants.edges.map((edge, i) => `
+      <button class="variant-btn ${i === 0 ? 'active' : ''}" 
+              onclick="window.selectVariant('${edge.node.id}', this, '${edge.node.price.amount}', ${edge.node.quantityAvailable || 0})"
+              style="width:100%; text-align:left; padding:12px 20px; background:transparent; border:1px solid var(--border); color:white; font-family:'Barlow Condensed'; font-weight:700; margin-bottom:8px; cursor:pointer; display:flex; justify-content:space-between;">
+        <span>${edge.node.title}</span>
+        <span style="color:var(--emerald);">$${edge.node.price.amount}</span>
+      </button>
+    `).join('');
+  }
+
+  // Trust Row
+  document.getElementById('trust-row-pdp').innerHTML = `
+    <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-secondary);"><span style="color:var(--emerald);">${ICONS.check}</span> FREE WORLDWIDE SHIPPING</div>
+    <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-secondary);"><span style="color:var(--emerald);">${ICONS.check}</span> 60-DAY RISK-FREE GUARANTEE</div>
+    <div style="display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-secondary);"><span style="color:var(--emerald);">${ICONS.check}</span> SHIPS IN 24-48 HOURS</div>
+  `;
+
+  // 2. TRUST BAR (Icons)
+  document.getElementById('tb-shipping').innerHTML = `${ICONS.shipping} FREE SHIPPING`;
+  document.getElementById('tb-guarantee').innerHTML = `${ICONS.guarantee} 60-DAY GUARANTEE`;
+  document.getElementById('tb-rating').innerHTML = `${ICONS.star} 4.9/5 RATING`;
+  document.getElementById('tb-support').innerHTML = `${ICONS.support} US SUPPORT`;
+
+  // 3. PROBLEM BLOCK
+  document.getElementById('problem-headline').textContent = copy?.problemHeadline || '';
+  document.getElementById('problem-text').textContent = copy?.problemText || '';
+
+  // 4. BENEFITS GRID
+  const benefitsGrid = document.getElementById('benefits-grid');
+  if (benefitsGrid && copy?.features) {
+    benefitsGrid.innerHTML = copy.features.map(f => `
+      <div class="benefit-card">
+        <div class="benefit-icon">${ICONS[f.icon] || ''}</div>
+        <div class="benefit-title">${f.title}</div>
+        <div class="benefit-text">${f.text}</div>
       </div>
     `).join('');
   }
 
-  // Full Details (Filtered to remove redundancy if premium copy is used)
-  const detailsEl = document.getElementById('formatted-description');
-  if (detailsEl) {
-    if (copy) {
-      // If we have premium copy, just show the technical specs from the description
-      // usually everything after the first set of bullets
-      const specs = product.description.split(/[A-Z]{5,}:/);
-      if (specs.length > 1) {
-        detailsEl.innerHTML = '<h4 style="margin-bottom: 24px; font-family: \'Barlow Condensed\'; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--text-primary);">WHAT\'S IN THE BOX</h4>' + 
-                             '<ul><li>' + specs.slice(1).join('</li><li>').replace(/•/g, '').trim() + '</li></ul>';
-      } else {
-        detailsEl.innerHTML = formatted;
-      }
-    } else {
-      detailsEl.innerHTML = formatted;
-    }
-  }
-
-  // Perfect For Section
-  const perfectTags = document.getElementById('perfect-for-tags');
-  if (perfectTags && copy && copy.perfectFor) {
-    perfectTags.innerHTML = copy.perfectFor.map(tag => `
-      <span style="background: #10B98115; color: var(--emerald); border: 1px solid #10B98130; padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">${tag}</span>
+  // 5. HOW IT WORKS
+  const hiw = document.getElementById('hiw-steps');
+  if (hiw) {
+    hiw.innerHTML = [
+      { t: "ORDER YOUR KIT", d: "Choose your professional tools and start your recovery journey." },
+      { t: "OPEN DAY 1", d: "Follow our elite integration program for maximum results." },
+      { t: "FEEL THE GAINS", d: "Recovery, mobility, and strength like you've never felt before." }
+    ].map((s, i) => `
+      <div class="hiw-step">
+        <span class="hiw-number">STEP 0${i+1}</span>
+        <h3 style="font-family:'Anton'; font-size:24px; margin-bottom:16px;">${s.t}</h3>
+        <p style="font-size:14px; color:var(--text-secondary); line-height:1.6;">${s.d}</p>
+      </div>
     `).join('');
-  } else if (document.getElementById('perfect-for-section')) {
-    document.getElementById('perfect-for-section').style.display = 'none';
   }
 
-  // Gallery
-  const mainImg = document.getElementById('main-product-img');
-  if (mainImg && product.images?.edges?.length > 0) {
-    mainImg.src = product.images.edges[0].node.url;
-    mainImg.alt = product.images.edges[0].node.altText || product.title;
+  // 6. SOCIAL PROOF
+  const reviewsGrid = document.getElementById('reviews-grid');
+  if (reviewsGrid && copy?.reviews) {
+    reviewsGrid.innerHTML = copy.reviews.map(r => `
+      <div class="review-card">
+         <div style="color:var(--emerald); font-size:12px; margin-bottom:12px;">★★★★★</div>
+         <p style="font-size:16px; color:var(--text-primary); font-style:italic; line-height:1.6; margin-bottom:20px;">"${r.quote}"</p>
+         <div style="font-family:'Barlow Condensed'; font-size:13px; color:var(--text-muted); opacity:0.8; letter-spacing:0.05em;">${r.name} · ${r.city} · Verified</div>
+         <div class="review-badge">${r.badge}</div>
+      </div>
+    `).join('');
   }
 
-  const thumbs = document.getElementById('product-thumbnails');
-  if (thumbs) {
-    thumbs.innerHTML = '';
-    product.images.edges.forEach((img, idx) => {
-      const thumb = document.createElement('div');
-      thumb.className = 'thumb-pill';
-      thumb.style.aspectRatio = '1/1';
-      thumb.style.background = '#21262D';
-      thumb.style.borderRadius = '2px';
-      thumb.style.cursor = 'pointer';
-      thumb.style.overflow = 'hidden';
-      thumb.style.border = '2px solid transparent';
-      thumb.innerHTML = `<img src="${img.node.url}" style="width: 100%; height: 100%; object-fit: cover;">`;
-      
-      thumb.addEventListener('click', () => {
-        mainImg.src = img.node.url;
-        mainImg.alt = img.node.altText;
-        document.querySelectorAll('.thumb-pill').forEach(t => t.style.borderColor = 'transparent');
-        thumb.style.borderColor = 'var(--emerald)';
-      });
-      thumbs.appendChild(thumb);
-    });
+  // 7. BUNDLE UPSELL
+  const bundleSect = document.getElementById('bundle-section');
+  if (bundleSect && copy?.bundleProductHandle) {
+    loadBundle(copy);
   }
 
-  // Price
-  const priceEl = document.getElementById('price-current');
-  if (priceEl && product.variants?.edges?.length > 0) {
-    const firstPrice = product.variants.edges[0].node.price?.amount || 0;
-    priceEl.textContent = `$${parseFloat(firstPrice).toFixed(2)}`;
+  // 8. FAQ
+  const faqGrid = document.getElementById('pdp-faq');
+  if (faqGrid && copy?.faq) {
+    faqGrid.innerHTML = copy.faq.map((f, i) => `
+      <div class="faq-item">
+        <button class="faq-question" onclick="window.toggleFAQ(this)">
+          ${f.q}
+          <span class="faq-icon">${ICONS.arrow}</span>
+        </button>
+        <div class="faq-answer">
+          <div style="padding-top:12px;">${f.a}</div>
+        </div>
+      </div>
+    `).join('');
   }
 
-  // Variants Label
-  const varLabel = document.getElementById('variant-label');
-  if (varLabel && copy && copy.variantLabel) {
-    varLabel.textContent = copy.variantLabel;
-  }
-
-  // Variants
-  const varBox = document.getElementById('variant-selector');
-  if (varBox) {
-    varBox.innerHTML = '';
-    product.variants.edges.forEach((v, idx) => {
-      const variant = v.node;
-      const btn = document.createElement('div');
-      btn.className = `variant-pill ${idx === 0 ? 'active' : ''}`;
-      btn.style.padding = '16px';
-      btn.style.border = '1px solid var(--border)';
-      btn.style.borderRadius = '2px';
-      btn.style.cursor = 'pointer';
-      btn.style.display = 'flex';
-      btn.style.justifyContent = 'space-between';
-      btn.style.alignItems = 'center';
-      btn.innerHTML = `
-        <span style="font-weight: 600;">${variant.title}</span>
-        <span style="font-family: 'Barlow Condensed'; font-weight: 700;">$${parseFloat(variant.price?.amount || 0).toFixed(2)}</span>
-      `;
-
-      if (idx === 0) selectedVariantId = variant.id;
-
-      btn.addEventListener('click', () => {
-        selectedVariantId = variant.id;
-        document.querySelectorAll('.variant-pill').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        // Update price
-        if (priceEl) priceEl.textContent = `$${parseFloat(variant.price?.amount || 0).toFixed(2)}`;
-      });
-      varBox.appendChild(btn);
-    });
-  }
-
-  // Add to Cart btn
-  const atcBtn = document.getElementById('add-to-cart-btn');
-  if (atcBtn) {
-    atcBtn.textContent = 'ADD TO CART →';
-    atcBtn.onclick = () => {
-      if (window.handleAddToCart) {
-        window.handleAddToCart(selectedVariantId, atcBtn);
-      }
-    };
-  }
-
-  // Cart Icon Fix
-  document.querySelectorAll('.cart-icon').forEach(icon => {
-    icon.onclick = (e) => {
-      e.preventDefault();
-      if (window.openCart) window.openCart();
-    };
-  });
-
-  // Transition in
-  document.getElementById('product-page').classList.add('visible');
+  // 9. FINAL CTA
+  document.getElementById('final-cta-headline').textContent = copy?.finalCta || '';
   
-  // Re-run observer for new elements
-  if (window.sectionObserver) {
-    document.querySelectorAll('.animate-in').forEach(el => window.sectionObserver.observe(el));
-  }
+  // Sticky ATC Title
+  document.getElementById('sticky-title').textContent = product.title;
+  
+  // Global helpers
+  window.updateGallery = (url, thumb) => {
+    mainImg.src = url;
+    document.querySelectorAll('.pdp-gallery .thumb').forEach(t => t.style.borderColor = 'var(--border)');
+    thumb.style.borderColor = 'var(--emerald)';
+  };
+  
+  window.selectVariant = (id, btn, price, qty) => {
+    selectedVariantId = id;
+    document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    priceEl.textContent = `$${parseFloat(price).toFixed(2)}`;
+    splitEl.textContent = `$${(parseFloat(price) / 4).toFixed(2)}`;
+    document.getElementById('sticky-price').textContent = priceEl.textContent;
+    
+    // Update urgency
+    const urgencyEl = document.getElementById('urgency-badge');
+    if (qty > 0 && qty < 100) {
+      urgencyEl.textContent = `⚡ Only ${qty} ${copy?.urgencyText || 'left'}`;
+      urgencyEl.style.display = 'block';
+    } else {
+      urgencyEl.style.display = 'none';
+    }
+  };
 }
 
-initPDP();
+async function loadBundle(copy) {
+  const bundleData = await getProductByHandle(copy.bundleProductHandle);
+  const bundleProduct = bundleData?.product || bundleData;
+  if (!bundleProduct) return;
+  
+  const bundleSect = document.getElementById('bundle-section');
+  const currentImg = currentProduct.images.edges[0]?.node.url;
+  const bundleImg = bundleProduct.images.edges[0]?.node.url;
+  const totalPrice = parseFloat(currentProduct.variants.edges[0].node.price.amount) + parseFloat(bundleProduct.variants.edges[0].node.price.amount) - copy.bundleSavings;
+
+  bundleSect.innerHTML = `
+    <div class="container">
+      <p style="font-family:'Barlow Condensed'; color:var(--emerald); font-size:12px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:40px;">FREQUENTLY BOUGHT TOGETHER</p>
+      <div style="display:flex; align-items:center; gap:48px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:20px;">
+          <img src="${currentImg}" style="width:120px; height:120px; object-fit:cover; border-radius:4px; border:1px solid var(--border);">
+          <span style="font-size:32px; color:var(--text-muted);">+</span>
+          <img src="${bundleImg}" style="width:120px; height:120px; object-fit:cover; border-radius:4px; border:1px solid var(--border);">
+        </div>
+        <div>
+          <h3 style="font-family:'Anton'; font-size:32px; margin-bottom:12px;">${copy.bundleTitle}</h3>
+          <p style="font-size:18px; font-weight:700; color:var(--emerald); margin-bottom:24px;">$${totalPrice.toFixed(2)} <span style="font-size:14px; text-decoration:line-through; opacity:0.5; margin-left:8px;">$${(totalPrice + copy.bundleSavings).toFixed(2)}</span></p>
+          <button class="btn btn-primary bundle-btn" onclick="window.addBundle('${selectedVariantId}', '${bundleProduct.variants.edges[0].node.id}')">ADD BUNDLE & SAVE $${copy.bundleSavings} →</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.addBundle = async (vid1, vid2) => {
+  const btn = event.target;
+  btn.textContent = 'ADDING...';
+  await addToCart(vid1, 1);
+  await addToCart(vid2, 1);
+  btn.textContent = 'BUNDLE ADDED!';
+  if (window.handleAddToCart) window.handleAddToCart(null, null, true); // Trigger cart refresh
+  if (window.openCart) window.openCart();
+};
+
+window.toggleFAQ = (btn) => {
+  btn.parentElement.classList.toggle('active');
+};
+
+window.scrollToATC = () => {
+  document.getElementById('pdp-hero').scrollIntoView({ behavior: 'smooth' });
+};
+
+function setupStickyHeader() {
+  const atc = document.getElementById('add-to-cart-btn');
+  const sticky = document.getElementById('sticky-atc');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        sticky.style.display = 'flex';
+        setTimeout(() => sticky.classList.add('visible'), 10);
+      } else {
+        sticky.classList.remove('visible');
+        setTimeout(() => sticky.style.display = 'none', 400);
+      }
+    });
+  }, { threshold: 0 });
+  
+  if (atc) observer.observe(atc);
+}
+
+// ATC Handling
+document.getElementById('add-to-cart-btn').addEventListener('click', async (e) => {
+  const btn = e.target;
+  if (!selectedVariantId) return;
+  btn.textContent = 'ADDING...';
+  if (window.handleAddToCart) {
+    await window.handleAddToCart(selectedVariantId, btn);
+  }
+  btn.textContent = 'ADD TO CART';
+});
+
+// Cart Count Fix
+document.addEventListener('cartUpdated', (e) => {
+  const count = e.detail?.totalQuantity || 0;
+  document.querySelectorAll('.cart-count').forEach(el => el.textContent = count);
+});
+
+init();

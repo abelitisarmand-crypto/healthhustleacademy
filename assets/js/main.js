@@ -261,10 +261,12 @@ async function ensureCart() {
 
 window.handleAddToCart = handleAddToCart;
 
-async function handleAddToCart(variantId, btn) {
-  const original = btn.textContent;
-  btn.textContent = 'ADDING...';
-  btn.disabled = true;
+async function handleAddToCart(variantId, btn = null) {
+  const original = btn ? btn.textContent : '';
+  if (btn) {
+    btn.textContent = 'ADDING...';
+    btn.disabled = true;
+  }
 
   try {
     const id = await ensureCart();
@@ -283,20 +285,26 @@ async function handleAddToCart(variantId, btn) {
     }
     window.updateCartBadge(cart.totalQuantity || 0);
     
-    btn.textContent = 'ADDED!';
-    
-    setTimeout(() => {
-      window.openCart(cart);
-      btn.textContent = original;
-      btn.disabled = false;
-    }, 600);
+    if (btn) {
+      btn.textContent = 'ADDED!';
+      setTimeout(() => {
+        window.openCart(cart);
+        btn.textContent = original;
+        btn.disabled = false;
+      }, 600);
+    } else {
+      // Background addition (e.g. from bundle)
+      const event = new CustomEvent('cartUpdated', { detail: cart });
+      document.dispatchEvent(event);
+    }
   } catch (e) {
     console.error('Add to cart critical error:', e);
-    // If it fails, maybe the cartId is stale? Try clearing it for next time.
+    if (btn) {
+      btn.textContent = 'RETRY';
+      btn.disabled = false;
+    }
     localStorage.removeItem('shopify_cart_id');
     cartId = null;
-    btn.textContent = 'RETRY';
-    btn.disabled = false;
   }
 }
 

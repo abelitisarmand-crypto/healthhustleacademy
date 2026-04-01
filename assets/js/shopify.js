@@ -92,6 +92,7 @@ export async function getProductByHandle(handle) {
             node {
               id
               title
+              quantityAvailable
               price {
                 amount
               }
