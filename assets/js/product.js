@@ -1,4 +1,4 @@
-import { getProductByHandle, addToCart } from './shopify.js?v=2.0';
+import { getProductByHandle, addToCart } from './shopify.js?v=3.0';
 import { ICONS } from '../icons/icons.js';
 
 // Phase 7: Bulletproof Fallbacks & Conversion Data
