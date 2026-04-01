@@ -6,8 +6,8 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/cart/:path*",
-      "destination": "https://5e2bf2-59.myshopify.com/cart/:path*",
+      "source": "/cart/c/:path*",
+      "destination": "https://5e2bf2-59.myshopify.com/cart/c/:path*",
       "permanent": false
     }
   ],
