@@ -329,9 +329,11 @@ function renderProduct(product) {
   const objGrid = document.getElementById('objection-grid');
   if (objGrid && copy?.objections) {
     objGrid.innerHTML = copy.objections.map(o => `
-      <div style="margin-bottom:32px;">
-        <div style="font-family:'Barlow Condensed'; font-weight:900; color:var(--emerald); text-transform:uppercase;">${o.q}</div>
-        <div style="font-size:14px; color:var(--text-secondary); line-height:1.6;">${o.a}</div>
+      <div class="objection-item" style="margin-bottom:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:4px; padding:24px;">
+        <div class="objection-q" style="font-family:'Anton'; font-size:18px; cursor:pointer;" onclick="const a = this.nextElementSibling; a.style.display = a.style.display === 'none' ? 'block' : 'none'; this.parentElement.classList.toggle('active')">
+          ${o.q}
+        </div>
+        <div class="objection-a" style="margin-top:16px; color:var(--text-secondary); font-size:15px; display:none;">${o.a}</div>
       </div>
     `).join('');
   }
@@ -340,12 +342,11 @@ function renderProduct(product) {
   const faqList = document.getElementById('pdp-faq');
   if (faqList && copy?.faq) {
     faqList.innerHTML = copy.faq.map(f => `
-      <div class="faq-item">
-        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+      <div class="faq-item" style="border-bottom:1px solid var(--border);">
+        <div class="faq-question" style="padding:20px 0; font-family:'Barlow Condensed'; font-weight:700; font-size:16px; cursor:pointer;" onclick="const a = this.nextElementSibling; a.style.display = a.style.display === 'none' ? 'block' : 'none'; this.parentElement.classList.toggle('active')">
           ${f.q}
-          <span>+</span>
-        </button>
-        <div class="faq-answer"><div style="padding:12px 0;">${f.a}</div></div>
+        </div>
+        <div class="faq-answer" style="padding-bottom:20px; color:var(--text-muted); font-size:14px; display:none;">${f.a}</div>
       </div>
     `).join('');
   }

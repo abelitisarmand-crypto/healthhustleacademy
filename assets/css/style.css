@@ -1486,3 +1486,96 @@ img {
 .objection-a, .faq-answer {
   text-align: center !important;
 }
+
+/* ── PHASE 10: USER REFINEMENTS & MOBILE UX ── */
+
+/* 1. Header/Hero/Footer Alignment Restoration */
+.nav .logo, .nav .nav-links, .hero-content, .footer-grid, .footer {
+  text-align: left !important;
+}
+
+.hero-headline {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+/* 2. FAQ Plus Icons */
+.objection-q, .faq-question {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  text-align: left !important;
+  padding-right: 20px !important;
+  position: relative;
+}
+
+.objection-q::after, .faq-question::after {
+  content: "+";
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--emerald);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* 3. Mobile Avatar Overlap Fix */
+@media (max-width: 480px) {
+  .hero-trust {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+}
+
+/* 4. Product Grid Button Leveling (Equal Height Titles) */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+/* Ensure title occupies consistent space to keep buttons leveled */
+.product-title {
+  min-height: 3.2em; /* Approx 2 lines of text */
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-atc-container {
+  margin-top: auto;
+}
+
+/* Ensure global headings don't force centering where not needed */
+h1, h2, h3 { text-align: left; }
+.problem-section h2, .faq-section h2, .reviews-section h2, #final-cta-section h2 { text-align: center !important; }
+
+
+/* Robust Mobile Trust Section Fix */
+@media screen and (max-width: 600px) {
+  .hero-trust {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+    padding: 20px !important;
+    background: rgba(255,255,255,0.03) !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+  }
+  
+  .hero-trust > div {
+    width: 100% !important;
+    text-align: left !important;
+  }
+}
