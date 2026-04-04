@@ -370,11 +370,37 @@ async function loadProducts(handle = null) {
     products = data?.products?.edges || [];
   }
 
+  // Phase 18: Sparse Collection Fallback (Option B)
+  if (handle && products.length < 3) {
+    console.log('[UI] Sparse collection detected, supplementing with recommendations...');
+    const generalData = await getProducts(6);
+    const generalProducts = generalData?.products?.edges || [];
+    
+    // Deduplicate and append
+    const existingHandles = new Set(products.map(p => p.node.handle));
+    generalProducts.forEach(gp => {
+      if (!existingHandles.has(gp.node.handle) && products.length < 4) {
+        gp.isRecommendation = true; // Flag for special labeling
+        products.push(gp);
+      }
+    });
+  }
+
   container.innerHTML = '';
   container.style.opacity = '1';
 
-  products.forEach(({ node: product }, i) => {
+  products.forEach(({ node: product, isRecommendation }, i) => {
     const card = createProductCard(product);
+    
+    // Add "Recommended" label if it's a fallback item
+    if (isRecommendation) {
+      const badge = document.createElement('div');
+      badge.style.cssText = 'position: absolute; top: 12px; left: 12px; background: rgba(16, 185, 129, 0.9); color: black; font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 2px; z-index: 2; font-family: "Barlow Condensed"; text-transform: uppercase;';
+      badge.textContent = 'Recommended';
+      card.style.position = 'relative';
+      card.appendChild(badge);
+    }
+
     container.appendChild(card);
     setTimeout(() => {
       card.classList.add('visible');
