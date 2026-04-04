@@ -1111,14 +1111,63 @@ img {
 /* ── PDP REDESIGN: NIKE MEET GYMSHARK ── */
 
 .sticky-atc {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(13, 17, 23, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   transform: translateY(-100%);
   opacity: 0;
 }
 
 .sticky-atc.visible {
+  display: flex !important;
   transform: translateY(0);
   opacity: 1;
+}
+
+@media (max-width: 600px) {
+  .sticky-atc {
+    top: auto !important;
+    bottom: 0 !important;
+    transform: translateY(100%) !important;
+    border-bottom: none !important;
+    border-top: 1px solid var(--border) !important;
+    padding: 12px 0 !important;
+  }
+  
+  .sticky-atc.visible {
+    transform: translateY(0) !important;
+  }
+  
+  .sticky-atc .logo, 
+  .sticky-atc #sticky-title,
+  .sticky-atc #sticky-img-container {
+    display: none !important;
+  }
+  
+  .sticky-atc .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+  }
+
+  .sticky-atc .btn {
+    width: 60% !important;
+    height: 48px !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+  }
 }
 
 .pdp-layout {
@@ -1352,18 +1401,7 @@ img {
 
 /* ── PDP PHASE 7: POLISH & TRUST ── */
 
-.sticky-atc {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  transform: translateY(-100%);
-  opacity: 0;
-  display: none;
-}
 
-.sticky-atc.visible {
-  display: flex !important;
-  transform: translateY(0);
-  opacity: 1;
-}
 
 .atc-trust-badges div {
   transition: opacity 0.3s ease;
@@ -1477,20 +1515,10 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* ── FAQ & OBJECTION CENTERING ── */
-.objection-q, .faq-question {
-  text-align: center !important;
-  justify-content: center !important;
-}
-
-.objection-a, .faq-answer {
-  text-align: center !important;
-}
-
 /* ── PHASE 10: USER REFINEMENTS & MOBILE UX ── */
 
-/* 1. Header/Hero/Footer Alignment Restoration */
-.nav .logo, .nav .nav-links, .hero-content, .footer-grid, .footer {
+/* 1. Alignment Restoration (Exclude Conversion Blocks) */
+.nav .logo, .nav .nav-links, .hero-content, .footer-grid, .footer, .pdp-info {
   text-align: left !important;
 }
 
@@ -1499,14 +1527,16 @@ img {
   text-align: left !important;
 }
 
-/* 2. FAQ Plus Icons */
+/* 2. FAQ & Objection Clean Layout */
 .objection-q, .faq-question {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
   text-align: left !important;
-  padding-right: 20px !important;
-  position: relative;
+  padding: 20px 0 !important;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  width: 100%;
 }
 
 .objection-q::after, .faq-question::after {
@@ -1517,19 +1547,34 @@ img {
   color: var(--emerald);
   transition: transform 0.3s ease;
   flex-shrink: 0;
-  margin-left: 10px;
+  margin-left: 15px;
+}
+
+.objection-item.active .objection-q::after,
+.faq-item.active .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.objection-item, .faq-item {
+  width: 100%;
+}
+
+.objection-a, .faq-answer {
+  text-align: left !important;
+  padding: 16px 0;
 }
 
 /* 3. Mobile Avatar Overlap Fix */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .hero-trust {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 16px !important;
+    text-align: left !important;
   }
 }
 
-/* 4. Product Grid Button Leveling (Equal Height Titles) */
+/* 4. Product Grid Button Leveling */
 .product-card {
   display: flex;
   flex-direction: column;
@@ -1543,9 +1588,8 @@ img {
   justify-content: space-between;
 }
 
-/* Ensure title occupies consistent space to keep buttons leveled */
 .product-title {
-  min-height: 3.2em; /* Approx 2 lines of text */
+  min-height: 3.2em;
   margin-bottom: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1553,29 +1597,14 @@ img {
   overflow: hidden;
 }
 
-.btn-atc-container {
-  margin-top: auto;
-}
-
-/* Ensure global headings don't force centering where not needed */
-h1, h2, h3 { text-align: left; }
-.problem-section h2, .faq-section h2, .reviews-section h2, #final-cta-section h2 { text-align: center !important; }
-
-
-/* Robust Mobile Trust Section Fix */
-@media screen and (max-width: 600px) {
-  .hero-trust {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 20px !important;
-    padding: 20px !important;
-    background: rgba(255,255,255,0.03) !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-  }
-  
-  .hero-trust > div {
-    width: 100% !important;
-    text-align: left !important;
-  }
+/* 5. Specific Heading Centering (Only where requested) */
+.problem-section h2, 
+.reviews-section h2, 
+#offer-section h2, 
+#objections-section h2, 
+.faq-section h2, 
+#final-cta-section h2 {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
 }

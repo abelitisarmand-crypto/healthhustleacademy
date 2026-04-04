@@ -6,26 +6,26 @@ const MOCK_PRODUCTS = {
   'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
     title: "Deep Tissue Massage Gun",
     price: "79.00",
-    image: "https://vignette.wikia.nocookie.net/gear-for-sport/images/d/d4/Massage_Gun.jpg/revision/latest?cb=20200521151445", // Fallback URL placeholder
-    quantity: 44
+    image: "https://vignette.wikia.nocookie.net/gear-for-sport/images/d/d4/Massage_Gun.jpg/revision/latest?cb=20200521151445", 
+    quantity: 10
   },
   'walking-pad-for-home-office-quiet-under-desk-treadmill': {
     title: "Under-Desk Walking Pad",
     price: "299.00",
     image: "https://m.media-amazon.com/images/I/71z7XmK-j7L._AC_SL1500_.jpg",
-    quantity: 237
+    quantity: 37
   },
   '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
     title: "Home Gym Starter Kit",
     price: "79.00",
     image: "https://m.media-amazon.com/images/I/81+Xp+T8YkL._AC_SL1500_.jpg",
-    quantity: 56
+    quantity: 230
   },
   'yoga-foam-roller': {
     title: "Foam Roller Pro",
     price: "35.00",
     image: "https://m.media-amazon.com/images/I/71Y+z6kL0OL._AC_SL1500_.jpg",
-    quantity: 88
+    quantity: null
   }
 };
 
@@ -61,7 +61,21 @@ const PRODUCT_COPY = {
     savingsText: 'YOU SAVE $30 TODAY',
     bundleHandle: 'yoga-foam-roller',
     bundleTitle: 'Recovery Bundle',
-    bundlePrice: 99
+    bundlePrice: 99,
+    box: [
+      '1x Pro-Grade Percussion Massager',
+      '8x Interchangeable Massage Heads',
+      '1x Premium Protective Carry Case',
+      '1x Rapid-Charge USB-C Cable'
+    ],
+    faq: [
+      { q: "How long does the battery last?", a: "Up to 6 hours on a single charge. 10 minutes a day means you only charge it once a month." },
+      { q: "Is it too loud for an office?", a: "No. At 45dB, it's quieter than a standard conversation." }
+    ],
+    objections: [
+      { q: "IS IT BETTER THAN THE CHEAP ONES?", a: "We use a brushless high-torque motor. It won't stall even when you press hard." },
+      { q: "CAN I USE IT ON MY NECK?", a: "Yes. Use the 'U-shape' or 'Ball' head on the lowest setting for neck and traps." }
+    ]
   },
   'walking-pad-for-home-office-quiet-under-desk-treadmill': {
     h1: 'BURN 300 CALORIES WITHOUT LEAVING YOUR DESK.',
@@ -94,7 +108,22 @@ const PRODUCT_COPY = {
     savingsText: 'YOU SAVE $100 TODAY',
     bundleHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
     bundleTitle: 'Move & Recover Bundle',
-    bundlePrice: 349
+    bundlePrice: 349,
+    box: [
+      '1x Ultra-Slim Walking Pad',
+      '1x Remote Control (Battery Included)',
+      '1x Safety Magnet Clip',
+      '1x Silicone Lubricant Oil',
+      'User Manual & 30-Day Program PDF'
+    ],
+    faq: [
+      { q: "Will this fit under my bed?", a: "Yes. It's only 4.7 inches tall. It slides under most standard couches and beds." },
+      { q: "What is the weight limit?", a: "The reinforced frame supports up to 265 lbs (120kg)." }
+    ],
+    objections: [
+      { q: "IS IT DIFFICULT TO SET UP?", a: "Zero setup. Open the box, plug it in, and start walking." },
+      { q: "DO I NEED A STANDING DESK?", a: "It works best with one, but many users use it while watching TV or during phone calls." }
+    ]
   },
   '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
     h1: 'YOUR ENTIRE HOME GYM. FITS IN A BACKPACK.',
@@ -127,7 +156,23 @@ const PRODUCT_COPY = {
     savingsText: 'YOU SAVE $50 TODAY',
     bundleHandle: 'yoga-foam-roller',
     bundleTitle: 'Train & Recover Bundle',
-    bundlePrice: 99
+    bundlePrice: 99,
+    box: [
+      '5x Color-Coded Resistance Bands (10-50 lbs)',
+      '1x Heavy-Duty Door Anchor',
+      '2x Cushioned Soft-Grip Handles',
+      '2x Ankle Straps',
+      '1x Waterproof Carrying Bag',
+      'Digital 30-Day Training Program'
+    ],
+    faq: [
+      { q: "Can I combine the bands?", a: "Yes. All bands can be used together to create up to 150 lbs of resistance." },
+      { q: "Will the door anchor damage my door?", a: "No. It is padded with thick foam to protect all door types." }
+    ],
+    objections: [
+      { q: "ARE THEY DURABLE?", a: "Made from 100% natural latex. They won't snap or lose elasticity even after years of use." },
+      { q: "I'M A TOTAL BEGINNER?", a: "Perfect. Start with the yellow (10lb) band and follow the Day 1 video guide." }
+    ]
   },
   'yoga-foam-roller': {
     h1: '5 MINUTES OF ROLLING = 30 MINUTES OF STRETCHING.',
@@ -159,7 +204,20 @@ const PRODUCT_COPY = {
     savingsText: 'YOU SAVE $10 TODAY',
     bundleHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
     bundleTitle: 'Relaxation Bundle',
-    bundlePrice: 99
+    bundlePrice: 99,
+    box: [
+      '1x Pro-Density Foam Roller',
+      '1x Travel Carry Bag',
+      'Free Recovery Guide PDF'
+    ],
+    faq: [
+      { q: "How firm is it?", a: "High-density EVA foam. It's firm enough to hit deep knots but has enough give to not bruise." },
+      { q: "Will this help with back pain?", a: "Yes, it is specifically designed to release the thoracic spine and lower back tension." }
+    ],
+    objections: [
+      { q: "I'VE NEVER USED ONE BEFORE?", a: "We include a 5-minute video guide. It's as simple as lying down and breathing." },
+      { q: "IS IT DURABLE?", a: "Won't lose its shape. Tested for up to 300 lbs of pressure." }
+    ]
   }
 };
 
@@ -216,7 +274,7 @@ function renderProduct(product) {
   // Gallery
   const mainImg = document.getElementById('main-product-image');
   const stickyImg = document.getElementById('sticky-img');
-  const fallbackImg = product.images.edges[0]?.node.url;
+  const fallbackImg = product.images?.edges[0]?.node?.url || 'assets/images/placeholder.jpg';
   if (mainImg) mainImg.src = fallbackImg;
   if (stickyImg) stickyImg.src = fallbackImg;
 
@@ -239,8 +297,9 @@ function renderProduct(product) {
     
     // Initial Price Update
     const updatePrices = (v) => {
-      const p = parseFloat(v.price.amount);
-      priceEl.textContent = `$${p.toFixed(2)}`;
+      if (!v || !v.price) return;
+      const p = parseFloat(v.price.amount) || 0;
+      if (priceEl) priceEl.textContent = `$${p.toFixed(2)}`;
       if (stickyPrice) stickyPrice.textContent = `$${p.toFixed(2)}`;
       if (splitEl) splitEl.textContent = `$${(p / 4).toFixed(2)}`;
       
@@ -248,18 +307,22 @@ function renderProduct(product) {
       const nowPriceEl = document.getElementById('offer-price-now');
       const wasPriceEl = document.getElementById('offer-price-was');
       if (nowPriceEl) nowPriceEl.textContent = `$${p.toFixed(2)}`;
-      if (wasPriceEl) wasPriceEl.textContent = `$${(copy?.wasPrice || p + 30).toFixed(2)}`;
+      const prevPrice = copy?.wasPrice || (p > 0 ? p + 30 : 0);
+      if (wasPriceEl) wasPriceEl.textContent = `$${parseFloat(prevPrice).toFixed(2)}`;
     };
     updatePrices(first);
 
     // Urgency
     const stockEl = document.getElementById('urgency-stock');
-    if (stockEl && first.quantityAvailable < 50) {
-       stockEl.textContent = `⚡ ONLY ${first.quantityAvailable} LEFT IN STOCK`;
-       stockEl.style.display = 'block';
-    } else if (stockEl && MOCK_PRODUCTS[product.handle]?.quantity) {
-       stockEl.textContent = `⚡ ONLY ${MOCK_PRODUCTS[product.handle].quantity} LEFT IN STOCK`;
-       stockEl.style.display = 'block';
+    const qty = (first.quantityAvailable !== null && first.quantityAvailable !== undefined) 
+      ? first.quantityAvailable 
+      : MOCK_PRODUCTS[product.handle]?.quantity ?? null;
+
+    if (stockEl && qty !== null) {
+      stockEl.textContent = `⚡ ONLY ${qty} LEFT IN STOCK`;
+      stockEl.style.display = 'block';
+    } else if (stockEl) {
+      stockEl.style.display = 'none';
     }
 
     variantBox.innerHTML = product.variants.edges.map((edge, i) => `
@@ -308,6 +371,18 @@ function renderProduct(product) {
         <div class="benefit-text">${b.text}</div>
       </div>
     `).join('');
+  }
+
+  const boxList = document.getElementById('box-list');
+  if (boxList && copy?.box) {
+    boxList.innerHTML = copy.box.map(item => `
+      <div style="display:flex; align-items:center; gap:12px; padding:12px; background:var(--bg-secondary); border-radius:4px; font-size:14px; border:1px solid var(--border);">
+        <span style="color:var(--emerald);">✓</span>
+        <span>${item}</span>
+      </div>
+    `).join('');
+  } else if (boxList) {
+    document.getElementById('box-section').style.display = 'none';
   }
 
   const reviews = document.getElementById('reviews-grid');
