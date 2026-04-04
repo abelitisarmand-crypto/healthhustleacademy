@@ -52,11 +52,18 @@
         <div class="container">
             <header style="margin-bottom: 64px;">
                 <span id="collection-breadcrumb" style="font-family: 'Barlow Condensed'; font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase;">SHOP / COLLECTIONS</span>
-                <h1 id="collection-title" style="font-size: clamp(48px, 8vw, 72px); margin-top: 12px;">Loading...</h1>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; margin-top: 12px;">
+                    <h1 id="collection-title" style="font-size: clamp(40px, 6vw, 64px); margin: 0;">Loading...</h1>
+                    <span id="collection-count" style="font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; color: var(--emerald); letter-spacing: 0.1em;">... PRODUCTS</span>
+                </div>
             </header>
 
             <div class="product-grid" id="collection-grid">
                 <!-- Products injected here -->
+            </div>
+
+            <div style="margin-top: 64px; text-align: center;">
+                <button id="load-more-btn" class="btn btn-ghost" style="display: none; margin: 0 auto; min-width: 200px;">LOAD MORE PRODUCTS</button>
             </div>
         </div>
     </main>

@@ -429,7 +429,15 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     };
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    loadProducts(tabMap[btn.textContent.trim()]);
+    const handle = tabMap[btn.textContent.trim()];
+    loadProducts(handle);
+
+    // Update View All link if it exists
+    const viewAllBtn = document.getElementById('view-all-collection');
+    if (viewAllBtn) {
+      viewAllBtn.href = handle === 'featured' ? 'collection.html' : `collection.html?handle=${handle}`;
+      viewAllBtn.textContent = `VIEW ALL ${btn.textContent.trim()}`;
+    }
   });
 });
 
