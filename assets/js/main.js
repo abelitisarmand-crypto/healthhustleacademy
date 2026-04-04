@@ -471,9 +471,24 @@ document.addEventListener('click', (e) => {
 window.addEventListener('scroll', () => {
 }, { passive: true });
 
+async function validateCart() {
+  const storedCartId = localStorage.getItem('shopify_cart_id');
+  if (!storedCartId) { updateCartBadge(0); return; }
+  try {
+    const data = await getCart(storedCartId);
+    if (!data?.cart) {
+      localStorage.removeItem('shopify_cart_id');
+      localStorage.removeItem('shopify_cart_count');
+      localStorage.removeItem('shopify_checkout_url');
+      updateCartBadge(0);
+    } else {
+      updateCartBadge(data.cart.totalQuantity || 0);
+    }
+  } catch(e) { updateCartBadge(0); }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const initialCount = localStorage.getItem('shopify_cart_count') || 0;
-  updateCartBadge(initialCount);
+  validateCart();
   loadProducts();
 });
 
