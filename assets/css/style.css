@@ -105,6 +105,14 @@ img {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  width: 100%;
+}
+
+.container-tight {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
 }
 
 .section {
@@ -811,7 +819,8 @@ img {
 }
 
 .faq-container {
-  max-width: 760px;
+  /* Unified 800px tight container */
+  max-width: 800px;
   margin: 40px auto 0;
 }
 
@@ -891,11 +900,12 @@ img {
   background-color: #0A0C10;
   border-top: 1px solid rgba(16, 185, 129, 0.3);
   padding: 80px 0 40px;
+  text-align: left; /* Base alignment */
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Symmetrical balance */
   gap: var(--space-12);
 }
 
@@ -1460,15 +1470,7 @@ img {
 
 /* ── PHASE 10: USER REFINEMENTS & MOBILE UX ── */
 
-/* 1. Alignment Restoration (Exclude Conversion Blocks) */
-.nav .logo, .nav .nav-links, .hero-content, .footer-grid, .footer, .pdp-info {
-  text-align: left !important;
-}
 
-.hero-headline {
-  align-items: flex-start !important;
-  text-align: left !important;
-}
 
 
 
@@ -1509,8 +1511,9 @@ img {
 .problem-section h2, /* ── FAQ & OBJECTION COMPONENT ── */
 
 .faq-container, .objection-grid {
-  max-width: 800px !important;
-  margin: 0 auto !important;
+  /* Inherits .container-tight logic */
+  max-width: 800px;
+  margin: 0 auto;
   width: 100%;
 }
 
@@ -1590,12 +1593,4 @@ img {
   padding: 8px 0 32px 24px; /* Reduced top gap, increased left room */
   border-left: 2px solid var(--emerald); /* Anchor line to inner expansion */
 }
-.reviews-section h2, 
-#offer-section h2, 
-#objections-section h2, 
-.faq-section h2, 
-#final-cta-section h2 {
-  text-align: center !important;
-  margin-left: auto;
-  margin-right: auto;
-}
+
