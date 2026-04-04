@@ -278,6 +278,25 @@ function renderProduct(product) {
   if (subEl) subEl.textContent = copy?.subtitle || '';
   document.title = `${product.title} — HealthHustleAcademy`;
 
+  // Dynamic SEO/Social Meta Tags
+  try {
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogImg = document.querySelector('meta[property="og:image"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    const twImg = document.querySelector('meta[name="twitter:image"]');
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+
+    if (ogTitle) ogTitle.content = product.title + ' — HealthHustleAcademy';
+    if (twTitle) twTitle.content = product.title + ' — HealthHustleAcademy';
+    if (ogImg) ogImg.content = product.images.edges[0]?.node.url || '';
+    if (twImg) twImg.content = product.images.edges[0]?.node.url || '';
+    if (ogDesc) ogDesc.content = copy?.subtitle || product.description?.substring(0,150) || '';
+    if (ogUrl) ogUrl.content = window.location.href;
+  } catch (e) {
+    console.warn('Failed to update meta tags:', e);
+  }
+
   // Gallery
   const mainImg = document.getElementById('main-product-image');
   const stickyImg = document.getElementById('sticky-img');
