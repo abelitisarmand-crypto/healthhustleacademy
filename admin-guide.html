@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Guide — HealthHustleAcademy</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #0D1117;
+            color: #F0F6FC;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(22, 27, 34, 0.5);
+            border: 1px solid #30363D;
+            border-radius: 8px;
+            backdrop-filter: blur(20px);
+        }
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 42px;
+            letter-spacing: 0.04em;
+            margin-bottom: 24px;
+            color: #FFFFFF;
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        .step-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: rgba(48, 54, 61, 0.2);
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .step-item:hover {
+            border-color: var(--emerald);
+            transform: translateX(10px);
+        }
+        .step-number {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--emerald);
+            flex-shrink: 0;
+            width: 40px;
+        }
+        .step-content strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+        }
+        .step-content p {
+            font-size: 15px;
+            color: #8B949E;
+        }
+        .badge-admin {
+            display: inline-block;
+            background: var(--emerald);
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <span class="badge-admin">INTERNAL REFERENCE</span>
+        <h1>HOW TO ADD PRODUCTS</h1>
+        <p style="margin-bottom: 40px; color: #8B949E;">Follow these steps to ensure your new products appear correctly and are optimized for conversion on the HealthHustleAcademy Storefront.</p>
+
+        <div class="step-list">
+            <div class="step-item">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <strong>CREATE PRODUCT</strong>
+                    <p>Go to <strong>Shopify Admin &rarr; Products &rarr; Add Product</strong>. Fill in your title, description, and high-quality lifestyle imagery.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <strong>ACTIVATE STATUS</strong>
+                    <p>In the top right corner, set the <strong>Product Status</strong> to <strong>"Active"</strong>. Draft products will not be visible on the site.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <strong>SELECT PUBLISHING</strong>
+                    <p>Under <strong>Sales Channels</strong>, ensure the <strong>"Health Hustle Academy Headless"</strong> channel is checked. This allows the API to fetch the data.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <strong>ASSIGN COLLECTIONS</strong>
+                    <p>Add the product to at least one category collection (e.g., <strong>Lose Weight</strong>, <strong>Build Strength</strong>, <strong>Move More</strong>, or <strong>Recover Faster</strong>).</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">05</div>
+                <div class="step-content">
+                    <strong>FEATURE ON HOMEPAGE</strong>
+                    <p>To show the product in the default "BEST SELLERS" tab on the homepage, add it to the collection with the handle <strong>"Featured"</strong>.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">06</div>
+                <div class="step-content">
+                    <strong>MANAGE INVENTORY</strong>
+                    <p>Set an inventory count (e.g., 50) or check <strong>"Continue selling when out of stock"</strong>. Products with 0 stock and no backorder will be hidden or show 'Sold Out'.</p>
+                </div>
+            </div>
+
+            <div class="step-item">
+                <div class="step-number">07</div>
+                <div class="step-content">
+                    <strong>SAVE & SYNC</strong>
+                    <p>Click <strong>Save</strong>. Your product will appear on the storefront within 60 seconds. Refresh your browser to see the changes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding-top: 32px; border-top: 1px solid #30363D; text-align: center;">
+            <p style="font-size: 14px; color: #8B949E;">Need technical help? Contact support@healthhustleacademy.com</p>
+            <a href="index.html" style="color: var(--emerald); text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px; display: inline-block;">&larr; BACK TO STOREFRONT</a>
+        </div>
+    </div>
+
+</body>
+</html>
