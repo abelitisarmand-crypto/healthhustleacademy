@@ -1592,19 +1592,23 @@ img {
 }
 
 .faq-answer, .objection-a {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  transition: all 0.4s ease;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.7;
-  padding: 0;
+}
+
+.faq-answer-inner, .objection-a-inner {
+  min-height: 0;
+  padding-bottom: 24px;
 }
 
 .faq-item.active .faq-answer,
 .objection-item.active .objection-a {
-  max-height: 500px; /* Safe height for wrapping text */
-  padding-bottom: 24px;
+  grid-template-rows: 1fr;
 }
 
 .objection-item, .faq-item {

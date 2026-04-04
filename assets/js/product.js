@@ -436,7 +436,7 @@ function renderProduct(product) {
         <div class="objection-q">
           ${o.q}
         </div>
-        <div class="objection-a">${o.a}</div>
+        <div class="objection-a"><div class="objection-a-inner">${o.a}</div></div>
       </div>
     `).join('');
   }
@@ -449,7 +449,7 @@ function renderProduct(product) {
         <div class="faq-question">
           ${f.q}
         </div>
-        <div class="faq-answer">${f.a}</div>
+        <div class="faq-answer"><div class="faq-answer-inner">${f.a}</div></div>
       </div>
     `).join('');
   }
