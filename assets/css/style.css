@@ -831,27 +831,7 @@ img {
   cursor: pointer;
 }
 
-.faq-answer {
-  font-size: 15px;
-  color: var(--text-muted);
-  border-left: 2px solid var(--emerald);
-  padding-left: 16px;
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.4s ease, padding-top 0.4s ease;
-  overflow: hidden;
-  margin-top: 0;
-}
 
-.faq-answer > div {
-  min-height: 0;
-}
-
-.faq-item.active .faq-answer {
-  grid-template-rows: 1fr;
-  margin-top: 16px;
-  padding-top: 4px;
-}
 
 /* Email Capture */
 .email-section {
@@ -1607,7 +1587,8 @@ img {
 
 .faq-item.active .faq-answer-inner,
 .objection-item.active .objection-a-inner {
-  padding-bottom: 32px;
+  padding: 8px 0 32px 24px; /* Reduced top gap, increased left room */
+  border-left: 2px solid var(--emerald); /* Anchor line to inner expansion */
 }
 .reviews-section h2, 
 #offer-section h2, 
