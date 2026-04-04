@@ -115,6 +115,13 @@ img {
   width: 100%;
 }
 
+.container-footer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
 .section {
   padding: clamp(64px, 8vw, 120px) 0;
 }
@@ -905,8 +912,8 @@ img {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Symmetrical 4-column distribution */
-  gap: var(--space-8);
+  grid-template-columns: 1.5fr repeat(3, 1fr); /* Grouped links with slightly weighted brand block */
+  gap: 48px; /* Tighter distribution */
   align-items: flex-start;
 }
 
