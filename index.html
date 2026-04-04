@@ -395,11 +395,16 @@
                 <p style="color: var(--emerald-light); font-size: 13px; font-weight: 500; margin-top: 24px;">Join 10,000+ people training at home without a gym membership</p>
             </div>
             <div class="email-form-container">
-                <form class="email-form">
-                    <input type="email" placeholder="Enter your email" class="email-input">
+                <form class="email-form" id="email-capture-form">
+                    <input type="email" placeholder="Enter your email" class="email-input" required>
                     <button type="submit" class="btn" style="background: white; color: black;">SEND MY FREE PLAN →</button>
                     <p style="font-size: 11px; color: var(--text-muted);">No spam. Unsubscribe any time.</p>
                 </form>
+                <div id="email-success" style="display: none; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 24px; border-radius: 4px; text-align: center; animation: premiumFadeUp 0.6s ease-out;">
+                    <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 20px; color: var(--emerald); margin-bottom: 8px;">THANK YOU!</h3>
+                    <p style="font-size: 14px; color: white; margin-bottom: 20px;">Your 30-day program is ready for download.</p>
+                    <a href="assets/14day_workout_program.pdf" download class="btn btn-primary" style="height: 48px; min-width: 200px;">DOWNLOAD PDF NOW ↓</a>
+                </div>
             </div>
         </div>
     </section>

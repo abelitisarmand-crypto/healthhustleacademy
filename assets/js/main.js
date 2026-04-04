@@ -490,6 +490,23 @@ async function validateCart() {
 document.addEventListener('DOMContentLoaded', () => {
   validateCart();
   loadProducts();
+
+  // Email Capture Handler
+  const emailForm = document.getElementById('email-capture-form');
+  const emailSuccess = document.getElementById('email-success');
+  if (emailForm && emailSuccess) {
+    emailForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailForm.querySelector('input').value;
+      console.log('[LEAD] Capture attempted:', email);
+      
+      // Simulate submission/storage
+      emailForm.style.display = 'none';
+      emailSuccess.style.display = 'block';
+      
+      // Future: Integrate with Klaviyo/Mailchimp here
+    });
+  }
 });
 
 /* ── PHASE 8: GLOBAL ANIMATION OBSERVER ── */
