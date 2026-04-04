@@ -421,7 +421,7 @@ async function loadProducts(handle = 'featured') {
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const tabMap = { 
-      'FEATURED': 'featured',
+      'BEST SELLERS': 'featured',
       'LOSE WEIGHT': 'lose-weight', 
       'BUILD STRENGTH': 'build-strength', 
       'MOVE MORE': 'move-more', 
@@ -529,7 +529,7 @@ async function validateCart() {
 
 document.addEventListener('DOMContentLoaded', () => {
   validateCart();
-  loadProducts();
+  loadProducts('featured'); // Default to best sellers
 
   // Email Capture Handler
   const emailForm = document.getElementById('email-capture-form');
