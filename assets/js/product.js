@@ -70,8 +70,8 @@ const PRODUCT_COPY = {
     ],
     faq: [
       { q: "Is this as good as a Theragun?", a: "Same percussion tech. Theragun charges $400 for the brand. You pay $79 for the device." },
-      { q: "Will I actually use it?", a: "10 minutes before bed. Most customers use it 4-5x per week after week one." },
-      { q: "What if it doesn't work for me?", a: "60-day guarantee. Full refund. No questions." },
+      { q: "Will I actually use it?", a: "10 minutes before bed. Most customers use it 4-5x per week after the first week." },
+      { q: "What if it doesn't work for me?", a: "60-day guarantee. Full refund. No questions asked." },
       { q: "How long does the battery last?", a: "Several hours per charge via USB-C. Most people charge it once a week." }
     ],
     objections: [
@@ -119,10 +119,10 @@ const PRODUCT_COPY = {
       'User Manual & 30-Day Program PDF'
     ],
     faq: [
-      { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches clearance." },
+      { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches of clearance." },
       { q: "Is it loud on Zoom calls?", a: "40dB at walking speed. Quieter than normal conversation. Mic won't pick it up." },
       { q: "What if I never use it?", a: "60-day guarantee. Full refund if it collects dust." },
-      { q: "How fast does it go?", a: "0.6 to 5 mph. Walking for desk use, faster for workouts." }
+      { q: "How fast does it go?", a: "0.6 to 5 mph. Walking mode for desk use, faster for workouts." }
     ],
     objections: [
       { q: "IS IT DIFFICULT TO SET UP?", a: "Zero setup. Open the box, plug it in, and start walking." },
@@ -170,10 +170,10 @@ const PRODUCT_COPY = {
       'Digital 30-Day Training Program'
     ],
     faq: [
-      { q: "Will this work if I'm a beginner?", a: "10lb band is genuinely beginner level. Day 1 program is designed for zero experience." },
-      { q: "How long are the workouts?", a: "20 minutes. Built for people who don't have more time than that." },
+      { q: "Will this work if I'm a beginner?", a: "The 10lb band is genuinely beginner level. Day 1 of the program requires zero experience." },
+      { q: "How long are the workouts?", a: "20 minutes. Built specifically for people who don't have more time than that." },
       { q: "Does it build real muscle?", a: "Yes. Resistance training builds muscle the same way weights do." },
-      { q: "What if bands snap?", a: "60-day guarantee covers everything. Replace or refund, no questions." }
+      { q: "What if the bands snap?", a: "60-day guarantee covers everything. Replace or full refund, no questions." }
     ],
     objections: [
       { q: "ARE THEY DURABLE?", a: "Made from 100% natural latex. They won't snap or lose elasticity even after years of use." },
@@ -217,9 +217,9 @@ const PRODUCT_COPY = {
       'Free Recovery Guide PDF'
     ],
     faq: [
-      { q: "Is this firm enough to actually work?", a: "High-density EVA. Same material physios use. Firm enough to reach real muscle." },
-      { q: "What size is it?", a: "33cm x 14cm. Full-length for back and legs." },
-      { q: "Can I use it as a beginner?", a: "Yes. Start with 60 seconds per muscle group. Intensity passes within a week." }
+      { q: "Is this firm enough to actually work?", a: "High-density EVA — same material physios use. Firm enough to reach real muscle tissue." },
+      { q: "What size is it?", a: "33cm x 14cm. Full-length — works back, legs, glutes, IT band." },
+      { q: "Can I use it as a beginner?", a: "Yes. Start 60 seconds per muscle group. The intensity passes within a week." }
     ],
     objections: [
       { q: "I'VE NEVER USED ONE BEFORE?", a: "We include a 5-minute video guide. It's as simple as lying down and breathing." },
