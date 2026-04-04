@@ -905,8 +905,9 @@ img {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr; /* Symmetrical balance */
-  gap: var(--space-12);
+  grid-template-columns: repeat(4, 1fr); /* Symmetrical 4-column distribution */
+  gap: var(--space-8);
+  align-items: flex-start;
 }
 
 .footer-col h4 {
