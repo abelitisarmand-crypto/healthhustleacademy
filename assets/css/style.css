@@ -1539,20 +1539,24 @@ img {
   width: 100%;
 }
 
+.objection-q::before, .faq-question::before,
 .objection-q::after, .faq-question::after {
-  content: "+";
-  font-family: 'Inter', sans-serif;
-  font-size: 24px;
-  font-weight: 300;
-  color: var(--emerald);
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-  margin-left: 15px;
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 14px;
+  height: 1.5px;
+  background: var(--emerald);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.objection-q::after, .faq-question::after {
+  transform: rotate(90deg);
 }
 
 .objection-item.active .objection-q::after,
 .faq-item.active .faq-question::after {
-  transform: rotate(45deg);
+  transform: rotate(0deg);
 }
 
 .objection-item, .faq-item {
