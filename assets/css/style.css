@@ -1257,44 +1257,7 @@ img {
   letter-spacing: 0.05em;
 }
 
-.faq-item {
-  border: 1px solid var(--border);
-  background: var(--bg-secondary);
-  border-radius: 4px;
-  overflow: hidden;
-}
 
-.faq-question {
-  width: 100%;
-  padding: 24px;
-  text-align: left;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out, padding 0.3s ease;
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-.faq-item.active .faq-answer {
-  max-height: 200px;
-  padding: 0 24px 24px;
-}
 
 .btn-primary.bundle-btn {
   background: white;
@@ -1527,98 +1490,7 @@ img {
   text-align: left !important;
 }
 
-/* 2. FAQ & Objection Clean Layout */
-/* 2. FAQ & Objection Component Fix */
-.faq-container, .objection-grid {
-  max-width: 800px !important;
-  margin: 0 auto !important;
-  width: 100%;
-}
 
-.faq-item, .objection-item {
-  border-bottom: 1px solid var(--border);
-  width: 100%;
-  overflow: visible !important; /* Prevent internal clipping */
-}
-
-.faq-question, .objection-q {
-  width: 100%;
-  padding: 24px 40px 24px 0 !important; /* Right padding for icon space */
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  cursor: pointer;
-  position: relative !important;
-  text-align: left !important;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* Dual-bar Toggle Icon */
-.faq-question::before, .faq-question::after,
-.objection-q::before, .objection-q::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: var(--emerald);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  margin: 0;
-  padding: 0;
-}
-
-/* Horizontal bar (always stays) */
-.faq-question::before, .objection-q::before {
-  transform: translateY(-50%);
-}
-
-/* Vertical bar (rotates to hide) */
-.faq-question::after, .objection-q::after {
-  transform: translateY(-50%) rotate(90deg);
-}
-
-/* Active State: Rotate vertical bar to 0 to merge with horizontal */
-.faq-item.active .faq-question::after,
-.objection-item.active .objection-q::after {
-  transform: translateY(-50%) rotate(0deg);
-}
-
-.faq-answer, .objection-a {
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;
-  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  color: var(--text-secondary);
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-.faq-answer-inner, .objection-a-inner {
-  min-height: 0;
-  padding-bottom: 24px;
-}
-
-.faq-item.active .faq-answer,
-.objection-item.active .objection-a {
-  grid-template-rows: 1fr;
-}
-
-.objection-item, .faq-item {
-  width: 100%;
-}
-
-.objection-a, .faq-answer {
-  text-align: left !important;
-  padding: 16px 0;
-}
 
 /* 3. Mobile Avatar Overlap Fix */
 @media (max-width: 600px) {
@@ -1654,7 +1526,89 @@ img {
 }
 
 /* 5. Specific Heading Centering (Only where requested) */
-.problem-section h2, 
+.problem-section h2, /* ── FAQ & OBJECTION COMPONENT ── */
+
+.faq-container, .objection-grid {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  width: 100%;
+}
+
+.faq-item, .objection-item {
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  overflow: visible !important;
+}
+
+.faq-question, .objection-q {
+  width: 100%;
+  padding: 24px 40px 24px 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  cursor: pointer;
+  position: relative !important;
+  text-align: left !important;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Dual-bar Toggle Icon */
+.faq-question::before, .faq-question::after,
+.objection-q::before, .objection-q::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--emerald);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0;
+}
+
+.faq-question::before, .objection-q::before { transform: translateY(-50%); }
+.faq-question::after, .objection-q::after { transform: translateY(-50%) rotate(90deg); }
+
+.faq-item.active .faq-question::after,
+.objection-item.active .objection-q::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* Zero-height Collapsed State */
+.faq-answer, .objection-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 0 !important; /* Forces zero visibility in closed state */
+}
+
+.faq-answer-inner, .objection-a-inner {
+  min-height: 0;
+  padding: 0; /* Padding is added only when active */
+  transition: padding 0.4s ease;
+}
+
+/* Fully Expanded Open State */
+.faq-item.active .faq-answer,
+.objection-item.active .objection-a {
+  grid-template-rows: 1fr;
+}
+
+.faq-item.active .faq-answer-inner,
+.objection-item.active .objection-a-inner {
+  padding-bottom: 32px;
+}
 .reviews-section h2, 
 #offer-section h2, 
 #objections-section h2, 
