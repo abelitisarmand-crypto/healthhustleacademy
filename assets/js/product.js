@@ -340,15 +340,17 @@ function renderProduct(product) {
 
     // Urgency
     const stockEl = document.getElementById('urgency-stock');
-    const qty = (first.quantityAvailable !== null && first.quantityAvailable !== undefined) 
-      ? first.quantityAvailable 
+    const qty = (first.quantityAvailable !== null && first.quantityAvailable !== undefined)
+      ? first.quantityAvailable
       : MOCK_PRODUCTS[product.handle]?.quantity ?? null;
 
-    if (stockEl && qty !== null) {
-      stockEl.textContent = `⚡ ONLY ${qty} LEFT IN STOCK`;
-      stockEl.style.display = 'block';
-    } else if (stockEl) {
-      stockEl.style.display = 'none';
+    if (stockEl) {
+      if (qty !== null && qty !== undefined) {
+        stockEl.textContent = `⚡ ONLY ${qty} LEFT IN STOCK`;
+        stockEl.style.display = 'block';
+      } else {
+        stockEl.style.display = 'none';
+      }
     }
 
     variantBox.innerHTML = product.variants.edges.map((edge, i) => `
