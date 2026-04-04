@@ -356,13 +356,21 @@ function createProductCard(product) {
   return card;
 }
 
-async function loadProducts(handle = null) {
+async function loadProducts(handle = 'featured') {
   const container = document.getElementById('product-container');
   if (!container) return;
   container.style.opacity = '0.5';
   
   let products = [];
-  if (handle) {
+  if (handle === 'featured') {
+    const collection = await getCollectionByHandle('featured', 4);
+    if (collection?.products?.edges?.length > 0) {
+      products = collection.products.edges;
+    } else {
+      const data = await getProducts(4);
+      products = data?.products?.edges || [];
+    }
+  } else if (handle) {
     const collection = await getCollectionByHandle(handle, 4);
     products = collection?.products?.edges || [];
   } else {
@@ -412,7 +420,13 @@ async function loadProducts(handle = null) {
 // INIT & EVENTS
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const tabMap = { 'LOSE WEIGHT': 'lose-weight', 'BUILD STRENGTH': 'build-strength', 'MOVE MORE': 'move-more', 'RECOVER FASTER': 'recover-faster' };
+    const tabMap = { 
+      'FEATURED': 'featured',
+      'LOSE WEIGHT': 'lose-weight', 
+      'BUILD STRENGTH': 'build-strength', 
+      'MOVE MORE': 'move-more', 
+      'RECOVER FASTER': 'recover-faster' 
+    };
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     loadProducts(tabMap[btn.textContent.trim()]);
