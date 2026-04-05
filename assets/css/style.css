@@ -116,7 +116,7 @@ img {
 }
 
 .footer-inner {
-  max-width: 800px; /* Definitive narrowing for premium grouping */
+  max-width: 680px; /* Aggressive narrowing for unmistakable grouping */
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
@@ -913,7 +913,7 @@ img {
 .footer-grid {
   display: flex;
   justify-content: space-between;
-  gap: 48px; /* High-fidelity grouping */
+  gap: 32px; /* Drastically tightened distribution */
   flex-wrap: wrap;
   align-items: flex-start;
 }
