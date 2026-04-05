@@ -115,8 +115,8 @@ img {
   width: 100%;
 }
 
-.container-footer {
-  max-width: 900px; /* Definitive narrowing for premium grouping */
+.footer-inner {
+  max-width: 800px; /* Definitive narrowing for premium grouping */
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
@@ -911,10 +911,15 @@ img {
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: 1.5fr repeat(3, 1fr); /* Grouped links with weighted brand block */
-  gap: 40px; /* Tightened distribution to eliminate spread */
+  display: flex;
+  justify-content: space-between;
+  gap: 48px; /* High-fidelity grouping */
+  flex-wrap: wrap;
   align-items: flex-start;
+}
+
+.footer-col {
+  flex: 0 1 auto; /* Prevents stretching, allows content-aware grouping */
 }
 
 .footer-col h4 {
