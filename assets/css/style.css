@@ -926,6 +926,7 @@ img {
   font-size: 14px;
   margin-bottom: 24px;
   color: var(--text-primary);
+  text-align: left; /* Explicitly forced left alignment */
 }
 
 .footer-links li {
