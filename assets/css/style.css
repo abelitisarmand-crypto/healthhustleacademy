@@ -116,7 +116,7 @@ img {
 }
 
 .container-footer {
-  max-width: 1000px;
+  max-width: 900px; /* Definitive narrowing for premium grouping */
   margin: 0 auto;
   padding: 0 24px;
   width: 100%;
@@ -912,8 +912,8 @@ img {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr repeat(3, 1fr); /* Grouped links with slightly weighted brand block */
-  gap: 48px; /* Tighter distribution */
+  grid-template-columns: 1.5fr repeat(3, 1fr); /* Grouped links with weighted brand block */
+  gap: 40px; /* Tightened distribution to eliminate spread */
   align-items: flex-start;
 }
 
