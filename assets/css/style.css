@@ -939,7 +939,16 @@ img {
 }
 
 .footer-links a:hover {
-  color: var(--emerald);
+  color: white;
+}
+
+.footer-social .social-link {
+  transition: all 0.3s ease;
+}
+
+.footer-social .social-link:hover {
+  color: var(--emerald) !important;
+  transform: translateY(-3px);
 }
 
 .footer-bottom {
