@@ -1750,7 +1750,7 @@ img {
 }
 
 .review-photo-thumb {
-  flex: 0 0 100px;
+  flex: 0 0 72px;
   aspect-ratio: 1/1;
   border-radius: 4px;
   object-fit: cover;
@@ -1774,7 +1774,7 @@ img {
     padding: 24px;
   }
   .review-photo-thumb {
-    flex: 0 0 80px;
+    flex: 0 0 60px;
   }
 }
 
