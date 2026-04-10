@@ -1818,3 +1818,17 @@ img {
   line-height: 1;
   z-index: 10000;
 }
+
+.lightbox-prev, .lightbox-next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 48px;
+  cursor: pointer;
+  padding: 16px;
+  user-select: none;
+  z-index: 10000;
+}
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
