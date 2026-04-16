@@ -571,6 +571,14 @@ function renderProduct(product) {
     renderDetailedReviews(copy.detailedReviews, product.handle);
   }
 
+  // Phase 60: SEO Schema Injection
+  injectProductSchema(product);
+  if (product.handle.includes('walking-pad')) {
+    injectReviewSchema(WALKING_PAD_REVIEWS, product.title);
+  } else if (product.handle.includes('resistance-band')) {
+    injectReviewSchema(BANDS_REVIEWS, product.title);
+  }
+
   // Global Helpers for this Page
   window.updateGallery = (url) => mainImg.src = url;
   window.selectVariant = (id, btn, price) => {
@@ -580,6 +588,91 @@ function renderProduct(product) {
     priceEl.textContent = `$${parseFloat(price).toFixed(2)}`;
     stickyPrice.textContent = priceEl.textContent;
   };
+}
+
+// Hardcoded Review Data for Schema
+const WALKING_PAD_REVIEWS = [
+  { author: "Sarah M.", rating: 5, body: "Perfect for my home office. I easily hit 8,000 steps before lunch.", date: "2024-11-15" },
+  { author: "Jason K.", rating: 5, body: "Solid build, compact design. Already recommended it to two friends.", date: "2024-11-20" },
+  { author: "Maria L.", rating: 5, body: "Game changer for WFH life. I walk 2-3 hours a day now while working.", date: "2024-12-01" },
+  { author: "David R.", rating: 4, body: "Great value, minor learning curve. Build quality is legit.", date: "2024-12-10" },
+  { author: "Amanda T.", rating: 5, body: "Unboxing was exciting. Whisper quiet. Best health purchase this year.", date: "2025-01-05" },
+  { author: "Chris W.", rating: 5, body: "Fits perfectly under my desk. Averaging 12,000 steps a day.", date: "2025-01-12" },
+  { author: "Nicole P.", rating: 5, body: "For under $300 I expected flimsy. This thing is solid.", date: "2025-01-20" },
+  { author: "Tyler B.", rating: 4, body: "Does exactly what it promises. Reliable walking pad that works.", date: "2025-02-01" }
+];
+
+const BANDS_REVIEWS = [
+  { author: "Karen M.", rating: 5, body: "Finally something that fits in my closet AND actually works.", date: "2025-01-10" },
+  { author: "David R.", rating: 5, body: "Better quality than I expected. Solid rubber, comfortable handles.", date: "2025-01-18" },
+  { author: "James W.", rating: 5, body: "My entire home gym in one bag. Used daily for 3 months.", date: "2025-02-05" },
+  { author: "Michael S.", rating: 5, body: "Perfect for staying active. Durable, no signs of wear after 3 months.", date: "2025-02-14" }
+];
+
+function injectProductSchema(product) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.description || "20-minute home workouts. Fits in a backpack. Actually works.",
+    "image": product.images?.edges?.[0]?.node?.url || product.images?.[0]?.src || "",
+    "brand": {
+      "@type": "Brand",
+      "name": "Health Hustle Academy"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": product.variants?.edges?.[0]?.node?.price?.amount || product.variants?.[0]?.price || "0",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Health Hustle Academy"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": product.handle.includes('walking-pad') ? "124" : "86",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+
+  const existing = document.getElementById('product-schema');
+  if (existing) existing.remove();
+  const script = document.createElement('script');
+  script.id = 'product-schema';
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
+}
+
+function injectReviewSchema(reviews, productName) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": productName,
+    "review": reviews.map(r => ({
+      "@type": "Review",
+      "author": { "@type": "Person", "name": r.author },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": r.rating,
+        "bestRating": 5
+      },
+      "reviewBody": r.body,
+      "datePublished": r.date
+    }))
+  };
+
+  const existing = document.getElementById('review-schema');
+  if (existing) existing.remove();
+  const script = document.createElement('script');
+  script.id = 'review-schema';
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(schema);
+  document.head.appendChild(script);
 }
 
 function renderDetailedReviews(data, handle) {
