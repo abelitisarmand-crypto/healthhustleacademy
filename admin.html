@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin | Health Hustle Academy</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <style>
+        :root {
+            --admin-bg: #0F1117;
+            --admin-surface: #1F2937;
+            --admin-border: #374151;
+            --admin-text: #F9FAFB;
+            --admin-text-muted: #9CA3AF;
+        }
+
+        body {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* PASSWORD SCREEN */
+        #login-screen {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: var(--admin-bg);
+            transition: opacity 0.5s ease;
+        }
+
+        .login-box {
+            background: var(--admin-surface);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--admin-border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .login-box h1 {
+            font-family: 'Anton';
+            font-size: 24px;
+            margin-bottom: 32px;
+            letter-spacing: 0.05em;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0D1117;
+            border: 1px solid var(--admin-border);
+            border-radius: 4px;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 14px;
+            background: var(--emerald);
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Anton';
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .login-box button:active { transform: scale(0.98); }
+
+        .shake { animation: shake 0.5s linear; border-color: #EF4444 !important; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        /* DASHBOARD */
+        #admin-dashboard {
+            display: none;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .admin-header {
+            height: 64px;
+            background: #111827;
+            border-bottom: 1px solid var(--admin-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .header-title {
+            font-family: 'Anton';
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--emerald);
+        }
+
+        .admin-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* FORM COLUMN */
+        .form-col {
+            width: 500px;
+            padding: 32px;
+            overflow-y: auto;
+            border-right: 1px solid var(--admin-border);
+            background: #111827;
+        }
+
+        .form-group { margin-bottom: 24px; }
+        .form-group label {
+            display: block;
+            font-family: 'Barlow Condensed';
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: var(--admin-text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-group input[type="text"], 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #0D1117;
+            border: 1px solid var(--admin-border);
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+        }
+
+        /* EDITOR */
+        .editor-container {
+            background: #0D1117;
+            border: 1px solid var(--admin-border);
+            border-radius: 4px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-toolbar {
+            padding: 8px;
+            border-bottom: 1px solid var(--admin-border);
+            display: flex;
+            gap: 4px;
+        }
+
+        .editor-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--emerald);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Anton';
+            font-size: 14px;
+        }
+
+        .editor-btn:hover { background: rgba(16, 185, 129, 0.1); }
+
+        #editor-body {
+            flex: 1;
+            padding: 16px;
+            outline: none;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--admin-text);
+        }
+
+        [contenteditable]:empty:before {
+            content: attr(placeholder);
+            color: var(--admin-text-muted);
+            pointer-events: none;
+        }
+
+        /* PREVIEW COLUMN */
+        .preview-col {
+            flex: 1;
+            background: var(--admin-bg);
+            padding: 48px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 16px; left: 16px;
+            font-family: 'Barlow Condensed';
+            font-size: 11px;
+            color: var(--emerald);
+            letter-spacing: 0.1em;
+            font-weight: 800;
+        }
+
+        .publish-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--emerald);
+            color: black;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Anton';
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .publish-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-left-color: black;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* CTA SECTION COLLAPSIBLE */
+        .cta-toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+        #cta-fields { display: none; }
+        #cta-fields.visible { display: block; border: 1px dashed var(--admin-border); padding: 16px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <!-- PASSWORD SCREEN -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h1>HEALTHHUSTLE <span style="color:var(--emerald);">ACADEMY</span> ADMINISTRATIVE ACCESS</h1>
+            <input type="password" id="admin-pass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter') login()">
+            <button onclick="login()">ENTER ACCESS</button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="admin-dashboard">
+        <header class="admin-header">
+            <div class="header-title">
+                <div class="live-dot"></div>
+                BLOG ADMIN
+            </div>
+            <div style="display: flex; align-items: center; gap: 24px;">
+                <div id="post-count" style="font-family: 'Barlow Condensed'; font-size: 14px; font-weight: 700; color: var(--admin-text-muted);">0 POSTS PUBLISHED</div>
+                <button onclick="logout()" style="background: none; border: 1px solid var(--admin-border); color: var(--admin-text-muted); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-family: 'Barlow Condensed'; font-weight: 800; font-size: 12px;">LOGOUT</button>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <!-- FORM SIDE -->
+            <div class="form-col">
+                <div class="form-group">
+                    <label>Post Title</label>
+                    <input type="text" id="post-title" placeholder="Your post headline..." autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="post-category">
+                        <option value="MINDSET">MINDSET</option>
+                        <option value="WORKOUTS">WORKOUTS</option>
+                        <option value="EQUIPMENT">EQUIPMENT</option>
+                        <option value="LIFESTYLE">LIFESTYLE</option>
+                        <option value="NUTRITION">NUTRITION</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Author Name</label>
+                    <input type="text" id="post-author" value="Health Hustle Academy Team">
+                </div>
+
+                <div class="form-group">
+                    <div style="display:flex; justify-content:space-between;">
+                        <label>Meta Description</label>
+                        <span id="char-count" style="font-size:10px; color:var(--admin-text-muted);">0 / 160</span>
+                    </div>
+                    <textarea id="post-meta" rows="3" placeholder="SEO description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Content Editor</label>
+                    <div class="editor-container">
+                        <div class="editor-toolbar">
+                            <button class="editor-btn" title="Bold" onclick="execCmd('bold')">B</button>
+                            <button class="editor-btn" title="Italic" onclick="execCmd('italic')">I</button>
+                            <button class="editor-btn" title="H2" onclick="execCmd('formatBlock', 'h2')">H2</button>
+                            <button class="editor-btn" title="H3" onclick="execCmd('formatBlock', 'h3')">H3</button>
+                            <button class="editor-btn" title="Quote" onclick="execCmd('formatBlock', 'blockquote')">"</button>
+                            <button class="editor-btn" title="HR" onclick="execCmd('insertHorizontalRule')">—</button>
+                            <button class="editor-btn" title="Link" onclick="addLink()">LINK</button>
+                        </div>
+                        <div id="editor-body" contenteditable="true" placeholder="Start writing your post here..."></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="cta-toggle-row" onclick="toggleCTA()">
+                        <input type="checkbox" id="cta-enabled">
+                        <label style="margin:0; cursor:pointer;">Add call-to-action block</label>
+                    </div>
+                    <div id="cta-fields">
+                        <div class="form-group">
+                            <label>CTA Headline</label>
+                            <input type="text" id="cta-headline" placeholder="Ready to start?">
+                        </div>
+                        <div class="form-group">
+                            <label>Button Text</label>
+                            <input type="text" id="cta-btn-text" placeholder="SHOP THE COLLECTION →">
+                        </div>
+                        <div class="form-group">
+                            <label>Button Destination</label>
+                            <select id="cta-btn-url">
+                                <option value="/collection.html">SHOP ALL COLLECTIONS</option>
+                                <option value="/product.html?handle=walking-pad-for-home-office-quiet-under-desk-treadmill">WALKING PAD PRODUCT PAGE</option>
+                                <option value="/product.html?handle=5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise">RESISTANCE BANDS PRODUCT PAGE</option>
+                                <option value="custom">CUSTOM URL...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="publish-btn" class="publish-btn" onclick="publishPost()">
+                    <div class="spinner" id="publish-spinner"></div>
+                    PUBLISH POST →
+                </button>
+                <div id="publish-msg" style="margin-top:16px; font-size:13px; text-align:center;"></div>
+            </div>
+
+            <!-- PREVIEW SIDE -->
+            <div class="preview-col">
+                <span class="preview-label">LIVE PREVIEW</span>
+                <div id="preview-render" style="background: var(--bg-primary); padding: 40px; border: 1px solid var(--border); max-width: 800px; margin: 0 auto; min-height: 100%;">
+                    <!-- Render from why-i-quit template -->
+                    <div class="breadcrumb" style="font-family:'Barlow Condensed'; font-size:14px; text-transform:uppercase; color:var(--text-muted); margin-bottom:32px; display:flex; gap:8px;">
+                        <span>Home</span> <span>/</span> <span>Blog</span> <span>/</span> <span id="pre-title-crumb">...</span>
+                    </div>
+                    <div style="margin-bottom:48px; border-bottom: 1px solid var(--border); padding-bottom:48px;">
+                        <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px; font-family:'Barlow Condensed'; font-weight:700; font-size:14px; color:var(--emerald); letter-spacing:0.1em;">
+                            <span id="pre-category">MINDSET</span>
+                            <span style="opacity:0.3;">•</span>
+                            <span style="color:var(--text-muted);" id="pre-read-time">1 MIN READ</span>
+                        </div>
+                        <h1 id="pre-title" style="font-family:'Anton'; font-size:48px; line-height:1.1; color:white; margin-bottom:24px; text-transform:uppercase;">...</h1>
+                        <div style="font-size:14px; color:var(--text-muted); opacity:0.8;">By <span id="pre-author">Health Hustle Academy Team</span> · <span id="pre-date">April 15, 2026</span></div>
+                    </div>
+                    <div id="pre-body" style="font-size:18px; line-height:1.8; color:var(--text-secondary); min-height: 200px;">
+                        <!-- Content goes here -->
+                    </div>
+                    <div id="pre-cta" class="mid-cta" style="display:none; margin-top: 40px;">
+                        <h3 id="pre-cta-headline">...</h3>
+                        <a href="#" class="btn btn-primary" id="pre-cta-btn">...</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ⚠️ TEMP CONFIG — update GITHUB_TOKEN, REPO_OWNER, REPO_NAME when switching to client repo
+        const CONFIG = {
+            GITHUB_TOKEN: 'PASTE_TOKEN_HERE',
+            REPO_OWNER: 'sashagunn',
+            REPO_NAME: 'healthhustleacademy',
+            BRANCH: 'main',
+            ADMIN_PASSWORD: 'hustle2026'
+        };
+
+        // AUTH LOGIC
+        function login() {
+            const passInput = document.getElementById('admin-pass');
+            if (passInput.value === CONFIG.ADMIN_PASSWORD) {
+                sessionStorage.setItem('admin_auth', 'true');
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'flex';
+                    fetchPostCount();
+                }, 500);
+            } else {
+                passInput.classList.add('shake');
+                setTimeout(() => passInput.classList.remove('shake'), 500);
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('admin_auth');
+            location.reload();
+        }
+
+        window.onload = () => {
+            if (sessionStorage.getItem('admin_auth') === 'true') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'flex';
+                fetchPostCount();
+            }
+        };
+
+        // PREVIEW SYNC
+        const inputs = ['post-title', 'post-category', 'post-author', 'post-meta'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+        });
+
+        const editor = document.getElementById('editor-body');
+        editor.addEventListener('input', updatePreview);
+
+        function updatePreview() {
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const author = document.getElementById('post-author').value;
+            const meta = document.getElementById('post-meta').value;
+            const content = editor.innerHTML;
+
+            document.getElementById('pre-title').innerText = title || 'Your post headline...';
+            document.getElementById('pre-title-crumb').innerText = title || '...';
+            document.getElementById('pre-category').innerText = category;
+            document.getElementById('pre-author').innerText = author;
+            document.getElementById('pre-body').innerHTML = content || '<p style="color: #4b5563">Start writing your post here...</p>';
+
+            // Char counter
+            document.getElementById('char-count').innerText = `${meta.length} / 160`;
+            document.getElementById('char-count').style.color = meta.length > 160 ? '#EF4444' : '#9CA3AF';
+
+            // Read time
+            const words = (content.innerText || content).split(/\s+/).filter(w => w.length > 0).length;
+            const minutes = Math.ceil(words / 200) || 1;
+            document.getElementById('pre-read-time').innerText = `${minutes} MIN READ`;
+
+            // CTA
+            const ctaEnabled = document.getElementById('cta-enabled').checked;
+            document.getElementById('pre-cta').style.display = ctaEnabled ? 'block' : 'none';
+            if (ctaEnabled) {
+                document.getElementById('pre-cta-headline').innerText = document.getElementById('cta-headline').value || 'Ready to start?';
+                document.getElementById('pre-cta-btn').innerText = document.getElementById('cta-btn-text').value || 'SHOP THE COLLECTION →';
+            }
+            
+            // Auto update date
+            document.getElementById('pre-date').innerText = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+
+        // WYSIWYG EXEC
+        function execCmd(cmd, value = null) {
+            document.execCommand(cmd, false, value);
+            updatePreview();
+        }
+
+        function addLink() {
+            const url = prompt('Enter the link URL:');
+            if (url) execCmd('createLink', url);
+        }
+
+        function toggleCTA() {
+            const checkbox = document.getElementById('cta-enabled');
+            checkbox.checked = !checkbox.checked;
+            document.getElementById('cta-fields').classList.toggle('visible', checkbox.checked);
+            updatePreview();
+        }
+
+        // GITHUB API
+        async function fetchPostCount() {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${CONFIG.REPO_OWNER}/${CONFIG.REPO_NAME}/contents/blog`, {
+                    headers: { 'Authorization': `token ${CONFIG.GITHUB_TOKEN}` }
+                });
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    document.getElementById('post-count').innerText = `${data.length} POSTS PUBLISHED`;
+                }
+            } catch(e) {}
+        }
+
+        async function publishPost() {
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const author = document.getElementById('post-author').value;
+            const meta = document.getElementById('post-meta').value;
+            const body = editor.innerHTML;
+
+            if (!title || !meta || !body) {
+                alert('Title, Meta Description, and Content are required!');
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+                const filename = `blog/${slug}.html`;
+                const dateISO = new Date().toISOString().split('T')[0];
+                const dateDisplay = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                const words = (editor.innerText || editor.textContent).split(/\s+/).filter(w => w.length > 0).length;
+                const readTime = Math.ceil(words / 200) || 1;
+
+                const fullContent = generatePostHTML({
+                    title, category, author, meta, body, slug, dateDisplay, dateISO, readTime
+                });
+
+                // 1. Create Post File
+                const postRes = await githubApiCall(filename, `feat(blog): Add post "${title}"`, fullContent);
+                if (postRes.status !== 201) throw postRes;
+
+                // 2. Update Index (blog.html)
+                await updateBlogIndex({ title, category, slug, meta, readTime });
+
+                showMessage(`✓ Post published! Live in ~60 seconds. <a href="blog/${slug}.html" target="_blank" style="color:var(--emerald)">View post →</a>`, 'success');
+                resetForm();
+                fetchPostCount();
+
+            } catch(err) {
+                console.error(err);
+                if (err.status === 401) showMessage('Error: Invalid GitHub token. Check CONFIG.', 'error');
+                else if (err.status === 409) showMessage('Error: A post with this URL already exists.', 'error');
+                else showMessage('Error: Publishing failed. Check console for details.', 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        async function githubApiCall(path, message, content, sha = null) {
+            const body = {
+                message,
+                content: btoa(unescape(encodeURIComponent(content))),
+                branch: CONFIG.BRANCH
+            };
+            if (sha) body.sha = sha;
+
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.REPO_OWNER}/${CONFIG.REPO_NAME}/contents/${path}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${CONFIG.GITHUB_TOKEN}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+            return res;
+        }
+
+        async function updateBlogIndex(post) {
+            // Get current blog.html
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.REPO_OWNER}/${CONFIG.REPO_NAME}/contents/blog.html`, {
+                headers: { 'Authorization': `token ${CONFIG.GITHUB_TOKEN}` }
+            });
+            const data = await res.json();
+            const currentHtml = decodeURIComponent(escape(atob(data.content)));
+
+            const newCard = `
+        <!-- Post New -->
+        <a href="blog/${post.slug}.html" class="blog-card">
+          <div class="card-number">NEW</div>
+          <div class="blog-card-content">
+            <span class="blog-category">${post.category}</span>
+            <h2 class="blog-title">${post.title}</h2>
+            <p class="blog-excerpt">${post.meta}</p>
+          </div>
+          <div class="blog-footer">
+            <span class="read-more">READ MORE →</span>
+            <span class="read-time">${post.readTime} min read</span>
+          </div>
+        </a>
+`;
+
+            const updatedHtml = currentHtml.replace('<div class="blog-grid">', `<div class="blog-grid">\n${newCard}`);
+            const updateRes = await githubApiCall('blog.html', `feat(blog): Update index for "${post.title}"`, updatedHtml, data.sha);
+            return updateRes;
+        }
+
+        function generatePostHTML(p) {
+            const ctaEnabled = document.getElementById('cta-enabled').checked;
+            let ctaHtml = '';
+            if (ctaEnabled) {
+                const ctaTitle = document.getElementById('cta-headline').value || 'Ready to start?';
+                const ctaBtn = document.getElementById('cta-btn-text').value || 'SHOP THE COLLECTION →';
+                const ctaUrl = document.getElementById('cta-btn-url').value;
+                ctaHtml = `
+        <div class="mid-cta">
+          <h3>${ctaTitle}</h3>
+          <a href="${ctaUrl === 'custom' ? '#' : '../' + ctaUrl.replace(/^\//,'')}" class="btn btn-primary">${ctaBtn}</a>
+        </div>`;
+            }
+
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${p.title} | Health Hustle Academy</title>
+    <meta name="description" content="${p.meta}">
+    <link rel="stylesheet" href="../assets/css/style.css?v=2.4">
+    <style>
+        .post-container { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
+        .post-header { margin-bottom: 48px; border-bottom: 1px solid var(--border); padding-bottom: 48px; }
+        .breadcrumb { font-family: 'Barlow Condensed'; font-size: 14px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 32px; display: flex; gap: 8px; }
+        .breadcrumb a { color: inherit; text-decoration: none; }
+        .breadcrumb a:hover { color: var(--emerald); }
+        .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; color: var(--emerald); }
+        .post-title { font-family: 'Anton'; font-size: clamp(32px, 6vw, 64px); line-height: 1.1; color: white; margin-bottom: 24px; text-transform: uppercase; }
+        .author-line { font-size: 14px; color: var(--text-muted); opacity: 0.8; }
+        .post-body { font-size: 18px; line-height: 1.8; color: var(--text-secondary); }
+        .post-body h2 { font-family: 'Anton'; font-size: 32px; color: white; margin: 48px 0 24px; text-transform: uppercase; }
+        .post-body p { margin-bottom: 24px; }
+        .mid-cta { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--emerald); padding: 40px; border-radius: 4px; margin: 60px 0; }
+        .mid-cta h3 { font-family: 'Anton'; font-size: 24px; color: white; margin-bottom: 16px; text-transform: uppercase; }
+        .end-cta { background: #000; padding: 80px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 80px; }
+        .end-cta h2 { font-family: 'Anton'; font-size: 48px; color: white; margin-bottom: 32px; text-transform: uppercase; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "${p.title}",
+      "description": "${p.meta}",
+      "author": { "@type": "Organization", "name": "Health Hustle Academy" },
+      "publisher": { "@type": "Organization", "name": "Health Hustle Academy", "url": "https://www.healthhustleacademy.com" },
+      "datePublished": "${p.dateISO}",
+      "dateModified": "${p.dateISO}",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.healthhustleacademy.com/blog/${p.slug}.html" }
+    }
+    </script>
+</head>
+<body style="background: var(--bg-primary); color: var(--text-secondary); font-family: 'Inter', sans-serif;">
+  <header class="header nav glass-panel" style="position: sticky; top: 0; z-index: 100;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
+      <a href="../index.html" class="logo" style="font-family: 'Anton'; font-size: 24px; color: white;">HEALTHHUSTLE<span style="color: var(--emerald);">ACADEMY</span></a>
+      <nav class="nav-links" style="display: flex; gap: 32px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em;">
+        <a href="../index.html">HOME</a>
+        <a href="../collection.html">SHOP ALL</a>
+        <a href="../about.html">ABOUT</a>
+        <a href="../blog.html" style="color: var(--emerald);">BLOG</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <article class="post-container">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a> <span>/</span> <a href="../blog.html">Blog</a> <span>/</span> <span>${p.title.length > 25 ? p.title.substring(0, 25) + '...' : p.title}</span>
+      </div>
+      <header class="post-header">
+        <div class="post-meta">
+          <span>${p.category}</span>
+          <span style="opacity:0.3;">•</span>
+          <span style="color: var(--text-muted);">${p.readTime} MIN READ</span>
+        </div>
+        <h1 class="post-title">${p.title}</h1>
+        <div class="author-line">By ${p.author} · ${p.dateDisplay}</div>
+      </header>
+      <div class="post-body">
+        ${p.body}
+        ${ctaHtml}
+      </div>
+      <div style="margin-top: 60px;">
+        <a href="../blog.html" style="color: var(--emerald); text-decoration: none; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em;">← BACK TO BLOG</a>
+      </div>
+    </article>
+  </main>
+  <footer class="footer" style="padding: 100px 0; background: #000; border-top: 1px solid var(--border);">
+    <div class="container" style="text-align: center; color: var(--text-muted); font-size: 12px;">
+      © 2026 HEALTHHUSTLEACADEMY. ALL RIGHTS RESERVED.
+    </div>
+  </footer>
+</body>
+</html>`;
+        }
+
+        // HELPERS
+        function setLoading(isLoading) {
+            const btn = document.getElementById('publish-btn');
+            const spinner = document.getElementById('publish-spinner');
+            btn.disabled = isLoading;
+            spinner.style.display = isLoading ? 'inline-block' : 'none';
+        }
+
+        function showMessage(msg, type) {
+            const el = document.getElementById('publish-msg');
+            el.innerHTML = msg;
+            el.style.color = type === 'success' ? '#10B981' : '#EF4444';
+        }
+
+        function resetForm() {
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-meta').value = '';
+            editor.innerHTML = '';
+            document.getElementById('cta-enabled').checked = false;
+            document.getElementById('cta-fields').classList.remove('visible');
+            updatePreview();
+        }
+
+    </script>
+</body>
+</html>
