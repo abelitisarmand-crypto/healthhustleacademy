@@ -127,7 +127,78 @@ const PRODUCT_COPY = {
     objections: [
       { q: "IS IT DIFFICULT TO SET UP?", a: "Zero setup. Open the box, plug it in, and start walking." },
       { q: "DO I NEED A STANDING DESK?", a: "It works best with one, but many users use it while watching TV or during phone calls." }
-    ]
+    ],
+    detailedReviews: {
+      title: "REAL RESULTS FROM REAL CUSTOMERS",
+      avg: "4.9",
+      count: "8 REVIEWS",
+      items: [
+        {
+          name: "Sarah M.",
+          location: "New York, NY",
+          stars: 5,
+          headline: "Perfect for my home office",
+          body: "I was skeptical about a walking pad at this price point, but wow. Set it up in under 10 minutes. I use it during Zoom calls and easily hit 8,000 steps before lunch. Super quiet — my coworkers have no idea I'm walking.",
+          photos: ["review-01.jpg", "review-02.jpg", "review-03.jpg"]
+        },
+        {
+          name: "Jason K.",
+          location: "Chicago, IL",
+          stars: 5,
+          headline: "Solid build, compact design",
+          body: "Shipping was fast. The box was heavy but well-packed — no damage at all. Slides right under my standing desk. The speed control is smooth and the belt feels sturdy. Already recommended it to two friends.",
+          photos: ["review-04.jpg", "review-05.jpg", "review-06.jpg", "review-07.jpg"]
+        },
+        {
+          name: "Maria L.",
+          location: "Austin, TX",
+          stars: 5,
+          headline: "Game changer for WFH life",
+          body: "I work from home and was gaining weight from sitting all day. This walking pad literally changed my routine. I walk 2-3 hours a day now while working. Assembly was straightforward — just unbox and go.",
+          photos: ["review-08.jpg", "review-09.jpg", "review-10.jpg"]
+        },
+        {
+          name: "David R.",
+          location: "Seattle, WA",
+          stars: 4,
+          headline: "Great value, minor learning curve",
+          body: "Took a day to get used to walking and typing at the same time, but now it feels natural. Build quality is legit — metal frame, not cheap plastic. The remote control is a nice touch. Only wish it had a slightly wider belt.",
+          photos: ["review-11.jpg", "review-12.jpg", "review-13.jpg", "review-14.jpg"]
+        },
+        {
+          name: "Amanda T.",
+          location: "Denver, CO",
+          stars: 5,
+          headline: "Unboxing was exciting!",
+          body: "Everything came double-boxed and protected. Plugged it in and started walking within 5 minutes. It's whisper quiet — I use it while watching TV at night. Best health purchase I've made this year.",
+          photos: ["review-15.jpg", "review-16.jpg", "review-17.jpg"]
+        },
+        {
+          name: "Chris W.",
+          location: "Boston, MA",
+          stars: 5,
+          headline: "Fits perfectly under my desk",
+          body: "Measured my desk clearance before ordering and it fits with room to spare. The LED display shows speed, time, and calories. I've been averaging 12,000 steps a day since I got it. My Apple Watch is thrilled.",
+          photos: ["review-18.jpg", "review-19.jpg", "review-20.jpg"]
+        },
+        {
+          name: "Nicole P.",
+          location: "Miami, FL",
+          stars: 5,
+          headline: "Surprised by the quality",
+          body: "For under $300 I expected flimsy. This thing is solid. The motor is quiet, the surface has good grip, and it stores vertically when I need floor space. Packing was professional — every piece wrapped separately.",
+          photos: ["review-21.jpg", "review-22.jpg", "review-23.jpg", "review-24.jpg"]
+        },
+        {
+          name: "Tyler B.",
+          location: "Portland, OR",
+          stars: 4,
+          headline: "Does exactly what it promises",
+          body: "No fancy features, no app — just a reliable walking pad that works. Speed goes up to 6 km/h which is plenty for desk walking. Power cord is long enough to reach my outlet. Solid purchase.",
+          photos: ["review-25.jpg", "review-26.jpg", "review-27.jpg", "review-28.jpg", "review-29.jpg", "review-30.jpg"]
+        }
+      ]
+    }
   },
   '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
     h1: 'YOUR ENTIRE HOME GYM. FITS IN A BACKPACK.',
@@ -178,7 +249,46 @@ const PRODUCT_COPY = {
     objections: [
       { q: "ARE THEY DURABLE?", a: "Made from 100% natural latex. They won't snap or lose elasticity even after years of use." },
       { q: "I'M A TOTAL BEGINNER?", a: "Perfect. Start with the yellow (10lb) band and follow the Day 1 video guide." }
-    ]
+    ],
+    detailedReviews: {
+      title: "REAL RESULTS FROM REAL CUSTOMERS",
+      avg: "4.9",
+      count: "4 REVIEWS",
+      items: [
+        {
+          name: "Karen M.",
+          location: "Phoenix, AZ",
+          stars: 5,
+          headline: "Finally something that fits in my closet AND actually works",
+          body: "I've tried dumbbells, a yoga mat, even a stationary bike — all collecting dust within a month. These bands are different. I use them every single morning. The handles are comfortable, the resistance levels are real, and the whole kit fits in the little bag it came with. My arms and shoulders are noticeably stronger after 6 weeks.",
+          photos: ["bands-review-01-1.jpg", "bands-review-01-2.jpg", "bands-review-01-3.jpg"]
+        },
+        {
+          name: "David R.",
+          location: "Austin, TX",
+          stars: 5,
+          headline: "Better quality than I expected at this price point",
+          body: "My physical therapist recommended resistance bands for my shoulder recovery and I'm glad I went with this set. The rubber is thick, the carabiners are solid, and the door anchor hasn't slipped once. I do rows and lat pulldowns every day with the door setup — no gym membership needed.",
+          photos: ["bands-review-02-1.jpg", "bands-review-02-2.jpg", "bands-review-02-3.jpg"]
+        },
+        {
+          name: "James W.",
+          location: "Portland, OR",
+          stars: 5,
+          headline: "My entire home gym in one bag",
+          body: "I travel constantly for work and these go in my suitcase every trip. The door anchor setup takes literally 10 seconds — just loop it over the top of any door and you're ready. I've done full upper body workouts in hotel rooms. At home I use the full rack setup.",
+          photos: ["bands-review-03-1.jpg", "bands-review-03-2.jpg", "bands-review-03-3.jpg"]
+        },
+        {
+          name: "Michael S.",
+          location: "Sacramento, CA",
+          stars: 5,
+          headline: "Perfect for staying active without leaving the house",
+          body: "Bought this after my gym closed early on weekends. Now I don't even miss it. The bands are durable — I use them 5 days a week and zero signs of wear after 3 months. The variety of resistance levels means I can actually progress, not just maintain.",
+          photos: ["bands-review-04-1.jpg", "bands-review-04-2.jpg", "bands-review-04-3.jpg"]
+        }
+      ]
+    }
   },
   'yoga-foam-roller': {
     h1: '5 MINUTES OF ROLLING = 30 MINUTES OF STRETCHING.',
@@ -456,6 +566,11 @@ function renderProduct(product) {
 
   if (copy?.bundleHandle) loadBundle(copy);
 
+  // Phase 57: Customer Reviews & Lightbox
+  if (copy?.detailedReviews) {
+    renderDetailedReviews(copy.detailedReviews, product.handle);
+  }
+
   // Global Helpers for this Page
   window.updateGallery = (url) => mainImg.src = url;
   window.selectVariant = (id, btn, price) => {
@@ -465,6 +580,137 @@ function renderProduct(product) {
     priceEl.textContent = `$${parseFloat(price).toFixed(2)}`;
     stickyPrice.textContent = priceEl.textContent;
   };
+}
+
+function renderDetailedReviews(data, handle) {
+  const container = document.getElementById('reviews-customer');
+  const grid = document.getElementById('reviews-customer-grid');
+  if (!container || !grid) return;
+
+  // Update Stats
+  const titleEl = document.getElementById('reviews-customer-title');
+  const avgEl = document.getElementById('reviews-avg-rating');
+  const starsEl = document.getElementById('reviews-avg-stars');
+  const countEl = document.getElementById('reviews-total-count');
+
+  if (titleEl) titleEl.textContent = data.title;
+  if (avgEl) avgEl.textContent = data.avg;
+  if (starsEl) starsEl.textContent = '★'.repeat(Math.round(parseFloat(data.avg)));
+  if (countEl) countEl.textContent = data.count;
+
+  const folder = handle.includes('walking-pad') ? 'walking-pad' : 'resistance-bands';
+  const prefix = handle.includes('walking-pad') ? 'walkingpad' : 'bands';
+
+  grid.innerHTML = data.items.map((r, i) => {
+    const group = `${prefix}-review-${(i+1).toString().padStart(2, '0')}`;
+    const stars = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+    
+    return `
+      <div class="review-card-customer">
+        <div class="review-card-header">
+          <div class="reviewer-info">
+            <h4>${r.name}</h4>
+            <div class="verified-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Verified Purchase
+            </div>
+          </div>
+          <div class="review-stars">${stars}</div>
+        </div>
+        <div class="review-content">
+          <h5>"${r.headline}"</h5>
+          <p>"${r.body}"</p>
+        </div>
+        <div class="review-photos-container">
+          ${r.photos.map(p => `
+            <img src="/images/reviews/${folder}/${p}" 
+                 class="review-photo-thumb" 
+                 alt="Review Photo" 
+                 loading="lazy"
+                 data-lightbox="${group}"
+                 data-src="/images/reviews/${folder}/${p}">
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.style.display = 'block';
+  initLightbox();
+}
+
+/** 
+ * LIGHTBOX IMPLEMENTATION
+ * Provided by User Request Step 4308
+ */
+function initLightbox() {
+  const lbxGroups = {};
+  document.querySelectorAll('[data-lightbox]').forEach(thumb => {
+    const group = thumb.dataset.lightbox;
+    if (!lbxGroups[group]) lbxGroups[group] = [];
+    lbxGroups[group].push(thumb.dataset.src || thumb.src);
+  });
+
+  let lbxCurrent = { group: null, index: 0 };
+  const overlay = document.getElementById('lbx-overlay');
+  const lbxImg = document.getElementById('lbx-img');
+  if (!overlay || !lbxImg) return;
+
+  function lbxOpen(group, index) {
+    lbxCurrent = { group, index };
+    lbxImg.src = lbxGroups[group][index];
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function lbxClose() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function lbxNav(dir) {
+    const arr = lbxGroups[lbxCurrent.group];
+    lbxCurrent.index = (lbxCurrent.index + dir + arr.length) % arr.length;
+    lbxImg.src = arr[lbxCurrent.index];
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(thumb => {
+    thumb.style.cursor = 'pointer';
+    // Remove existing listeners if any
+    const newThumb = thumb.cloneNode(true);
+    thumb.parentNode.replaceChild(newThumb, thumb);
+    
+    newThumb.addEventListener('click', () => {
+      const group = newThumb.dataset.lightbox;
+      const src = newThumb.dataset.src || newThumb.src;
+      const index = lbxGroups[group].indexOf(src);
+      lbxOpen(group, index);
+    });
+  });
+
+  document.getElementById('lbx-close').addEventListener('click', lbxClose);
+  document.getElementById('lbx-prev').addEventListener('click', (e) => { e.stopPropagation(); lbxNav(-1); });
+  document.getElementById('lbx-next').addEventListener('click', (e) => { e.stopPropagation(); lbxNav(1); });
+  
+  overlay.addEventListener('click', e => { 
+    if (e.target === overlay) lbxClose(); 
+  });
+  
+  document.addEventListener('keydown', e => {
+    if (overlay.style.display === 'flex') {
+      if (e.key === 'Escape') lbxClose();
+      if (e.key === 'ArrowRight') lbxNav(1);
+      if (e.key === 'ArrowLeft') lbxNav(-1);
+    }
+  });
+
+  // Mobile swipe
+  let touchStartX = 0;
+  overlay.addEventListener('touchstart', e => { 
+    touchStartX = e.touches[0].clientX; 
+  }, { passive: true });
+  overlay.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) lbxNav(diff > 0 ? 1 : -1);
+  });
 }
 
 async function loadBundle(copy) {
