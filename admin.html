@@ -362,12 +362,17 @@
                         </div>
                         <div class="form-group">
                             <label>Button Destination</label>
-                            <select id="cta-btn-url">
-                                <option value="/collection.html">SHOP ALL COLLECTIONS</option>
-                                <option value="/product.html?handle=walking-pad-for-home-office-quiet-under-desk-treadmill">WALKING PAD PRODUCT PAGE</option>
-                                <option value="/product.html?handle=5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise">RESISTANCE BANDS PRODUCT PAGE</option>
-                                <option value="custom">CUSTOM URL...</option>
-                            </select>
+                            <div id="cta-url-container">
+                                <select id="cta-btn-url" onchange="handleCtaUrlChange(this)">
+                                    <option value="">Loading products...</option>
+                                    <option value="/collection.html">SHOP ALL COLLECTIONS</option>
+                                    <option value="custom">✏️ CUSTOM URL...</option>
+                                </select>
+                                <div id="cta-custom-url-wrap" style="display:none; margin-top:8px;">
+                                    <input type="text" id="cta-custom-url" placeholder="https://..." oninput="updatePreview()">
+                                    <button onclick="resetCtaUrl()" style="background:none; border:none; color:var(--emerald); font-size:11px; cursor:pointer; padding:4px 0; font-family:'Barlow Condensed'; font-weight:700; letter-spacing:0.05em;">← BACK TO LIST</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -415,7 +420,9 @@
             REPO_OWNER: 'sashagunn',
             REPO_NAME: 'healthhustleacademy',
             BRANCH: 'main',
-            ADMIN_PASSWORD: 'hustle2026'
+            ADMIN_PASSWORD: 'hustle2026',
+            SHOPIFY_DOMAIN: '5e2bf2-59.myshopify.com',
+            SHOPIFY_ACCESS_TOKEN: '590e90f428d7aa322407d7261305d1c0'
         };
 
         // AUTH LOGIC
@@ -428,6 +435,7 @@
                     document.getElementById('login-screen').style.display = 'none';
                     document.getElementById('admin-dashboard').style.display = 'flex';
                     fetchPostCount();
+                    loadProductsIntoSelect();
                 }, 500);
             } else {
                 passInput.classList.add('shake');
@@ -445,6 +453,7 @@
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('admin-dashboard').style.display = 'flex';
                 fetchPostCount();
+                loadProductsIntoSelect();
             }
         };
 
@@ -485,6 +494,11 @@
             if (ctaEnabled) {
                 document.getElementById('pre-cta-headline').innerText = document.getElementById('cta-headline').value || 'Ready to start?';
                 document.getElementById('pre-cta-btn').innerText = document.getElementById('cta-btn-text').value || 'SHOP THE COLLECTION →';
+                
+                const selectVal = document.getElementById('cta-btn-url').value;
+                const customVal = document.getElementById('cta-custom-url').value;
+                const finalUrl = selectVal === 'custom' ? customVal : selectVal;
+                document.getElementById('pre-cta-btn').href = finalUrl || '#';
             }
             
             // Auto update date
@@ -520,6 +534,81 @@
                     document.getElementById('post-count').innerText = `${data.length} POSTS PUBLISHED`;
                 }
             } catch(e) {}
+        }
+
+        // SHOPIFY PRODUCT LOADING
+        async function loadProductsIntoSelect() {
+            const selectEl = document.getElementById('cta-btn-url');
+            
+            try {
+                const query = `{
+                    products(first: 50) {
+                        edges {
+                            node {
+                                title
+                                handle
+                            }
+                        }
+                    }
+                }`;
+
+                const response = await fetch(`https://${CONFIG.SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Shopify-Storefront-Access-Token': CONFIG.SHOPIFY_ACCESS_TOKEN
+                    },
+                    body: JSON.stringify({ query })
+                });
+
+                const data = await response.json();
+                const products = data?.data?.products?.edges || [];
+
+                // Re-populate
+                selectEl.innerHTML = `
+                    <option value="">— Select a destination —</option>
+                    <option value="/collection.html">SHOP ALL COLLECTIONS</option>
+                    <option value="/blog.html">BLOG INDEX</option>
+                    <option value="/about.html">ABOUT US</option>
+                    <option disabled>──────────</option>
+                `;
+
+                products.forEach(({ node }) => {
+                    const option = document.createElement('option');
+                    option.value = `/product.html?handle=${node.handle}`;
+                    option.textContent = node.title;
+                    selectEl.appendChild(option);
+                });
+
+                const customOpt = document.createElement('option');
+                customOpt.value = 'custom';
+                customOpt.textContent = '✏️ CUSTOM URL...';
+                selectEl.appendChild(customOpt);
+
+            } catch (err) {
+                console.error('Failed to load products:', err);
+                selectEl.innerHTML = '<option value="">Error loading products</option><option value="custom">✏️ CUSTOM URL...</option>';
+            }
+        }
+
+        function handleCtaUrlChange(select) {
+            const wrap = document.getElementById('cta-custom-url-wrap');
+            if (select.value === 'custom') {
+                select.style.display = 'none';
+                wrap.style.display = 'block';
+                document.getElementById('cta-custom-url').focus();
+            }
+            updatePreview();
+        }
+
+        function resetCtaUrl() {
+            const select = document.getElementById('cta-btn-url');
+            const wrap = document.getElementById('cta-custom-url-wrap');
+            select.value = '';
+            select.style.display = 'block';
+            wrap.style.display = 'none';
+            document.getElementById('cta-custom-url').value = '';
+            updatePreview();
         }
 
         async function publishPost() {
@@ -623,11 +712,19 @@
             if (ctaEnabled) {
                 const ctaTitle = document.getElementById('cta-headline').value || 'Ready to start?';
                 const ctaBtn = document.getElementById('cta-btn-text').value || 'SHOP THE COLLECTION →';
-                const ctaUrl = document.getElementById('cta-btn-url').value;
+                const selectVal = document.getElementById('cta-btn-url').value;
+                const customVal = document.getElementById('cta-custom-url').value;
+                let finalUrl = selectVal === 'custom' ? customVal : selectVal;
+                
+                // Prepend ../ if relative and not absolute external
+                if (finalUrl && !finalUrl.startsWith('http') && !finalUrl.startsWith('mailto')) {
+                    finalUrl = '../' + finalUrl.replace(/^\//, '');
+                }
+
                 ctaHtml = `
         <div class="mid-cta">
           <h3>${ctaTitle}</h3>
-          <a href="${ctaUrl === 'custom' ? '#' : '../' + ctaUrl.replace(/^\//,'')}" class="btn btn-primary">${ctaBtn}</a>
+          <a href="${finalUrl || '#'}" class="btn btn-primary">${ctaBtn}</a>
         </div>`;
             }
 
