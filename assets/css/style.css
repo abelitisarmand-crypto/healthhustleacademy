@@ -925,8 +925,8 @@ img {
   text-align: center;
 }
 
-.footer-col .logo {
-  justify-content: center;
+.footer-col:first-child {
+  text-align: left;
 }
 
 .footer-col h4 {
