@@ -45,11 +45,16 @@
 </head>
 <body style="background: var(--bg-primary); color: var(--text-primary); font-family: 'Inter', sans-serif;">
 
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
+    </div>
+
   <!-- Sticky ATC Header (Thin Strip with Glassmorphism) -->
   <div id="sticky-atc" class="sticky-atc glass-panel" style="display:none; position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); padding:8px 24px; align-items:center; justify-content:space-between; height: 50px;">
     <div style="display:flex; align-items:center; gap:12px;">
       <div id="sticky-img-container" style="width:32px; height:32px; background:var(--bg-secondary); border-radius:2px; overflow:hidden;">
-        <img id="sticky-img" src="" style="width:100%; height:100%; object-fit:cover;">
+        <img id="sticky-img" src="" alt="Product thumbnail" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <span id="sticky-title" style="font-family:'Barlow Condensed'; font-weight:700; font-size:13px; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;"></span>
     </div>
@@ -59,23 +64,30 @@
     </div>
   </div>
 
-  <header class="header nav glass-panel" style="position: sticky; top: 0; z-index: 100;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
-      <a href="index.html" class="logo" style="font-family: 'Anton'; font-size: 24px; color: white;">HEALTHHUSTLE<span style="color: var(--emerald);">ACADEMY</span></a>
-      <div style="display: flex; gap: 24px; align-items: center;">
-        <nav class="nav-links" style="display: flex; gap: 32px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em;">
-          <a href="index.html">HOME</a>
-          <a href="collection.html">SHOP ALL</a>
-          <a href="about.html">ABOUT</a>
-          <a href="blog.html" style="color: var(--emerald);">BLOG</a>
-        </nav>
+  <nav class="nav glass">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+        <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+        <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+      </a>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="collection.html">SHOP ALL</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="blog.html" style="color: var(--emerald);">BLOG</a></li>
+      </ul>
+
+      <div class="nav-icons">
+        <svg class="mobile-nav-toggle" id="mobile-menu-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         <div class="cart-icon" id="cart-icon-btn" style="position: relative; cursor: pointer;">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span class="cart-count">0</span>
         </div>
       </div>
     </div>
-  </header>
+  </nav>
 
   <main>
     <!-- BLOCK 1: HERO -->
@@ -92,7 +104,7 @@
           <!-- Left: Gallery -->
           <div class="pdp-gallery hover-scale">
             <div id="main-image-container" style="aspect-ratio: 1/1; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 16px;">
-              <img id="main-product-image" src="" style="width: 100%; height: 100%; object-fit: cover;">
+              <img id="main-product-image" src="" alt="Main product image" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div id="thumbnails" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;">
               <!-- Thumbs injected -->
@@ -302,9 +314,9 @@
             </div>
             <div class="review-content"><h5>"Perfect for my home office"</h5><p>"I was skeptical about a walking pad at this price point, but wow. Set it up in under 10 minutes. I use it during Zoom calls and easily hit 8,000 steps before lunch."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-01.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-01.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-02.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-02.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-03.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-03.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-01.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-01.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-02.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-02.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-03.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-1" data-src="images/reviews/walking-pad/review-03.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -314,10 +326,10 @@
             </div>
             <div class="review-content"><h5>"Solid build, compact design"</h5><p>"Shipping was fast. Slides right under my standing desk. The speed control is smooth and the belt feels sturdy."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-04.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-04.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-05.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-05.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-06.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-06.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-07.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-07.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-04.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-04.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-05.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-05.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-06.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-06.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-07.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-2" data-src="images/reviews/walking-pad/review-07.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -327,9 +339,9 @@
             </div>
             <div class="review-content"><h5>"Game changer for WFH"</h5><p>"I work from home and was sitting all day. I walk 2-3 hours a day now while working. Assembly was just unbox and go."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-08.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-08.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-09.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-09.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-10.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-10.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-08.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-08.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-09.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-09.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-10.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-3" data-src="images/reviews/walking-pad/review-10.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -339,10 +351,10 @@
             </div>
             <div class="review-content"><h5>"Great value"</h5><p>"Build quality is legit — metal frame, not cheap plastic. The remote control is a nice touch."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-11.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-11.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-12.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-12.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-13.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-13.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-14.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-14.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-11.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-11.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-12.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-12.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-13.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-13.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-14.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-4" data-src="images/reviews/walking-pad/review-14.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -352,9 +364,9 @@
             </div>
             <div class="review-content"><h5>"Unboxing was exciting!"</h5><p>"Everything came double-boxed. Plugged it in and started walking within 5 minutes. Whisper quiet."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-15.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-15.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-16.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-16.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-17.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-17.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-15.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-15.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-16.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-16.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-17.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-5" data-src="images/reviews/walking-pad/review-17.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -364,9 +376,9 @@
             </div>
             <div class="review-content"><h5>"Fits perfectly under my desk"</h5><p>"Measured my desk clearance and it fits with room to spare. Average 12,000 steps a day now."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-18.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-18.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-19.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-19.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-20.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-20.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-18.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-18.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-19.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-19.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-20.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-6" data-src="images/reviews/walking-pad/review-20.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -376,10 +388,10 @@
             </div>
             <div class="review-content"><h5>"Surprised by quality"</h5><p>"This thing is solid. Motor is quiet, surface has good grip, and it stores vertically."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-21.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-21.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-22.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-22.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-23.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-23.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-24.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-24.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-21.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-21.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-22.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-22.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-23.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-23.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-24.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-7" data-src="images/reviews/walking-pad/review-24.jpg" style="cursor:pointer">
             </div>
           </div>
           <div class="review-card-customer">
@@ -389,12 +401,12 @@
             </div>
             <div class="review-content"><h5>"Does exactly what it promises"</h5><p>"Reliable walking pad that works. Speed goes up to 6 km/h which is plenty."</p></div>
             <div class="review-photos-container">
-              <img src="images/reviews/walking-pad/review-25.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-25.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-26.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-26.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-27.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-27.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-28.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-28.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-29.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-29.jpg" style="cursor:pointer">
-              <img src="images/reviews/walking-pad/review-30.jpg" class="review-photo-thumb" alt="Review" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-30.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-25.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-25.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-26.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-26.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-27.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-27.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-28.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-28.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-29.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-29.jpg" style="cursor:pointer">
+              <img src="images/reviews/walking-pad/review-30.jpg" class="review-photo-thumb" alt="Customer review photo" loading="lazy" data-lightbox="wp-8" data-src="images/reviews/walking-pad/review-30.jpg" style="cursor:pointer">
             </div>
           </div>
         </div>
@@ -535,34 +547,35 @@
 
         <!-- Shop -->
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">SHOP</h4>
+          <h3>SHOP</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
-            <li><a href="#">Lose Weight</a></li>
-            <li><a href="#">Build Strength</a></li>
-            <li><a href="#">Move More</a></li>
-            <li><a href="#">Recover Faster</a></li>
+            <li><a href="collection.html?handle=lose-weight">Lose Weight</a></li>
+            <li><a href="collection.html?handle=build-strength">Build Strength</a></li>
+            <li><a href="collection.html?handle=move-more">Move More</a></li>
+            <li><a href="collection.html?handle=recover-faster">Recover Faster</a></li>
           </ul>
         </div>
 
         <!-- Support -->
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">SUPPORT</h4>
+          <h3>SUPPORT</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Shipping & Returns</a></li>
-            <li><a href="#">Track Order</a></li>
+            <li><a href="index.html#faq-section">FAQ</a></li>
+            <li><a href="shipping.html">Shipping & Returns</a></li>
+            <li><a href="https://parcelsapp.com/en/tracking" target="_blank">Track Order</a></li>
             <li><a href="mailto:info@healthhustleacademy.com">Contact Us</a></li>
+            <li><a href="accessibility.html">Accessibility Statement</a></li>
           </ul>
         </div>
 
         <!-- Company -->
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">COMPANY</h4>
+          <h3>COMPANY</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
             <li><a href="about.html">About Us</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
           </ul>
         </div>
       </div>

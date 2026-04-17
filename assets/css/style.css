@@ -20,8 +20,8 @@
 
   --text-primary:   #F0F6FC;
   --text-secondary: #C9D1D9;
-  --text-muted:     #8B949E;
-  --text-disabled:  #484F58;
+  --text-muted:     #B1B9C1; /* Was #8B949E; Increased for 4.5:1 contrast on #0D1117 */
+  --text-disabled:  #8B949E; /* Was #484F58; Increased for visibility */
 
   --border:         #30363D;
   --border-subtle:  #21262D;
@@ -36,7 +36,7 @@
   --size-h1:       clamp(28px, 3.5vw, 48px);
   --size-h2:       clamp(22px, 2.5vw, 36px);
   --size-body:     16px;
-  --size-small:    13px;
+  --size-small:    14px; /* Was 13px; Standardizing for accessibility */
 
   /* ── SPACING ── */
   --space-4: 16px;
@@ -131,7 +131,7 @@ img {
   background: var(--bg-deep-green);
   color: var(--emerald-light);
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 12px; /* Was 11px */
   font-weight: 600;
   letter-spacing: 0.1em;
   padding: 8px 0;

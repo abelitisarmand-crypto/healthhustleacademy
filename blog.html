@@ -81,6 +81,7 @@
             margin-bottom: 32px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -108,23 +109,35 @@
 </head>
 <body style="background: var(--bg-primary); color: var(--text-secondary); font-family: 'Inter', sans-serif;">
 
-  <header class="header nav glass-panel" style="position: sticky; top: 0; z-index: 100;">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
-      <a href="index.html" class="logo" style="font-family: 'Anton'; font-size: 24px; color: white;">HEALTHHUSTLE<span style="color: var(--emerald);">ACADEMY</span></a>
-      <div style="display: flex; gap: 24px; align-items: center;">
-        <nav class="nav-links" style="display: flex; gap: 32px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em;">
-          <a href="index.html">HOME</a>
-          <a href="collection.html">SHOP ALL</a>
-          <a href="about.html">ABOUT</a>
-          <a href="blog.html" style="color: var(--emerald);">BLOG</a>
-        </nav>
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
+    </div>
+
+  <nav class="nav glass">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+        <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+        <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+      </a>
+      
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="collection.html">SHOP ALL</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="blog.html" style="color: var(--emerald);">BLOG</a></li>
+      </ul>
+
+      <div class="nav-icons">
+        <svg class="mobile-nav-toggle" id="mobile-menu-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         <div class="cart-icon" id="cart-icon-btn" style="position: relative; cursor: pointer;">
           <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span class="cart-count">0</span>
         </div>
       </div>
     </div>
-  </header>
+  </nav>
 
   <main>
     <!-- HERO SECTION -->
@@ -225,25 +238,26 @@
           </div>
         </div>
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">SHOP</h4>
+          <h3>SHOP</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
-            <li><a href="collection.html">Lose Weight</a></li>
-            <li><a href="collection.html">Build Strength</a></li>
-            <li><a href="collection.html">Move More</a></li>
-            <li><a href="collection.html">Recover Faster</a></li>
+            <li><a href="collection.html?handle=lose-weight">Lose Weight</a></li>
+            <li><a href="collection.html?handle=build-strength">Build Strength</a></li>
+            <li><a href="collection.html?handle=move-more">Move More</a></li>
+            <li><a href="collection.html?handle=recover-faster">Recover Faster</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">SUPPORT</h4>
+          <h3>SUPPORT</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
-            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#faq-section">FAQ</a></li>
             <li><a href="shipping.html">Shipping & Returns</a></li>
-            <li><a href="#">Track Order</a></li>
+            <li><a href="https://parcelsapp.com/en/tracking" target="_blank">Track Order</a></li>
             <li><a href="mailto:info@healthhustleacademy.com">Contact Us</a></li>
+            <li><a href="accessibility.html">Accessibility Statement</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4 style="font-family:'Barlow Condensed'; font-weight:700; font-size:14px; margin-bottom:24px; color:white;">COMPANY</h4>
+          <h3>COMPANY</h3>
           <ul style="display:flex; flex-direction:column; gap:12px; font-size:14px; color:var(--text-muted);">
             <li><a href="about.html">About Us</a></li>
             <li><a href="blog.html" style="color: white;">Blog</a></li>
