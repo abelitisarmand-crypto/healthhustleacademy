@@ -925,6 +925,10 @@ img {
   text-align: center;
 }
 
+.footer-col .logo {
+  justify-content: center;
+}
+
 .footer-col h4 {
   font-size: 14px;
   margin-bottom: 24px;
