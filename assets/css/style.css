@@ -921,14 +921,14 @@ img {
 }
 
 .footer-col {
-  flex: 0 1 auto; /* Prevents stretching, allows content-aware grouping */
+  flex: 0 1 auto;
+  text-align: center;
 }
 
 .footer-col h4 {
   font-size: 14px;
   margin-bottom: 24px;
   color: var(--text-primary);
-  text-align: left; /* Explicitly forced left alignment */
 }
 
 .footer-links li {
