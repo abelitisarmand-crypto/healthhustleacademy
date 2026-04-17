@@ -4,27 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accessibility Statement — HealthHustleAcademy</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=2.4">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.5">
     <style>
         .legal-content {
-            padding: 120px 0;
+            padding: 80px 0 120px;
             max-width: 800px;
             margin: 0 auto;
         }
         .legal-content h1 {
             font-family: 'Anton';
-            font-size: 48px;
+            font-size: clamp(40px, 8vw, 72px);
             margin-bottom: 40px;
             color: white;
+            line-height: 1.1;
         }
         .legal-content h2 {
             font-family: 'Barlow Condensed';
             font-weight: 800;
-            font-size: 24px;
+            font-size: 28px;
             color: var(--emerald);
-            margin-top: 48px;
+            margin-top: 56px;
             margin-bottom: 24px;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .legal-content p, .legal-content li {
             color: var(--text-secondary);
@@ -35,58 +37,109 @@
         .legal-content ul {
             padding-left: 24px;
             margin-bottom: 32px;
+            list-style: none;
+        }
+        .legal-content li::before {
+            content: "→";
+            color: var(--emerald);
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        .last-updated {
+            margin-top: 80px;
+            font-size: 14px;
+            color: var(--text-disabled);
+            font-family: 'Barlow Condensed';
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
     </style>
 </head>
 <body style="background: var(--bg-primary); color: var(--text-secondary); font-family: 'Inter', sans-serif;">
 
-    <header class="header nav glass-panel" style="position: sticky; top: 0; z-index: 100;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; height: 80px;">
-            <a href="index.html" class="logo" style="font-family: 'Anton'; font-size: 24px; color: white;">HEALTHHUSTLE<span style="color: var(--emerald);">ACADEMY</span></a>
-            <nav class="nav-links" style="display: flex; gap: 32px; font-family: 'Barlow Condensed'; font-weight: 700; font-size: 14px; letter-spacing: 0.1em;">
-                <a href="index.html">HOME</a>
-                <a href="collection.html">SHOP ALL</a>
-                <a href="about.html">ABOUT</a>
-                <a href="blog.html">BLOG</a>
-            </nav>
-        </div>
-    </header>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <main class="container animate-in">
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="nav glass">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span style="font-weight:300; color:#F0F6FC; letter-spacing:0.12em; font-family: 'Barlow Condensed';">HEALTH</span>
+                <span style="font-weight:900; color:#10B981; letter-spacing:0.04em; font-family: 'Barlow Condensed';">HUSTLE</span>
+                <span style="display:block; font-weight:300; color:#8B949E; font-size:0.65em; letter-spacing:0.2em; font-family: 'Barlow Condensed'; margin-top: -4px;">ACADEMY</span>
+            </a>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="collection.html">SHOP ALL</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="blog.html">BLOG</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button class="mobile-nav-toggle" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links" style="background:none;border:none;cursor:pointer;color:var(--text-primary);padding:4px;display:none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <button class="cart-icon" id="cart-icon-btn" aria-label="Open cart, 0 items" style="background:none;border:none;cursor:pointer;color:var(--text-primary);position:relative;padding:4px;">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" id="main-content">
         <div class="legal-content">
             <h1>ACCESSIBILITY STATEMENT</h1>
             
-            <p>Health Hustle Academy is committed to ensuring digital accessibility for people with disabilities. We are continually improving the user experience for everyone, and applying the relevant accessibility standards.</p>
+            <section>
+                <h2>1. Our Commitment</h2>
+                <p>HealthHustle Academy is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience for everyone and apply relevant accessibility standards to our storefront.</p>
+            </section>
 
-            <h2>CONFORMANCE STATUS</h2>
-            <p>The Web Content Accessibility Guidelines (WCAG) defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA. HealthHustleAcademy.com is partially conformant with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.</p>
+            <section>
+                <h2>2. Standards We Follow</h2>
+                <p>We aim to conform to WCAG 2.1 Level AA. These guidelines explain how to make web content more accessible to people with disabilities, ensuring a better experience for everyone regardless of how they navigate the web.</p>
+            </section>
 
-            <h2>FEEDBACK</h2>
-            <p>We welcome your feedback on the accessibility of Health Hustle Academy. Please let us know if you encounter accessibility barriers on HealthHustleAcademy.com:</p>
-            <ul>
-                <li>E-mail: info@healthhustleacademy.com</li>
-            </ul>
-            <p>We try to respond to feedback within 5 business days.</p>
+            <section>
+                <h2>3. Known Limitations</h2>
+                <ul>
+                    <li>We are actively working to fix all issues identified in our April 2026 accessibility audit.</li>
+                    <li>Some third-party content (such as Shopify-hosted scripts) may not yet meet full accessibility standards.</li>
+                </ul>
+            </section>
 
-            <h2>ASSESSMENT APPROACH</h2>
-            <p>Health Hustle Academy assessed the accessibility of HealthHustleAcademy.com by the following approaches:</p>
-            <ul>
-                <li>Self-evaluation using industry-standard tools (WAVE, Lighthouse).</li>
-                <li>Manual audit of contrast ratios and keyboard navigation.</li>
-            </ul>
+            <section>
+                <h2>4. Contact Us</h2>
+                <p>If you experience any barriers to accessibility on our website, please let us know. We aim to respond to all inquiries within 2 business days.</p>
+                <ul>
+                    <li>Email: <a href="mailto:info@healthhustleacademy.com" style="color: var(--emerald); text-decoration: none;">info@healthhustleacademy.com</a></li>
+                </ul>
+            </section>
 
-            <h2>DATE</h2>
-            <p>This statement was created on April 17, 2026.</p>
+            <div class="last-updated">
+                Last updated: April 2026
+            </div>
         </div>
     </main>
 
-    <footer class="footer" style="padding: 100px 0; background: #000; border-top: 1px solid var(--border);">
-        <div class="container">
-            <div style="text-align: center; color: var(--text-muted); font-size: 12px;">
-                © 2026 HEALTHHUSTLEACADEMY. ALL RIGHTS RESERVED.
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <span>© 2026 HealthHustleAcademy. All rights reserved.</span>
+                <div style="display: flex; gap: 12px; opacity: 0.5;">
+                    <span>VISA</span><span>MC</span><span>AMEX</span><span>PAYPAL</span>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script type="module" src="assets/js/main.js?v=2.5"></script>
 </body>
 </html>

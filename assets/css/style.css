@@ -24,6 +24,7 @@
   --text-disabled:  #8B949E; /* Was #484F58; Increased for visibility */
 
   --border:         #30363D;
+  --border-ui:      #6B7785; /* 3:1+ on all dark backgrounds — UI component borders (inputs, buttons) */
   --border-subtle:  #21262D;
   --border-accent:  #10B981;
 
@@ -887,7 +888,8 @@ img {
 }
 
 .email-input:focus {
-  outline: none;
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
   border-color: var(--emerald);
 }
 
@@ -1815,3 +1817,43 @@ img {
 }
 #lbx-prev { left: 12px; }
 #lbx-next { right: 12px; }
+
+/* ── WCAG 2.1 AA — ACCESSIBILITY FIXES ── */
+
+/* Skip to main content */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  background: var(--emerald);
+  color: #000;
+  padding: 10px 20px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 10000;
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Global keyboard focus ring (2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
+}
+
+/* UI component borders — 3:1+ contrast on all dark backgrounds (1.4.11) */
+.tab-btn {
+  border-color: var(--border-ui);
+}
+.email-input {
+  border-color: var(--border-ui);
+}

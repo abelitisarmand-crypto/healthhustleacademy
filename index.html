@@ -87,6 +87,8 @@
 </head>
 <body>
 
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
         <span>FREE SHIPPING + 30-DAY RETURNS on orders $50+ &nbsp;·&nbsp; Limited time: FREE 30-day program with every kit <span class="arrow">→</span></span>
@@ -109,17 +111,19 @@
             </ul>
 
             <div class="nav-icons">
-                <svg class="mobile-nav-toggle" id="mobile-menu-btn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                <div class="cart-icon" style="position: relative; cursor: pointer;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                    <span class="cart-count">0</span>
-                </div>
+                <button class="mobile-nav-toggle" id="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links" style="background:none;border:none;cursor:pointer;color:var(--text-primary);padding:4px;display:none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <button class="cart-icon" id="cart-icon-btn" aria-label="Open cart, 0 items" style="background:none;border:none;cursor:pointer;color:var(--text-primary);position:relative;padding:4px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="cart-count" aria-live="polite" aria-atomic="true">0</span>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
-    <section class="hero" style="position: relative; height: calc(100vh - 108px); min-height: 600px; display: flex; align-items: flex-end; padding-bottom: 80px; background: url('assets/images/hero.png') no-repeat center center / cover;">
+    <section id="main-content" class="hero" style="position: relative; height: calc(100vh - 108px); min-height: 600px; display: flex; align-items: flex-end; padding-bottom: 80px; background: url('assets/images/hero.png') no-repeat center center / cover;">
         <!-- Background overlay -->
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(13,17,23,0.3) 0%, rgba(13,17,23,0.95) 100%); z-index: 1;"></div>
         
@@ -307,7 +311,7 @@
         <div id="reviews"></div>
         <div class="container">
             <div class="rating-row">
-                <span class="stars">⭐⭐⭐⭐⭐</span>
+                <span class="stars" role="img" aria-label="5 stars">⭐⭐⭐⭐⭐</span>
                 <span>4.9 / 5 &nbsp;·&nbsp; 2,000+ VERIFIED PURCHASES</span>
             </div>
 
@@ -343,12 +347,12 @@
         <div class="container">
             <h2 class="hero-headline text-center">WHAT'S YOUR GOAL?</h2>
             
-            <div class="shop-tabs">
-                <button class="tab-btn active">BEST SELLERS</button>
-                <button class="tab-btn">LOSE WEIGHT</button>
-                <button class="tab-btn">BUILD STRENGTH</button>
-                <button class="tab-btn">MOVE MORE</button>
-                <button class="tab-btn">RECOVER FASTER</button>
+            <div class="shop-tabs" role="tablist" aria-label="Shop by goal">
+                <button class="tab-btn active" role="tab" aria-selected="true">BEST SELLERS</button>
+                <button class="tab-btn" role="tab" aria-selected="false">LOSE WEIGHT</button>
+                <button class="tab-btn" role="tab" aria-selected="false">BUILD STRENGTH</button>
+                <button class="tab-btn" role="tab" aria-selected="false">MOVE MORE</button>
+                <button class="tab-btn" role="tab" aria-selected="false">RECOVER FASTER</button>
             </div>
 
             <div class="product-grid" id="product-container">
@@ -447,19 +451,19 @@
             
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">I've bought equipment before and never used it. Why will this be different?</div>
+                    <button class="faq-question" aria-expanded="false">I've bought equipment before and never used it. Why will this be different?</button>
                     <div class="faq-answer"><div class="faq-answer-inner">Because this kit comes with a 30-day program. You don't have to figure out what to do — just open the PDF and follow Day 1. That's the exact reason people stop: they buy hardware with no software. We solved that.</div></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">Will this fit in a small apartment?</div>
+                    <button class="faq-question" aria-expanded="false">Will this fit in a small apartment?</button>
                     <div class="faq-answer"><div class="faq-answer-inner">The entire kit fits in a backpack smaller than your laptop bag. You can do a full workout in 6 square feet. We designed this specifically for people without a dedicated workout space.</div></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">I'm really out of shape. Will this work for me?</div>
+                    <button class="faq-question" aria-expanded="false">I'm really out of shape. Will this work for me?</button>
                     <div class="faq-answer"><div class="faq-answer-inner">The bands start at 5 lbs of resistance. Day 1 is genuinely beginner level. We have customers in their 50s and 60s who started at zero. The program meets you where you are.</div></div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-question">How long until I see results?</div>
+                    <button class="faq-question" aria-expanded="false">How long until I see results?</button>
                     <div class="faq-answer"><div class="faq-answer-inner">Most customers feel stronger within 2 weeks. Visible changes typically appear between weeks 4–8.</div></div>
                 </div>
             </div>
@@ -477,7 +481,7 @@
             </div>
             <div class="email-form-container">
                 <form class="email-form" id="email-capture-form">
-                    <input type="email" placeholder="Enter your email" aria-label="Email address" class="email-input" required>
+                    <input type="email" placeholder="Enter your email" aria-label="Email address" class="email-input" autocomplete="email" required>
                     <button type="submit" class="btn" style="background: white; color: black;">SEND MY FREE PLAN →</button>
                     <p style="font-size: 11px; color: var(--text-muted);">No spam. Unsubscribe any time.</p>
                 </form>
@@ -553,6 +557,7 @@
                         <li><a href="blog.html">Blog</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
                     </ul>
                 </div>
             </div>
@@ -576,10 +581,10 @@
 
     <!-- CART DRAWER -->
     <div class="cart-overlay" id="cart-overlay"></div>
-    <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-heading">
         <div style="padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-            <h3 style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 24px; letter-spacing: 0.05em;">YOUR CART</h3>
-            <button id="close-cart" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
+            <h3 id="cart-heading" style="font-family: 'Barlow Condensed'; font-weight: 800; font-size: 24px; letter-spacing: 0.05em;">YOUR CART</h3>
+            <button id="close-cart" aria-label="Close cart" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
         </div>
         <div id="cart-items" style="flex: 1; overflow-y: auto; padding: 24px;">
             <!-- Cart items injected here -->

@@ -15,6 +15,8 @@ function updateCartBadge(count) {
     el.style.transform = 'scale(1.2)';
     setTimeout(() => { if (el) el.style.transform = 'scale(1)'; }, 200);
   });
+  const label = `Open cart, ${count} item${count !== 1 ? 's' : ''}`;
+  document.querySelectorAll('.cart-icon').forEach(btn => btn.setAttribute('aria-label', label));
 }
 window.updateCartBadge = updateCartBadge;
 
@@ -69,12 +71,19 @@ function getAbsoluteUrl(url) {
   }
 })();
 
+let _cartTrigger = null;
+
 window.openCart = function(cartData = null) {
   if (!cartDrawer || !cartOverlay) return;
+  _cartTrigger = document.activeElement;
   cartDrawer.classList.add('open');
   cartOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   renderCart(cartData);
+  setTimeout(() => {
+    const first = cartDrawer.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
+    if (first) first.focus();
+  }, 50);
 }
 
 window.closeCart = function() {
@@ -82,6 +91,7 @@ window.closeCart = function() {
   cartDrawer.classList.remove('open');
   cartOverlay.classList.remove('open');
   document.body.style.overflow = '';
+  if (_cartTrigger) { _cartTrigger.focus(); _cartTrigger = null; }
 }
 
 async function renderCart(cartData = null) {
@@ -394,15 +404,19 @@ async function loadProducts(handle = 'featured') {
 // INIT & EVENTS
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const tabMap = { 
+    const tabMap = {
       'BEST SELLERS': 'featured',
-      'LOSE WEIGHT': 'lose-weight', 
-      'BUILD STRENGTH': 'build-strength', 
-      'MOVE MORE': 'move-more', 
-      'RECOVER FASTER': 'recover-faster' 
+      'LOSE WEIGHT': 'lose-weight',
+      'BUILD STRENGTH': 'build-strength',
+      'MOVE MORE': 'move-more',
+      'RECOVER FASTER': 'recover-faster'
     };
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
     btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
     const handle = tabMap[btn.textContent.trim()];
     loadProducts(handle);
 
@@ -441,7 +455,8 @@ document.querySelectorAll('.atc-btn').forEach(btn => {
 // FAQ Accordion
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
-    btn.parentElement.classList.toggle('active');
+    const expanded = btn.parentElement.classList.toggle('active');
+    btn.setAttribute('aria-expanded', String(expanded));
   });
 });
 
@@ -451,12 +466,41 @@ const navLinks = document.getElementById('nav-links');
 
 if (mobileMenuBtn && navLinks) {
   mobileMenuBtn.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+    const isOpen = navLinks.classList.toggle('open');
+    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   });
 
-  // Close menu when a link is clicked
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+}
+
+// Cart drawer — Escape key + focus trap
+if (cartDrawer) {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer.classList.contains('open')) {
+      window.closeCart();
+    }
+  });
+
+  cartDrawer.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(cartDrawer.querySelectorAll(
+      'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    ));
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 }
 
