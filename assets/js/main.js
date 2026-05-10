@@ -1,4 +1,4 @@
-import { getProducts, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=2.4';
+import { getProducts, getProductByHandle, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=2.4';
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
@@ -19,6 +19,60 @@ function updateCartBadge(count) {
   document.querySelectorAll('.cart-icon').forEach(btn => btn.setAttribute('aria-label', label));
 }
 window.updateCartBadge = updateCartBadge;
+
+let GUIDE_VARIANT_ID = null;
+async function getGuideVariantId() {
+  if (GUIDE_VARIANT_ID) return GUIDE_VARIANT_ID;
+  try {
+    const data = await getProductByHandle('digital-product');
+    const product = data?.product || data;
+    if (product && product.variants && product.variants.edges.length > 0) {
+      GUIDE_VARIANT_ID = product.variants.edges[0].node.id;
+    }
+  } catch(e) { console.error('Failed to fetch guide variant:', e); }
+  return GUIDE_VARIANT_ID;
+}
+
+let isEnforcing = false;
+async function enforceCartRules(cart) {
+  if (!cart || !cart.lines || isEnforcing) return cart;
+  
+  const guideVid = await getGuideVariantId();
+  if (!guideVid) return cart;
+  
+  isEnforcing = true;
+  try {
+    let hasRegularProducts = false;
+    let guideLineId = null;
+    let guideQty = 0;
+    
+    cart.lines.edges.forEach(({node}) => {
+      if (node.merchandise.id === guideVid) {
+        guideLineId = node.id;
+        guideQty = node.quantity;
+      } else {
+        hasRegularProducts = true;
+      }
+    });
+    
+    if (hasRegularProducts && guideQty === 0) {
+      const res = await addToCart(cart.id, [{ merchandiseId: guideVid, quantity: 1 }]);
+      if (res) cart = res.cartLinesAdd.cart;
+    } else if (hasRegularProducts && guideQty > 1) {
+      const res = await updateCartLines(cart.id, [{ id: guideLineId, quantity: 1 }]);
+      if (res) cart = res.cartLinesUpdate.cart;
+    } else if (!hasRegularProducts && guideQty > 0) {
+      const res = await removeCartLines(cart.id, [guideLineId]);
+      if (res) cart = res.cartLinesRemove.cart;
+    }
+  } catch (e) {
+    console.error('Enforce cart rules error:', e);
+  } finally {
+    isEnforcing = false;
+  }
+  
+  return cart;
+}
 
 // Truly Paranoid Checkout URL Storage
 function saveCheckoutUrl(url) {
@@ -105,6 +159,7 @@ async function renderCart(cartData = null) {
     if (!cartId || cartId === 'undefined') {
       container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
       if (totalEl) totalEl.textContent = '$0.00';
+      window.updateCartBadge(0);
       return;
     }
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Updating cart...</p>';
@@ -112,9 +167,12 @@ async function renderCart(cartData = null) {
     cart = data?.cart;
   }
 
+  cart = await enforceCartRules(cart);
+
   if (!cart || !cart.lines || cart.lines.edges.length === 0) {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
     if (totalEl) totalEl.textContent = '$0.00';
+    window.updateCartBadge(0);
     // Still bind checkout if we have a URL from a previous successful add
     const savedUrl = localStorage.getItem('shopify_checkout_url');
     if (checkoutBtn && savedUrl) {
@@ -126,6 +184,19 @@ async function renderCart(cartData = null) {
     return;
   }
 
+  const guideVid = await getGuideVariantId();
+  const visibleEdges = cart.lines.edges.filter(({ node }) => node.merchandise.id !== guideVid);
+  
+  const visibleQty = visibleEdges.reduce((sum, {node}) => sum + node.quantity, 0);
+  window.updateCartBadge(visibleQty);
+
+  if (visibleEdges.length === 0) {
+    container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
+    if (totalEl) totalEl.textContent = '$0.00';
+    if (checkoutBtn) checkoutBtn.style.display = 'none';
+    return;
+  }
+
   if (checkoutBtn) checkoutBtn.style.display = 'block';
   if (totalEl) totalEl.textContent = `$${parseFloat(cart.cost.totalAmount.amount).toFixed(2)}`;
   
@@ -133,7 +204,7 @@ async function renderCart(cartData = null) {
     saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
   }
 
-  container.innerHTML = cart.lines.edges.map(({ node }) => {
+  container.innerHTML = visibleEdges.map(({ node }) => {
     const variant = node.merchandise;
     const product = variant.product;
     const imgUrl = product.images.edges[0]?.node.url || '';
@@ -174,14 +245,12 @@ window.changeQuantity = async function(lineId, currentQuantity, delta) {
     const result = await removeCartLines(cartId, [lineId]);
     if (result) {
       const cart = result.cartLinesRemove.cart;
-      window.updateCartBadge(cart.totalQuantity);
       renderCart(cart);
     }
   } else {
     const result = await updateCartLines(cartId, [{ id: lineId, quantity: newQty }]);
     if (result) {
       const cart = result.cartLinesUpdate.cart;
-      window.updateCartBadge(cart.totalQuantity);
       renderCart(cart);
     }
   }
@@ -251,7 +320,6 @@ window.addUpsell = async function(variantId, btn) {
   const result = await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
   if (result) {
     const cart = result.cartLinesAdd.cart;
-    window.updateCartBadge(cart.totalQuantity);
     renderCart(cart);
   }
 }
@@ -293,7 +361,10 @@ async function handleAddToCart(variantId, btn = null) {
     if (cart.checkoutUrl) {
       saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
     }
-    window.updateCartBadge(cart.totalQuantity || 0);
+    
+    // We enforce rules and update badge via renderCart now, but if it's a background add, 
+    // we need to dispatch event. But renderCart is called via openCart.
+    // Let's manually run enforceCartRules if openCart isn't called immediately.
     
     if (btn) {
       btn.textContent = 'ADDED!';
@@ -304,7 +375,12 @@ async function handleAddToCart(variantId, btn = null) {
       }, 600);
     } else {
       // Background addition (e.g. from bundle)
-      const event = new CustomEvent('cartUpdated', { detail: cart });
+      const newCart = await enforceCartRules(cart);
+      const guideVid = await getGuideVariantId();
+      const visibleQty = newCart.lines.edges.filter(({node}) => node.merchandise.id !== guideVid).reduce((sum, {node}) => sum + node.quantity, 0);
+      window.updateCartBadge(visibleQty);
+      
+      const event = new CustomEvent('cartUpdated', { detail: newCart });
       document.dispatchEvent(event);
     }
   } catch (e) {
