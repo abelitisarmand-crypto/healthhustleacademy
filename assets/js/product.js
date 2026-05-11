@@ -71,7 +71,7 @@ const PRODUCT_COPY = {
     faq: [
       { q: "Is this as good as a Theragun?", a: "Same percussion tech. Theragun charges $400 for the brand. You pay $79 for the device." },
       { q: "Will I actually use it?", a: "10 minutes before bed. Most customers use it 4-5x per week after the first week." },
-      { q: "What if it doesn't work for me?", a: "60-day guarantee. Full refund. No questions asked." },
+      { q: "What if it doesn't work for me?", a: "30-day guarantee. Full refund. No questions asked." },
       { q: "How long does the battery last?", a: "Several hours per charge via USB-C. Most people charge it once a week." }
     ],
     objections: [
@@ -121,7 +121,7 @@ const PRODUCT_COPY = {
     faq: [
       { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches of clearance." },
       { q: "Is it loud on Zoom calls?", a: "40dB at walking speed. Quieter than normal conversation. Mic won't pick it up." },
-      { q: "What if I never use it?", a: "60-day guarantee. Full refund if it collects dust." },
+      { q: "What if I never use it?", a: "30-day guarantee. Full refund if it collects dust." },
       { q: "How fast does it go?", a: "0.6 to 5 mph. Walking mode for desk use, faster for workouts." }
     ],
     objections: [
@@ -244,7 +244,7 @@ const PRODUCT_COPY = {
       { q: "Will this work if I'm a beginner?", a: "The 10lb band is genuinely beginner level. Day 1 of the program requires zero experience." },
       { q: "How long are the workouts?", a: "20 minutes. Built specifically for people who don't have more time than that." },
       { q: "Does it build real muscle?", a: "Yes. Resistance training builds muscle the same way weights do." },
-      { q: "What if the bands snap?", a: "60-day guarantee covers everything. Replace or full refund, no questions." }
+      { q: "What if the bands snap?", a: "30-day guarantee covers everything. Replace or full refund, no questions." }
     ],
     objections: [
       { q: "ARE THEY DURABLE?", a: "Made from 100% natural latex. They won't snap or lose elasticity even after years of use." },
