@@ -657,9 +657,8 @@ function renderProduct(product) {
   const solutionImgEl = document.getElementById('solution-img');
   if (solutionH2El && copy?.solutionH2) solutionH2El.innerHTML = copy.solutionH2;
   if (solutionTextEl && copy?.solutionText) solutionTextEl.textContent = copy.solutionText;
-  if (solutionImgEl) {
-    const solSrc = copy?.solutionImage || fallbackImg;
-    if (solSrc) solutionImgEl.src = solSrc;
+  if (solutionImgEl && copy?.solutionImage) {
+    solutionImgEl.src = copy.solutionImage;
   }
 
   // Why HHA section body paragraphs
@@ -715,6 +714,7 @@ function renderProduct(product) {
   if (mainImg) mainImg.src = fallbackImg;
   if (stickyImg) stickyImg.src = fallbackImg;
   if (mobileStickyThumb) mobileStickyThumb.src = fallbackImg;
+  if (solutionImgEl && !copy?.solutionImage) solutionImgEl.src = fallbackImg;
 
   const thumbs = document.getElementById('thumbnails');
   if (thumbs && product.images.edges.length > 1) {
