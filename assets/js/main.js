@@ -2,6 +2,26 @@ import { getProducts, getProductByHandle, getCollectionByHandle, createCart, add
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
+function fireAddToCartPixel(cart, variantId) {
+  try {
+    if (typeof fbq !== 'function') return;
+    const line = cart.lines?.edges?.find(({ node }) => node.merchandise?.id === variantId);
+    if (!line) return;
+    const { merchandise } = line.node;
+    const numericProductId = merchandise.product?.id?.replace('gid://shopify/Product/', '') || '';
+    const numericVariantId = merchandise.id?.replace('gid://shopify/ProductVariant/', '') || '';
+    fbq('track', 'AddToCart', {
+      content_ids:  [numericProductId || numericVariantId],
+      content_name: merchandise.product?.title || merchandise.title || '',
+      content_type: 'product',
+      value:        parseFloat(merchandise.price?.amount || 0),
+      currency:     'USD'
+    });
+  } catch (e) {
+    console.warn('Meta Pixel AddToCart error:', e);
+  }
+}
+
 // CART & DRAWER STATE
 let cartId = localStorage.getItem('shopify_cart_id') || null;
 const cartDrawer = document.getElementById('cart-drawer');
@@ -320,6 +340,7 @@ window.addUpsell = async function(variantId, btn) {
   const result = await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
   if (result) {
     const cart = result.cartLinesAdd.cart;
+    fireAddToCartPixel(cart, variantId);
     renderCart(cart);
   }
 }
@@ -352,11 +373,13 @@ async function handleAddToCart(variantId, btn = null) {
 
     const result = await addToCart(id, [{ merchandiseId: variantId, quantity: 1 }]);
     const cart = result?.cartLinesAdd?.cart;
-    
+
     if (!cart) {
       console.error("Shopify error details:", result);
       throw new Error("Product not added to Shopify cart");
     }
+
+    fireAddToCartPixel(cart, variantId);
 
     if (cart.checkoutUrl) {
       saveCheckoutUrl(getAbsoluteUrl(cart.checkoutUrl));
