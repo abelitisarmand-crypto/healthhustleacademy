@@ -1,4 +1,4 @@
-import { getProductByHandle, addToCart } from './shopify.js?v=3.0';
+import { getProductByHandle, addToCart } from './shopify.js?v=3.1';
 import { ICONS } from '../icons/icons.js';
 
 window.scrollToATC = () => {
@@ -37,8 +37,32 @@ const PRODUCT_COPY = {
   'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
     h1: "YOUR BACK CALLED. IT'S DONE WAITING.",
     subtitle: 'Professional deep-tissue recovery — at home, in 10 minutes, for $79.',
-    problemHeadline: "EVERY QUESTION YOU'RE AFRAID TO ASK",
+    ctaText: 'RELIEVE SORE MUSCLES →',
+    eyebrow: '★★★★★ 4.9 · 800+ VERIFIED BUYERS · PRO-GRADE RECOVERY',
+    bullets: [
+      { bold: 'Feel relief in 60 seconds', rest: '' },
+      { bold: '45dB — quieter than your TV', rest: '' },
+      { bold: '8 heads, every muscle group covered', rest: '' }
+    ],
+    saveBadge: 'YOU SAVE $30 (27% OFF)',
+    scarcity: 'Limited stock · Ships same day from California',
+    miniReviews: [
+      { stars: '★★★★★', quote: 'Neck pain from desk work — gone.', name: 'Jessica M.', thumb: 'images/reviews/massagegun/massage-gun-3324.jpeg' },
+      { stars: '★★★★★', quote: 'My PT told me to get one of these.', name: 'Kevin A.', thumb: 'images/reviews/massagegun/massage-gun-3338.jpeg' },
+      { stars: '★★★★★', quote: 'Recovery time cut in half.', name: 'Marcus L.', thumb: 'images/reviews/massagegun/massage-gun-3328.jpeg' }
+    ],
+    solutionH2: 'Massage-level relief.<br>No appointment. No waiting.',
+    solutionText: 'Eight interchangeable heads. 12mm amplitude that reaches deep muscle tissue — not just the surface. Quiet enough to use on any call. This is the device physical therapists recommend — without the clinic price tag.',
+    problemEyebrow: 'YOUR MUSCLES ARE KEEPING SCORE.',
+    problemHeadline: 'YOUR BODY IS TIGHT. YOUR SCHEDULE IS TIGHTER.',
     problemText: 'You sit for 8 hours. Your neck locks up. Your shoulders ache by 3pm. You\'ve tried stretching, ibuprofen, and just ignoring it. None of it sticks.\nThis does.',
+    whyHhaBody: 'Most recovery tools cost $300+ and collect dust within a month. We built one effective enough for daily use, quiet enough for any room, and priced so you don\'t have to think twice.',
+    whyHhaProgram: 'Every massage gun ships with a free Recovery Guide — targeted routines for back, legs, shoulders, and post-workout protocol. Written by physios, designed for home use.',
+    whyHhaStat4: 'Free',
+    whyHhaStat4Label: 'recovery guide PDF',
+    hiwHeadline: 'THREE STEPS. FIRST RELEASE TODAY.',
+    socialProofCount: '800+ verified buyers',
+    finalCtaSubtext: 'Join 800+ people who found their recovery tool. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships in 2–3 days',
     transformations: [
       { icon: 'muscle', text: 'Stiff to Supple' },
       { icon: 'heads', text: 'Locked to Loose' },
@@ -112,6 +136,17 @@ const PRODUCT_COPY = {
       { stars: '★★★★★', quote: 'Fits under my IKEA desk perfectly.', name: 'Jason K.', thumb: 'images/reviews/walking-pad/review-04.jpg' },
       { stars: '★★★★★', quote: 'Lost 14 lbs. Didn\'t change my diet.', name: 'Maria L.', thumb: 'images/reviews/walking-pad/review-08.jpg' }
     ],
+    ctaText: 'START WALKING TODAY →',
+    solutionImage: 'images/reviews/walking-pad/TVWP.png',
+    solutionH2: 'Meet the walking pad<br>that fits your life.',
+    solutionText: 'Stop choosing between your health and your schedule. The HHA Walking Pad slides under any desk, runs whisper-quiet on calls, and folds away in 3 seconds. Your work hours become your workout.',
+    whyHhaBody: 'Most fitness brands sell you gear for the gym. We built gear for real life — for the 9-hour workday, the back-to-back Zooms, the commute you already dread.',
+    whyHhaProgram: 'The walking pad isn\'t just a treadmill. It\'s a system. Every purchase includes a 14-day movement plan built around your work schedule — not against it.',
+    whyHhaStat4: '14-day',
+    whyHhaStat4Label: 'movement plan',
+    hiwHeadline: 'THREE STEPS. FIRST SESSION TODAY.',
+    socialProofCount: '2,000+ verified buyers',
+    finalCtaSubtext: 'Join 2,000+ people who made the change. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships in 2–3 days',
     problemHeadline: 'YOUR BODY IS KEEPING SCORE.',
     problemText: 'You sit 9 hours a day. Your back aches by 3pm. You keep meaning to exercise — but the gym is 20 minutes away, parking is a nightmare, and by 6pm you\'re done.\nThe problem isn\'t willpower. It\'s friction. This removes it.',
     transformations: [
@@ -183,7 +218,31 @@ const PRODUCT_COPY = {
   'walking-pad-for-home-office-quiet-under-desk-treadmill': {
     h1: 'BURN 300 CALORIES WITHOUT LEAVING YOUR DESK.',
     subtitle: 'The quietest way to get your steps in — during Zoom calls, Netflix, or lunch breaks.',
-    problemHeadline: 'YOU KNOW THE FEELING.',
+    ctaText: 'START WALKING TODAY →',
+    eyebrow: '★★★★★ 4.9 · 2,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
+    bullets: [
+      { bold: 'Walk & work at the same time', rest: '' },
+      { bold: '40dB — invisible on Zoom calls', rest: '' },
+      { bold: 'Slides under any desk in 3 seconds', rest: '' }
+    ],
+    saveBadge: 'YOU SAVE $100 (33% OFF)',
+    scarcity: 'Limited stock · Ships from California in 2–3 days',
+    miniReviews: [
+      { stars: '★★★★★', quote: '10K steps before lunch, every day.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
+      { stars: '★★★★★', quote: 'Lost 14 lbs. Didn\'t change my diet.', name: 'Maria L.', thumb: 'images/reviews/walking-pad/review-08.jpg' },
+      { stars: '★★★★★', quote: 'My doctor told me to move more. Done.', name: 'Tom H.', thumb: 'images/reviews/walking-pad/review-15.jpg' }
+    ],
+    solutionImage: 'images/reviews/walking-pad/TVWP.png',
+    solutionH2: 'Meet the walking pad<br>that fits your life.',
+    solutionText: 'Stop choosing between your health and your schedule. The HHA Walking Pad slides under any desk, runs whisper-quiet on calls, and folds away in 3 seconds. Your work hours become your workout.',
+    whyHhaBody: 'Most fitness brands sell you gear for the gym. We built gear for real life — for the 9-hour workday, the back-to-back Zooms, the commute you already dread.',
+    whyHhaProgram: 'The walking pad isn\'t just a treadmill. It\'s a system. Every purchase includes a 14-day movement plan built around your work schedule — not against it.',
+    whyHhaStat4: '14-day',
+    whyHhaStat4Label: 'movement plan',
+    hiwHeadline: 'THREE STEPS. FIRST SESSION TODAY.',
+    socialProofCount: '2,000+ verified buyers',
+    finalCtaSubtext: 'Join 2,000+ people who made the change. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships in 2–3 days',
+    problemHeadline: 'YOUR BODY IS KEEPING SCORE.',
     problemText: 'Remote work is making you heavier. You know it. You\'ve known it for a while. But the gym is 20 minutes away, parking is a nightmare, and by 6pm you\'re done.\nThis fits under your desk. And under your budget.',
     transformations: [
       { icon: 'steps', text: 'Sedentary to Active' },
@@ -303,9 +362,33 @@ const PRODUCT_COPY = {
   },
   '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
     h1: 'YOUR ENTIRE HOME GYM. FITS IN A BACKPACK.',
-    subtitle: '5 resistance bands + door anchor + 30-day program. Start Day 1 today.',
-    problemHeadline: 'YOU KNOW THE FEELING.',
+    subtitle: '5 resistance levels. Door anchor. 30-day program. Real results, zero commute.',
+    ctaText: 'BUILD YOUR HOME GYM →',
+    eyebrow: '★★★★★ 4.9 · 1,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
+    bullets: [
+      { bold: 'Full-body workout in 6 sq ft', rest: '' },
+      { bold: '10 to 150 lbs — stack bands any way', rest: '' },
+      { bold: '30-day program included, Day 1 starts today', rest: '' }
+    ],
+    saveBadge: 'YOU SAVE $50 (38% OFF)',
+    scarcity: '230+ sold this month · Ships same day from California',
+    miniReviews: [
+      { stars: '★★★★★', quote: 'Lost 22 lbs using only this kit.', name: 'Ashley T.', thumb: 'images/reviews/resistance-bands/bands-review-01-1.jpg' },
+      { stars: '★★★★★', quote: 'My entire home gym in one bag.', name: 'James W.', thumb: 'images/reviews/resistance-bands/bands-review-03-1.jpg' },
+      { stars: '★★★★★', quote: 'Zero signs of wear after 3 months.', name: 'Michael S.', thumb: 'images/reviews/resistance-bands/bands-review-04-1.jpg' }
+    ],
+    solutionH2: 'Your whole gym.<br>In one bag.',
+    solutionText: 'Five color-coded bands. A door anchor that takes 10 seconds to set up. A 30-day program built for people with 20 minutes max. Whether you\'re in your living room, a hotel room, or your backyard — Day 1 starts today.',
+    problemEyebrow: 'NO TIME. NO SPACE. NO EXCUSES.',
+    problemHeadline: 'THE GYM YOU NEVER GO TO IS COSTING YOU $50 A MONTH.',
     problemText: 'You\'ve tried the gym. Maybe twice. The commute, the crowd, the parking. You bought equipment that became a clothes rack. This is different — because it comes with a system.',
+    whyHhaBody: 'Most home gym equipment collects dust within a month — not because people are lazy, but because there\'s no plan. We ship every kit with a 30-day program because a tool without a system is just clutter.',
+    whyHhaProgram: 'Twenty minutes per session. Zero experience required. Just open the program and follow Day 1. That\'s the entire plan.',
+    whyHhaStat4: '30-day',
+    whyHhaStat4Label: 'training program',
+    hiwHeadline: 'THREE STEPS. FIRST WORKOUT TODAY.',
+    socialProofCount: '1,000+ verified buyers',
+    finalCtaSubtext: 'Join 1,000+ people who built their home gym. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships same day',
     transformations: [
       { icon: 'resistance', text: 'Weak to Powerful' },
       { icon: 'anchor', text: 'Limited to Total' },
@@ -392,50 +475,77 @@ const PRODUCT_COPY = {
     }
   },
   'yoga-foam-roller': {
-    h1: '5 MINUTES OF ROLLING = 30 MINUTES OF STRETCHING.',
-    subtitle: 'High-density foam roller that actually works. Used by physios. Priced for everyone.',
-    problemHeadline: 'YOU KNOW THE FEELING.',
-    problemText: 'You skip recovery because it takes too long. Foam rolling used to feel like a chore. This changes that — because you feel the blood flow in minutes.',
+    h1: '5 MINUTES OF ROLLING. WAKE UP WITHOUT THE PAIN.',
+    subtitle: 'High-density foam roller used by physios. Break up knots, restore blood flow, move better tomorrow.',
+    ctaText: 'RELEASE THE TENSION →',
+    eyebrow: '★★★★★ 4.8 · 500+ VERIFIED BUYERS · PHYSIO-APPROVED',
+    bullets: [
+      { bold: 'Break up knots in 5 minutes', rest: '' },
+      { bold: 'Back, legs, glutes, IT band — all covered', rest: '' },
+      { bold: 'Same density physios use, fraction of the cost', rest: '' }
+    ],
+    saveBadge: 'YOU SAVE $10 (22% OFF)',
+    scarcity: 'Low stock · Ships same day from California',
+    solutionH2: 'Recovery in 5 minutes.<br>No appointment needed.',
+    solutionText: 'High-density EVA foam — the same material physios use. It breaks up knots, restores blood flow, and has your muscles ready again the next morning. Five minutes before bed or after training. That\'s it.',
+    problemEyebrow: 'YOUR BODY IS KEEPING SCORE.',
+    problemHeadline: 'TIGHT MUSCLES DON\'T FIX THEMSELVES. MASSAGE IS $80/HOUR.',
+    problemText: 'Your back tightens by Thursday. Your legs are wrecked after every workout. You\'ve been "meaning to stretch more" for six months.\nThe problem isn\'t discipline — it\'s that recovery has always been too slow or too expensive to bother.',
     transformations: [
-      { icon: 'bloodflow', text: 'Stiff to Supple' },
-      { icon: 'knots', text: 'Tense to Loose' },
-      { icon: 'colors', text: 'Basic to Vibe' },
-      { icon: 'portable', text: 'Home to Gym' }
+      { icon: 'bloodflow', text: 'Tight to Supple' },
+      { icon: 'knots', text: 'Knotted to Open' },
+      { icon: 'portable', text: 'Clinic to Home' },
+      { icon: 'battery', text: 'Sore to Ready' }
     ],
     hiw: [
-      { t: "IDENTIFY THE KNOT", d: "Find the tension in your back, legs, or shoulders." },
-      { t: "ROLL & RELEASE", d: "Use your weight to break up knots and increase flow." },
-      { t: "MOVE BETTER", d: "Instant improvement in mobility and range." }
+      { t: "FIND THE TENSION", d: "Back, legs, glutes, IT band — wherever you\'re tight." },
+      { t: "ROLL & BREATHE", d: "Use your bodyweight. 60 seconds per muscle group." },
+      { t: "WAKE UP READY", d: "Less stiffness, better range of motion, next day." }
     ],
     benefits: [
-      { icon: 'bloodflow', title: 'Increase blood flow', text: 'Wake up ready to move, not stiff or sore.' },
-      { icon: 'knots', title: 'Break up knots', text: 'Works back, legs, glutes, IT band — wherever you\'re tight.' },
-      { icon: 'colors', title: '6 distinct colors', text: 'Pick what fits your space, your kit, or your vibe.' },
-      { icon: 'portable', title: 'Take it anywhere', text: 'Gym, hotel, office. It goes where you go.' }
+      { icon: 'bloodflow', title: 'Restore blood flow fast', text: 'Feel the difference in 5 minutes — no warm-up needed.' },
+      { icon: 'knots', title: 'Break up real knots', text: 'Reaches deep tissue in back, legs, glutes, and IT band.' },
+      { icon: 'muscle', title: 'Physio-grade density', text: 'Same high-density EVA physios use. Won\'t flatten under pressure.' },
+      { icon: 'portable', title: 'Goes where you go', text: 'Gym bag, hotel room, living room floor. Anywhere.' }
     ],
     reviews: [
       { name: 'Jennifer K.', city: 'Arizona', quote: 'My PT recommended this for my back. Best $35 I\'ve spent.', badge: 'PT RECOMMENDED' },
-      { name: 'Carlos M.', city: 'Texas', quote: 'I use this every night. My legs feel completely different.', badge: 'DAILY USER' }
+      { name: 'Carlos M.', city: 'Texas', quote: 'I use this every night. My legs feel completely different.', badge: 'DAILY USER' },
+      { name: 'Sandra P.', city: 'Florida', quote: 'Back tension gone within a week. No more massage appointments.', badge: '1 WEEK · PAIN FREE' }
     ],
     wasPrice: 45,
     savingsText: 'YOU SAVE $10 TODAY',
     bundleHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
-    bundleTitle: 'Relaxation Bundle',
+    bundleTitle: 'Recovery Bundle',
     bundlePrice: 99,
     box: [
-      '1x Pro-Density Foam Roller',
+      '1x Pro-Density Foam Roller (33cm × 14cm)',
       '1x Travel Carry Bag',
-      'Free Recovery Guide PDF'
+      'Free Recovery Guide PDF (5-min routines)'
     ],
     faq: [
-      { q: "Is this firm enough to actually work?", a: "High-density EVA — same material physios use. Firm enough to reach real muscle tissue." },
-      { q: "What size is it?", a: "33cm x 14cm. Full-length — works back, legs, glutes, IT band." },
-      { q: "Can I use it as a beginner?", a: "Yes. Start 60 seconds per muscle group. The intensity passes within a week." }
+      { q: "Is this firm enough to actually work?", a: "Yes. High-density EVA — the same material physios use in clinics. Firm enough to reach real muscle tissue, not just the surface." },
+      { q: "What size is it?", a: "33cm × 14cm. Full-length roller — works on your back, legs, glutes, IT band, and calves." },
+      { q: "I've never used a foam roller. Will I figure it out?", a: "Yes. The Recovery Guide PDF walks you through every move. Most people feel the difference on Day 1." },
+      { q: "How long per session?", a: "5 minutes is enough. 60 seconds per muscle group. Most people roll before bed or after training." },
+      { q: "Will it hurt?", a: "The first few sessions can feel intense on tight spots. That's normal — it means you're reaching real tissue. The discomfort drops within a week." },
+      { q: "Can I use it on my lower back?", a: "Yes. Roll slowly along the sides of your spine, not directly on the vertebrae. The guide shows exact positioning." },
+      { q: "What's the weight limit?", a: "Tested to 300 lbs. The EVA foam won't deform or flatten under your bodyweight." },
+      { q: "Does it work for IT band issues?", a: "Absolutely. IT band tightness is one of the most common use cases. Roll slowly along the outer thigh — it works fast." },
+      { q: "What's the return policy?", a: "30-day money-back guarantee. If it doesn't work for you — full refund, no questions, no forms." },
+      { q: "How long will it last?", a: "Years. The EVA foam is designed not to lose its shape or density even with daily use." }
     ],
     objections: [
-      { q: "I'VE NEVER USED ONE BEFORE?", a: "We include a 5-minute video guide. It's as simple as lying down and breathing." },
-      { q: "IS IT DURABLE?", a: "Won't lose its shape. Tested for up to 300 lbs of pressure." }
-    ]
+      { q: "I'VE NEVER USED ONE BEFORE.", a: "The Recovery Guide PDF makes it simple. Lie on it, breathe, let your bodyweight do the work." },
+      { q: "IS IT AS GOOD AS A MASSAGE?", a: "Different — but for daily maintenance, more practical. A $80 massage lasts one session. This lasts years." }
+    ],
+    whyHhaBody: 'We built this brand because people kept skipping recovery — not because they didn\'t care, but because it was too slow and too expensive. A foam roller changes the math entirely.',
+    whyHhaProgram: 'Every roller ships with a Recovery Guide PDF — 5-minute routines for back, legs, glutes, and posture. Written for people who have never foam rolled before.',
+    whyHhaStat4: '5 min',
+    whyHhaStat4Label: 'daily recovery routine',
+    hiwHeadline: 'THREE MOVES. FULL-BODY RELIEF.',
+    socialProofCount: '500+ verified buyers',
+    finalCtaSubtext: 'Join 500+ people who stopped skipping recovery. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships same day'
   }
 };
 
@@ -526,6 +636,51 @@ function renderProduct(product) {
       </div>
     `).join('');
   }
+
+  // CTA button text (all entry points)
+  const ctaBtn = document.getElementById('add-to-cart-btn');
+  if (ctaBtn && copy?.ctaText) ctaBtn.textContent = copy.ctaText;
+  const finalCtaBtn = document.getElementById('final-cta-btn');
+  if (finalCtaBtn && copy?.ctaText) finalCtaBtn.textContent = copy.ctaText;
+
+  // Final CTA subtext
+  const finalCtaSub = document.getElementById('final-cta-subtext');
+  if (finalCtaSub && copy?.finalCtaSubtext) finalCtaSub.innerHTML = copy.finalCtaSubtext;
+
+  // Problem section eyebrow
+  const probEyebrowEl = document.getElementById('problem-eyebrow');
+  if (probEyebrowEl && copy?.problemEyebrow) probEyebrowEl.textContent = copy.problemEyebrow;
+
+  // Solution section h2, text, image
+  const solutionH2El = document.getElementById('solution-h2');
+  const solutionTextEl = document.getElementById('solution-text');
+  const solutionImgEl = document.getElementById('solution-img');
+  if (solutionH2El && copy?.solutionH2) solutionH2El.innerHTML = copy.solutionH2;
+  if (solutionTextEl && copy?.solutionText) solutionTextEl.textContent = copy.solutionText;
+  if (solutionImgEl) {
+    const solSrc = copy?.solutionImage || fallbackImg;
+    if (solSrc) solutionImgEl.src = solSrc;
+  }
+
+  // Why HHA section body paragraphs
+  const whyBody1 = document.getElementById('why-hha-body-1');
+  const whyBody2 = document.getElementById('why-hha-body-2');
+  if (whyBody1 && copy?.whyHhaBody) whyBody1.textContent = copy.whyHhaBody;
+  if (whyBody2 && copy?.whyHhaProgram) whyBody2.textContent = copy.whyHhaProgram;
+
+  // Why HHA stat 4 (program / guide)
+  const whyStatProgram = document.getElementById('why-stat-program');
+  if (whyStatProgram && copy?.whyHhaStat4) {
+    whyStatProgram.innerHTML = `<span class="why-stat-number">${copy.whyHhaStat4}</span><span class="why-stat-label">${copy.whyHhaStat4Label || 'program included'}</span>`;
+  }
+
+  // HIW headline
+  const hiwHead = document.getElementById('hiw-headline');
+  if (hiwHead && copy?.hiwHeadline) hiwHead.textContent = copy.hiwHeadline;
+
+  // Social proof bar count
+  const spStat = document.getElementById('social-proof-stat');
+  if (spStat && copy?.socialProofCount) spStat.textContent = copy.socialProofCount;
 
   // Comparison table (walking pad only)
   const compSection = document.getElementById('comparison-section');
@@ -844,6 +999,7 @@ function renderDetailedReviews(data, handle) {
 
   const folder = handle.includes('walking-pad') ? 'walking-pad'
     : handle.includes('massage-gun') ? 'massagegun'
+    : handle.includes('resistance-band') ? 'resistance-bands'
     : 'resistance-bands';
   const prefix = handle.includes('walking-pad') ? 'walkingpad'
     : handle.includes('massage-gun') ? 'massagegun'

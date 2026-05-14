@@ -2574,3 +2574,14 @@ img {
   font-family: inherit;
   display: inline;
 }
+
+/* Social proof bar clickable logos */
+a.social-logo-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color .2s, opacity .2s;
+}
+a.social-logo-link:hover {
+  color: var(--emerald);
+  opacity: 1;
+}

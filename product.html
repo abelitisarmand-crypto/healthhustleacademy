@@ -144,10 +144,9 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
           <div class="pdp-gallery">
             <div id="main-image-container" style="margin-bottom:16px;">
               <picture>
-                <!-- TODO: replace with UGC lifestyle hero photo — walking person at home desk -->
                 <img id="main-product-image"
                      src="images/reviews/walking-pad/review-18.jpg"
-                     alt="Walking pad under home office desk"
+                     alt="Product"
                      width="800" height="800"
                      loading="eager"
                      fetchpriority="high"
@@ -210,22 +209,23 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
         <div class="social-proof-inner">
           <span class="social-proof-label">AS SEEN ON</span>
           <div class="social-proof-logos">
-            <span class="social-logo">
+            <!-- TODO: Replace # with real TikTok URL when available -->
+            <a href="https://www.tiktok.com/@healthhustleacade" target="_blank" rel="noopener" class="social-logo social-logo-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
               TikTok
-            </span>
+            </a>
             <span class="social-divider">·</span>
-            <span class="social-logo">
+            <a href="https://www.instagram.com/healthhustleacademy/" target="_blank" rel="noopener" class="social-logo social-logo-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               Instagram
-            </span>
+            </a>
             <span class="social-divider">·</span>
-            <span class="social-logo">
+            <a href="https://www.youtube.com/@HealthHustleAcademy" target="_blank" rel="noopener" class="social-logo social-logo-link">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
               YouTube
-            </span>
+            </a>
           </div>
-          <span class="social-proof-stat">2,000+ verified buyers</span>
+          <span id="social-proof-stat" class="social-proof-stat">2,000+ verified buyers</span>
         </div>
       </div>
     </div>
@@ -233,7 +233,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
     <!-- ═══ SECTION 3: PROBLEM / AGITATION ═══ -->
     <section class="problem-section fade-up" style="padding:80px 0; background:var(--bg-primary);">
       <div class="container" style="max-width:800px; text-align:center;">
-        <p style="font-family:'Barlow Condensed';color:var(--emerald);font-size:12px;letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px;">YOU KNOW THE FEELING.</p>
+        <p id="problem-eyebrow" style="font-family:'Barlow Condensed';color:var(--emerald);font-size:12px;letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px;">YOU KNOW THE FEELING.</p>
         <h2 id="problem-headline" style="font-family:'Anton';font-size:clamp(28px,5vw,56px);line-height:.95;margin-bottom:24px;text-transform:uppercase;"></h2>
         <p id="problem-text" style="font-size:17px;color:var(--text-secondary);line-height:1.8;margin-bottom:48px;"></p>
         <div id="transformation-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--border);padding-top:40px;" class="animate-stagger"></div>
@@ -247,7 +247,8 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
           <div class="solution-image">
             <!-- TODO: replace with real UGC photo, see image brief -->
             <picture>
-              <img src="images/reviews/walking-pad/TVWP.png"
+              <img id="solution-img"
+                   src="images/reviews/walking-pad/TVWP.png"
                    alt="Woman walking on walking pad while working at desk"
                    width="660" height="500"
                    loading="lazy">
@@ -288,8 +289,8 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
           <div class="why-hha-text">
             <p class="section-eyebrow" style="color:var(--emerald-light);">WHY HEALTHHUSTLEACADEMY</p>
             <h2 class="why-hha-h2">We built this because<br>sitting was killing us.</h2>
-            <p class="why-hha-body">Most fitness brands sell you gear for the gym. We built gear for real life — for the 9-hour workday, the back-to-back Zooms, the commute you already dread.</p>
-            <p class="why-hha-body">The walking pad isn't just a treadmill. It's a system. Every purchase includes a 14-day movement plan built around your work schedule — not against it.</p>
+            <p id="why-hha-body-1" class="why-hha-body">Most fitness brands sell you gear for the gym. We built gear for real life — for the 9-hour workday, the back-to-back Zooms, the commute you already dread.</p>
+            <p id="why-hha-body-2" class="why-hha-body">The walking pad isn't just a treadmill. It's a system. Every purchase includes a 14-day movement plan built around your work schedule — not against it.</p>
             <p class="why-hha-body" style="color:var(--emerald-light);font-weight:600;">We're an anti-sedentary brand. Our mission: make movement frictionless.</p>
           </div>
           <div class="why-hha-stats">
@@ -305,7 +306,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
               <span class="why-stat-number">30</span>
               <span class="why-stat-label">days risk-free</span>
             </div>
-            <div class="why-stat">
+            <div class="why-stat" id="why-stat-program">
               <span class="why-stat-number">14-day</span>
               <span class="why-stat-label">program included</span>
             </div>
@@ -317,7 +318,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
     <!-- ═══ SECTION 5: THREE STEPS ═══ -->
     <section class="hiw-section animate-in" style="padding:80px 0; background:var(--bg-primary);">
       <div class="container">
-        <h2 style="text-align:center;font-family:'Anton';font-size:clamp(28px,5vw,48px);margin-bottom:64px;letter-spacing:.02em;">THREE STEPS. FIRST SESSION TODAY.</h2>
+        <h2 id="hiw-headline" style="text-align:center;font-family:'Anton';font-size:clamp(28px,5vw,48px);margin-bottom:64px;letter-spacing:.02em;">THREE STEPS. FIRST SESSION TODAY.</h2>
         <div id="hiw-steps" style="display:flex;justify-content:space-between;position:relative;gap:24px;" class="animate-stagger"></div>
       </div>
     </section>
@@ -387,8 +388,8 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
       <div class="container">
         <p style="font-family:'Barlow Condensed';color:var(--emerald);font-size:13px;letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px;">NO MORE WAITING</p>
         <h2 style="font-family:'Anton';font-size:clamp(40px,8vw,84px);line-height:.85;margin-bottom:40px;text-transform:uppercase;">READY TO FEEL BETTER TOMORROW?</h2>
-        <button class="btn btn-primary" style="min-width:320px;height:80px;font-size:18px;" onclick="scrollToATC()">START WALKING TODAY →</button>
-        <p style="margin-top:40px;font-size:14px;color:var(--text-muted);">
+        <button id="final-cta-btn" class="btn btn-primary" style="min-width:320px;height:80px;font-size:18px;" onclick="scrollToATC()">START WALKING TODAY →</button>
+        <p id="final-cta-subtext" style="margin-top:40px;font-size:14px;color:var(--text-muted);">
           Join 2,000+ people who made the change. ✓ Free shipping · ✓ 30-day guarantee · ✓ Ships in 2–3 days
         </p>
       </div>
@@ -521,7 +522,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
     </div>
   </div>
 
-  <script type="module" src="assets/js/product.js?v=3.1"></script>
-  <script type="module" src="assets/js/main.js?v=3.0"></script>
+  <script type="module" src="assets/js/product.js?v=3.2"></script>
+  <script type="module" src="assets/js/main.js?v=3.1"></script>
 </body>
 </html>
