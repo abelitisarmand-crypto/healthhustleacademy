@@ -367,8 +367,7 @@ const PRODUCT_COPY = {
     eyebrow: '★★★★★ 4.9 · 1,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
     bullets: [
       { bold: 'Full-body workout in 6 sq ft', rest: '' },
-      { bold: '10 to 150 lbs — stack bands any way', rest: '' },
-      { bold: '30-day program included, Day 1 starts today', rest: '' }
+      { bold: '10 to 150 lbs — stack bands any way', rest: '' }
     ],
     saveBadge: 'YOU SAVE $50 (38% OFF)',
     scarcity: '230+ sold this month · Ships same day from California',
