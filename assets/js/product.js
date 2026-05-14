@@ -718,7 +718,12 @@ function renderProduct(product) {
   const thumbs = document.getElementById('thumbnails');
   if (thumbs && product.images.edges.length > 1) {
     thumbs.innerHTML = product.images.edges.map((e, i) => `
-      <img src="${e.node.url}" onclick="window.updateGallery('${e.node.url}')" style="width:60px; height:60px; object-fit:cover; border:1px solid var(--border); cursor:pointer;">
+      <img src="${e.node.url}"
+           class="gallery-thumb${i === 0 ? ' active' : ''}"
+           onclick="window.updateGallery('${e.node.url}', this)"
+           alt="Product photo ${i + 1}"
+           width="64" height="64"
+           loading="${i < 3 ? 'eager' : 'lazy'}">
     `).join('');
   }
 
@@ -885,7 +890,13 @@ function renderProduct(product) {
   }
 
   // Global Helpers for this Page
-  window.updateGallery = (url) => mainImg.src = url;
+  window.updateGallery = (url, clickedThumb) => {
+    mainImg.src = url;
+    if (clickedThumb) {
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      clickedThumb.classList.add('active');
+    }
+  };
   window.selectVariant = (id, btn, price) => {
     selectedVariantId = id;
     document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));

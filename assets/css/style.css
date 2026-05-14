@@ -2585,3 +2585,154 @@ a.social-logo-link:hover {
   color: var(--emerald);
   opacity: 1;
 }
+
+/* ══════════════════════════════════════════════
+   PRODUCT PAGE — MOBILE FIXES
+══════════════════════════════════════════════ */
+
+/* Hero vertical spacing */
+.pdp-hero {
+  padding: 48px 0 56px;
+}
+
+@media (max-width: 768px) {
+  /* Hero tighter on mobile */
+  .pdp-hero {
+    padding: 24px 0 40px;
+  }
+
+  /* Reduce all heavy section paddings on mobile */
+  .problem-section,
+  .solution-section,
+  .hiw-section,
+  #box-section,
+  .why-hha-section,
+  .faq-section,
+  #final-cta-section,
+  #comparison-section,
+  .reviews-customer-section {
+    padding: 48px 0 !important;
+  }
+
+  /* Transformation grid: 4 columns → 2×2 */
+  #transformation-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* HIW steps: horizontal → vertical stack */
+  #hiw-steps {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 32px !important;
+  }
+
+  /* Solution benefits: 2 col → 1 col */
+  .solution-benefits {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Benefit cards in solution: reduce padding */
+  .solution-benefits .benefit-card {
+    padding: 16px !important;
+  }
+
+  /* Thumbnails strip: make sure scrolling works inside grid */
+  .pdp-gallery {
+    min-width: 0;
+  }
+
+  /* Price font slightly smaller on narrow phones */
+  .hero-price-now {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  /* Afterpay line: wrap neatly */
+  .hero-afterpay {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* Final CTA button full width */
+  #final-cta-btn {
+    min-width: unset !important;
+    width: 100% !important;
+  }
+
+  /* Reviews header: smaller gap on mobile */
+  .reviews-header {
+    margin-bottom: 32px;
+  }
+
+  /* Social proof bar: smaller gap */
+  .social-proof-inner {
+    gap: 12px;
+    padding: 0 8px;
+    justify-content: flex-start;
+  }
+
+  /* Comparison table: allow horizontal scroll */
+  #comparison-section .container {
+    overflow-x: auto;
+  }
+  .pdp-comparison {
+    min-width: 480px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Very small phones: tighten further */
+  .pdp-h1 {
+    font-size: clamp(26px, 7.5vw, 40px);
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+  }
+
+  .mini-review-card {
+    padding: 8px 12px;
+  }
+
+  .mini-review-quote {
+    font-size: 11px;
+  }
+
+  #transformation-grid {
+    gap: 12px !important;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   GALLERY THUMBNAILS
+══════════════════════════════════════════════ */
+
+.gallery-thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color .2s, opacity .2s;
+  opacity: .75;
+}
+
+.gallery-thumb:hover {
+  border-color: rgba(16, 185, 129, .5);
+  opacity: 1;
+}
+
+.gallery-thumb.active {
+  border-color: var(--emerald);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .gallery-thumb {
+    width: 56px;
+    height: 56px;
+  }
+}
