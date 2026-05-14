@@ -1,6 +1,10 @@
 import { getProductByHandle, addToCart } from './shopify.js?v=3.0';
 import { ICONS } from '../icons/icons.js';
 
+window.scrollToATC = () => {
+  document.getElementById('add-to-cart-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
+
 // Phase 7: Bulletproof Fallbacks & Conversion Data
 const MOCK_PRODUCTS = {
   'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads': {
@@ -77,7 +81,96 @@ const PRODUCT_COPY = {
     objections: [
       { q: "IS IT BETTER THAN THE CHEAP ONES?", a: "We use a brushless high-torque motor. It won't stall even when you press hard." },
       { q: "CAN I USE IT ON MY NECK?", a: "Yes. Use the 'U-shape' or 'Ball' head on the lowest setting for neck and traps." }
-    ]
+    ],
+    detailedReviews: {
+      title: "REAL RESULTS FROM REAL CUSTOMERS",
+      avg: "4.9",
+      count: "5 REVIEWS",
+      items: [
+        { name: "Brandon T.", location: "Denver, CO", stars: 5, headline: "My back doesn't hate me after leg day anymore", body: "I've been training 4 days a week and lower back tightness was killing me the morning after. Started using this before bed for about 10 minutes and I wake up feeling completely different. Motor is so quiet I use it while watching TV.", photos: ["massage-gun-3321.jpeg","massage-gun-3322.jpeg","massage-gun-3323.jpeg"] },
+        { name: "Jessica M.", location: "Austin, TX", stars: 5, headline: "Neck pain from desk work — gone", body: "I sit at a computer 9 hours a day and my neck was constantly stiff. Used the flat head attachment on my traps and upper neck for one week and I can actually turn my head without wincing.", photos: ["massage-gun-3324.jpeg","massage-gun-3325.jpeg","massage-gun-3327.jpeg"] },
+        { name: "Marcus L.", location: "Atlanta, GA", stars: 5, headline: "Recovers my legs faster than anything else", body: "Run half marathons on weekends. Used to need 3 days to recover — quads and calves destroyed. Now I hit my legs with this right after running and recovery time is cut almost in half.", photos: ["massage-gun-3328.jpeg","massage-gun-3331.jpeg","massage-gun-3334.jpeg"] },
+        { name: "Stephanie R.", location: "Chicago, IL", stars: 4, headline: "Way quieter than I expected at this price", body: "My husband bought a $200 Theragun and I grabbed this for $79 — honestly can't feel a meaningful difference. The motor noise is the big win: I can use it during a phone call without anyone noticing.", photos: ["massage-gun-3335.jpeg","massage-gun-3336.jpeg","massage-gun-3337.jpeg"] },
+        { name: "Kevin A.", location: "Phoenix, AZ", stars: 5, headline: "My physical therapist told me to get one of these", body: "Had a shoulder injury and my PT specifically recommended a percussion massager. Three months in, shoulder's better, and I use it on my whole body now.", photos: ["massage-gun-3338.jpeg","massage-gun-3339.jpeg","massage-gun-3340.jpeg"] }
+      ]
+    }
+  },
+  'walking-pad-treadmill-compact-portable-walking-pad-quiet-operation-adjustable-speed-settings': {
+    h1: 'Burn 400 Calories a Day — Without Leaving Your Desk',
+    subtitle: 'The whisper-quiet walking pad that turns your work hours into your workout.',
+    eyebrow: '★★★★★ 4.9 · 2,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
+    bullets: [
+      { bold: 'BURN 300–500 CAL/HR', rest: '— while you answer emails' },
+      { bold: 'WHISPER QUIET (45 dB)', rest: '— quieter than your AC, no one on Zoom will hear' },
+      { bold: 'SLIDES UNDER ANY DESK', rest: '— folds flat, weighs 55 lbs, holds up to 265 lbs' }
+    ],
+    wasPrice: 499,
+    saveBadge: 'YOU SAVE $200 (40% OFF)',
+    scarcity: 'Only 47 units left at this price · Ships from California in 2–3 days',
+    miniReviews: [
+      { stars: '★★★★★', quote: 'I hit 10K steps before lunch.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
+      { stars: '★★★★★', quote: 'Fits under my IKEA desk perfectly.', name: 'Jason K.', thumb: 'images/reviews/walking-pad/review-04.jpg' },
+      { stars: '★★★★★', quote: 'Game changer for working from home.', name: 'Maria L.', thumb: 'images/reviews/walking-pad/review-08.jpg' }
+    ],
+    problemHeadline: 'YOUR BODY IS KEEPING SCORE.',
+    problemText: 'You sit 8+ hours a day. Your back knows. Your waistline knows. Your doctor knows.\nThe gym never fits. But this does.',
+    transformations: [
+      { icon: 'steps', text: 'Sedentary to Active' },
+      { icon: 'quiet', text: 'Noisy to Silent' },
+      { icon: 'display', text: 'Unseen to Tracked' },
+      { icon: 'compact', text: 'Bulky to Hidden' }
+    ],
+    hiw: [
+      { t: "UNBOX", d: "4.7 inches tall. Fits under any standard desk." },
+      { t: "PLUG IN", d: "Zero setup. Open the box and walk." },
+      { t: "WALK", d: "0.6 mph for calls, 5 mph for your lunch break." }
+    ],
+    benefits: [
+      { icon: 'steps', title: 'Move while you work', text: '0.6 mph during calls. 5 mph when you\'re done.' },
+      { icon: 'quiet', title: '40dB silent motor', text: 'Quieter than your keyboard. Mic won\'t pick it up.' },
+      { icon: 'display', title: 'See the numbers', text: 'Steps, calories, distance on LED display.' },
+      { icon: 'compact', title: 'No dedicated space needed', text: 'Slides under your desk or bed in 3 seconds.' }
+    ],
+    reviews: [
+      { name: 'David R.', city: 'New York', quote: 'I walk 8,000 steps a day and haven\'t missed a meeting. Down 5 lbs already.', badge: '8K STEPS DAILY' },
+      { name: 'Lisa M.', city: 'Texas', quote: 'Down 14 lbs in 3 months. I didn\'t change my diet. I just started walking during work.', badge: '−14 LBS · 3 MONTHS' },
+      { name: 'Tom H.', city: 'California', quote: 'My doctor told me to move more. This was the answer. Blood pressure is down.', badge: 'DOCTOR RECOMMENDED' }
+    ],
+    savingsText: 'YOU SAVE $200 TODAY',
+    bundleHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
+    bundleTitle: 'Move & Recover Bundle',
+    bundlePrice: 349,
+    box: [
+      '1x Ultra-Slim Walking Pad',
+      '1x Remote Control (Battery Included)',
+      '1x Safety Magnet Clip',
+      '1x Silicone Lubricant Oil',
+      'User Manual & 14-Day Program PDF'
+    ],
+    faq: [
+      { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches of clearance." },
+      { q: "Is it loud on Zoom calls?", a: "40dB at walking speed. Quieter than normal conversation. Mic won't pick it up." },
+      { q: "What if I never use it?", a: "30-day guarantee. Full refund if it collects dust." },
+      { q: "How fast does it go?", a: "0.6 to 5 mph. Walking mode for desk use, faster for workouts." }
+    ],
+    objections: [
+      { q: "IS IT DIFFICULT TO SET UP?", a: "Zero setup. Open the box, plug it in, and start walking." },
+      { q: "DO I NEED A STANDING DESK?", a: "It works best with one, but many users use it while watching TV or during phone calls." }
+    ],
+    detailedReviews: {
+      title: "REAL RESULTS FROM REAL CUSTOMERS",
+      avg: "4.9",
+      count: "8 REVIEWS",
+      items: [
+        { name: "Sarah M.", location: "New York, NY", stars: 5, headline: "Perfect for my home office", body: "I was skeptical about a walking pad at this price point, but wow. Set it up in under 10 minutes. I use it during Zoom calls and easily hit 8,000 steps before lunch. Super quiet — my coworkers have no idea I'm walking.", photos: ["review-01.jpg","review-02.jpg","review-03.jpg"] },
+        { name: "Jason K.", location: "Chicago, IL", stars: 5, headline: "Solid build, compact design", body: "Shipping was fast. Slides right under my standing desk. The speed control is smooth and the belt feels sturdy. Already recommended it to two friends.", photos: ["review-04.jpg","review-05.jpg","review-06.jpg","review-07.jpg"] },
+        { name: "Maria L.", location: "Austin, TX", stars: 5, headline: "Game changer for WFH life", body: "I work from home and was gaining weight from sitting all day. I walk 2-3 hours a day now while working. Assembly was straightforward — just unbox and go.", photos: ["review-08.jpg","review-09.jpg","review-10.jpg"] },
+        { name: "Amanda T.", location: "Denver, CO", stars: 5, headline: "Unboxing was exciting!", body: "Everything came double-boxed and protected. Plugged it in and started walking within 5 minutes. It's whisper quiet — I use it while watching TV at night.", photos: ["review-15.jpg","review-16.jpg","review-17.jpg"] },
+        { name: "Chris W.", location: "Boston, MA", stars: 5, headline: "Fits perfectly under my desk", body: "Measured my desk clearance before ordering and it fits with room to spare. I've been averaging 12,000 steps a day since I got it.", photos: ["review-18.jpg","review-19.jpg","review-20.jpg"] },
+        { name: "Nicole P.", location: "Miami, FL", stars: 5, headline: "Surprised by the quality", body: "For under $300 I expected flimsy. This thing is solid. Motor is quiet, surface has good grip, and it stores vertically.", photos: ["review-21.jpg","review-22.jpg","review-23.jpg","review-24.jpg"] },
+        { name: "Tyler B.", location: "Portland, OR", stars: 4, headline: "Does exactly what it promises", body: "Reliable walking pad that works. Speed goes up to 6 km/h which is plenty. Solid purchase.", photos: ["review-25.jpg","review-26.jpg","review-27.jpg","review-28.jpg","review-29.jpg","review-30.jpg"] }
+      ]
+    }
   },
   'walking-pad-for-home-office-quiet-under-desk-treadmill': {
     h1: 'BURN 300 CALORIES WITHOUT LEAVING YOUR DESK.',
@@ -388,6 +481,50 @@ function renderProduct(product) {
   if (subEl) subEl.textContent = copy?.subtitle || '';
   document.title = `${product.title} — HealthHustleAcademy`;
 
+  // Eyebrow badge
+  const eyebrowEl = document.getElementById('hero-eyebrow');
+  if (eyebrowEl && copy?.eyebrow) eyebrowEl.textContent = copy.eyebrow;
+
+  // Benefit bullets
+  const bulletsEl = document.getElementById('hero-bullets');
+  if (bulletsEl && copy?.bullets) {
+    bulletsEl.innerHTML = copy.bullets.map(b => `
+      <li><span class="bullet-check">✓</span><span><b>${b.bold}</b> ${b.rest}</span></li>
+    `).join('');
+  }
+
+  // Save badge
+  const saveBadgeEl = document.getElementById('hero-save-badge');
+  if (saveBadgeEl && copy?.saveBadge) {
+    saveBadgeEl.textContent = copy.saveBadge;
+    saveBadgeEl.style.display = 'inline-block';
+  }
+
+  // Scarcity line
+  const scarcityEl = document.getElementById('hero-scarcity');
+  if (scarcityEl && copy?.scarcity) scarcityEl.textContent = copy.scarcity;
+
+  // Mini reviews strip
+  const miniReviewsEl = document.getElementById('hero-mini-reviews');
+  if (miniReviewsEl && copy?.miniReviews) {
+    miniReviewsEl.innerHTML = copy.miniReviews.map(r => `
+      <div class="mini-review-card">
+        <img src="${r.thumb}" alt="${r.name}" width="36" height="36" loading="lazy" decoding="async">
+        <div class="mini-review-text">
+          <div class="mini-review-stars">${r.stars}</div>
+          <div class="mini-review-quote">"${r.quote}"</div>
+          <div class="mini-review-name">— ${r.name} ✓ Verified</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Comparison table (walking pad only)
+  const compSection = document.getElementById('comparison-section');
+  if (compSection && product.handle.includes('walking-pad')) {
+    compSection.style.display = 'block';
+  }
+
   // Dynamic SEO/Social Meta Tags
   try {
     const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -410,9 +547,11 @@ function renderProduct(product) {
   // Gallery
   const mainImg = document.getElementById('main-product-image');
   const stickyImg = document.getElementById('sticky-img');
+  const mobileStickyThumb = document.getElementById('mobile-sticky-thumb');
   const fallbackImg = product.images?.edges[0]?.node?.url || 'assets/images/placeholder.jpg';
   if (mainImg) mainImg.src = fallbackImg;
   if (stickyImg) stickyImg.src = fallbackImg;
+  if (mobileStickyThumb) mobileStickyThumb.src = fallbackImg;
 
   const thumbs = document.getElementById('thumbnails');
   if (thumbs && product.images.edges.length > 1) {
@@ -438,13 +577,17 @@ function renderProduct(product) {
       if (priceEl) priceEl.textContent = `$${p.toFixed(2)}`;
       if (stickyPrice) stickyPrice.textContent = `$${p.toFixed(2)}`;
       if (splitEl) splitEl.textContent = `$${(p / 4).toFixed(2)}`;
-      
-      // Offer block
-      const nowPriceEl = document.getElementById('offer-price-now');
+
+      // Strikethrough / anchor price
       const wasPriceEl = document.getElementById('offer-price-was');
-      if (nowPriceEl) nowPriceEl.textContent = `$${p.toFixed(2)}`;
       const prevPrice = copy?.wasPrice || (p > 0 ? p + 30 : 0);
-      if (wasPriceEl) wasPriceEl.textContent = `$${parseFloat(prevPrice).toFixed(2)}`;
+      if (wasPriceEl && prevPrice > p) wasPriceEl.textContent = `$${parseFloat(prevPrice).toFixed(2)}`;
+
+      // Mobile sticky price
+      const mobilePrice = document.getElementById('mobile-sticky-price');
+      const mobileWas = document.getElementById('mobile-sticky-was');
+      if (mobilePrice) mobilePrice.textContent = `$${p.toFixed(2)}`;
+      if (mobileWas && prevPrice > p) mobileWas.textContent = `$${parseFloat(prevPrice).toFixed(2)}`;
     };
     updatePrices(first);
 
@@ -691,8 +834,12 @@ function renderDetailedReviews(data, handle) {
   if (starsEl) starsEl.textContent = '★'.repeat(Math.round(parseFloat(data.avg)));
   if (countEl) countEl.textContent = data.count;
 
-  const folder = handle.includes('walking-pad') ? 'walking-pad' : 'resistance-bands';
-  const prefix = handle.includes('walking-pad') ? 'walkingpad' : 'bands';
+  const folder = handle.includes('walking-pad') ? 'walking-pad'
+    : handle.includes('massage-gun') ? 'massagegun'
+    : 'resistance-bands';
+  const prefix = handle.includes('walking-pad') ? 'walkingpad'
+    : handle.includes('massage-gun') ? 'massagegun'
+    : 'bands';
 
   grid.innerHTML = data.items.map((r, i) => {
     const group = `${prefix}-review-${(i+1).toString().padStart(2, '0')}`;
@@ -809,6 +956,7 @@ function initLightbox() {
 async function loadBundle(copy) {
   const bundleSect = document.getElementById('bundle-section');
   if (!bundleSect) return;
+  bundleSect.style.display = 'block';
 
   bundleSect.innerHTML = `
     <div style="background:rgba(16,185,129,0.05); border:1px dashed var(--emerald); padding:32px; border-radius:4px; text-align:center;">
@@ -833,37 +981,47 @@ async function loadBundle(copy) {
 }
 
 function startShipTimer() {
-  const timerEl = document.getElementById('countdown-timer');
-  const wrapper = document.getElementById('ship-timer');
-  if (!timerEl) return;
-  wrapper.style.display = 'block';
-
-  function update() {
-    const now = new Date();
-    const end = new Date();
-    end.setHours(23, 59, 59, 999);
-    const diff = end - now;
-    const h = Math.floor(diff / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    timerEl.textContent = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+  const scarcityEl = document.getElementById('hero-scarcity');
+  if (scarcityEl && !scarcityEl.textContent.trim()) {
+    scarcityEl.textContent = 'Order in the next 4 hours, ships today.';
   }
-  setInterval(update, 1000);
-  update();
 }
 
 function setupStickyHeader() {
   const trigger = document.getElementById('add-to-cart-btn');
   const sticky = document.getElementById('sticky-atc');
   const title = document.getElementById('sticky-title');
-  if (!trigger || !sticky) return;
+  const mobileStickyEl = document.getElementById('mobile-sticky-cta');
+  const cartDrawer = document.getElementById('cart-drawer');
 
-  title.textContent = document.getElementById('product-h1').textContent;
+  if (trigger && sticky && title) {
+    title.textContent = document.getElementById('product-h1').textContent;
+    const desktopObserver = new IntersectionObserver(([entry]) => {
+      sticky.style.display = entry.isIntersecting ? 'none' : 'flex';
+    }, { threshold: 0 });
+    desktopObserver.observe(trigger);
+  }
 
-  const observer = new IntersectionObserver(([entry]) => {
-    sticky.style.display = entry.isIntersecting ? 'none' : 'flex';
-  }, { threshold: 0 });
-  observer.observe(trigger);
+  if (mobileStickyEl && trigger) {
+    const mobileObserver = new IntersectionObserver(([entry]) => {
+      const cartOpen = cartDrawer?.classList.contains('open');
+      if (!entry.isIntersecting && !cartOpen) {
+        mobileStickyEl.classList.add('visible');
+        mobileStickyEl.setAttribute('aria-hidden', 'false');
+      } else {
+        mobileStickyEl.classList.remove('visible');
+        mobileStickyEl.setAttribute('aria-hidden', 'true');
+      }
+    }, { threshold: 0 });
+    mobileObserver.observe(trigger);
+
+    if (cartDrawer) {
+      const hideOnCart = () => mobileStickyEl.classList.remove('visible');
+      cartDrawer.addEventListener('transitionstart', (e) => {
+        if (cartDrawer.classList.contains('open')) hideOnCart();
+      });
+    }
+  }
 }
 
 document.getElementById('add-to-cart-btn').addEventListener('click', (e) => {
