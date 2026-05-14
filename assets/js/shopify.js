@@ -80,7 +80,7 @@ export async function getProductByHandle(handle) {
         title
         handle
         description
-        images(first: 5) {
+        images(first: 20) {
           edges {
             node {
               url
