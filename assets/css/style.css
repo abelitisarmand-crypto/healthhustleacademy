@@ -66,7 +66,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .headline {
@@ -2849,7 +2848,7 @@ a.social-logo-link:hover {
    Applies ≤767px (phones only, desktop untouched)
 ══════════════════════════════════════════════ */
 
-html, body {
+html {
   overflow-x: hidden;
 }
 

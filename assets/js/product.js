@@ -723,15 +723,20 @@ function renderProduct(product) {
   const AUTOPLAY_DELAY = 4500;
   const PAUSE_DURATION = 9000;
 
-  // Core: update image + active thumb + scroll thumb into view
+  // Core: update image + active thumb + scroll STRIP horizontally (never page)
   const goToImage = (index) => {
     currentIndex = ((index % imageUrls.length) + imageUrls.length) % imageUrls.length;
     if (mainImg) mainImg.src = imageUrls[currentIndex];
     document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
-      const active = i === currentIndex;
-      t.classList.toggle('active', active);
-      if (active) t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+      t.classList.toggle('active', i === currentIndex);
     });
+    if (thumbs) {
+      const active = thumbs.children[currentIndex];
+      if (active) {
+        const target = active.offsetLeft - (thumbs.offsetWidth / 2) + (active.offsetWidth / 2);
+        thumbs.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    }
   };
 
   // User-triggered: also pauses autoplay
