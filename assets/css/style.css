@@ -2735,8 +2735,30 @@ a.social-logo-link:hover {
 }
 
 /* ══════════════════════════════════════════════
-   GALLERY THUMBNAILS
+   GALLERY THUMBNAILS + ARROWS
 ══════════════════════════════════════════════ */
+
+/* Thumbnail strip */
+.gallery-thumbs-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 12px 0 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.gallery-thumbs-strip::-webkit-scrollbar {
+  height: 4px;
+}
+.gallery-thumbs-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gallery-thumbs-strip::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
 
 .gallery-thumb {
   width: 64px;
@@ -2746,8 +2768,8 @@ a.social-logo-link:hover {
   border: 2px solid var(--border);
   cursor: pointer;
   flex-shrink: 0;
-  transition: border-color .2s, opacity .2s;
-  opacity: .75;
+  transition: border-color .2s, opacity .2s, box-shadow .2s;
+  opacity: .65;
 }
 
 .gallery-thumb:hover {
@@ -2757,13 +2779,59 @@ a.social-logo-link:hover {
 
 .gallery-thumb.active {
   border-color: var(--emerald);
+  box-shadow: 0 0 8px rgba(16, 185, 129, .35);
   opacity: 1;
 }
 
-@media (max-width: 768px) {
+/* Arrow buttons */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(13, 17, 23, .72);
+  border: 1px solid rgba(16, 185, 129, .3);
+  color: var(--emerald);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .15s;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0;
+  line-height: 1;
+}
+
+.gallery-arrow:hover {
+  background: rgba(13, 17, 23, .92);
+  border-color: var(--emerald);
+  box-shadow: 0 0 14px rgba(16, 185, 129, .4);
+}
+
+.gallery-arrow:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.gallery-arrow--prev { left: 12px; }
+.gallery-arrow--next { right: 12px; }
+
+@media (max-width: 767px) {
   .gallery-thumb {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
+  }
+  .gallery-arrow {
+    width: 44px;
+    height: 44px;
+  }
+  .gallery-arrow--prev { left: 8px; }
+  .gallery-arrow--next { right: 8px; }
+  .gallery-thumbs-strip {
+    padding: 10px 16px 4px;
   }
 }
 

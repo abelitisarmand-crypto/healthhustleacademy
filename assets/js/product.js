@@ -716,16 +716,73 @@ function renderProduct(product) {
   if (solutionImgEl && !copy?.solutionImage) solutionImgEl.src = fallbackImg;
 
   const thumbs = document.getElementById('thumbnails');
-  if (thumbs && product.images.edges.length > 1) {
-    thumbs.innerHTML = product.images.edges.map((e, i) => `
-      <img src="${e.node.url}"
+  const imageUrls = product.images.edges.map(e => e.node.url);
+  let currentIndex = 0;
+  let autoplayTimer = null;
+  let pauseTimer = null;
+  const AUTOPLAY_DELAY = 4500;
+  const PAUSE_DURATION = 9000;
+
+  // Core: update image + active thumb + scroll thumb into view
+  const goToImage = (index) => {
+    currentIndex = ((index % imageUrls.length) + imageUrls.length) % imageUrls.length;
+    if (mainImg) mainImg.src = imageUrls[currentIndex];
+    document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+      const active = i === currentIndex;
+      t.classList.toggle('active', active);
+      if (active) t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    });
+  };
+
+  // User-triggered: also pauses autoplay
+  window.updateGallery = (index) => {
+    goToImage(index);
+    clearInterval(autoplayTimer);
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(startAutoplay, PAUSE_DURATION);
+  };
+
+  function startAutoplay() {
+    clearInterval(autoplayTimer);
+    if (imageUrls.length <= 1) return;
+    autoplayTimer = setInterval(() => goToImage(currentIndex + 1), AUTOPLAY_DELAY);
+  }
+
+  if (thumbs && imageUrls.length > 0) {
+    thumbs.innerHTML = imageUrls.map((url, i) => `
+      <img src="${url}"
            class="gallery-thumb${i === 0 ? ' active' : ''}"
-           onclick="window.updateGallery('${e.node.url}', this)"
+           onclick="window.updateGallery(${i})"
            alt="Product photo ${i + 1}"
            width="64" height="64"
            loading="${i < 3 ? 'eager' : 'lazy'}">
     `).join('');
   }
+
+  // Arrow buttons
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  if (prevBtn) prevBtn.addEventListener('click', () => window.updateGallery(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => window.updateGallery(currentIndex + 1));
+
+  // Pause autoplay on hover, resume on leave
+  const mainContainer = document.getElementById('main-image-container');
+  if (mainContainer) {
+    mainContainer.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+    mainContainer.addEventListener('mouseleave', () => {
+      if (!pauseTimer) startAutoplay();
+    });
+  }
+
+  // Keyboard navigation (skip if focus is on input/textarea)
+  document.addEventListener('keydown', (e) => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
+    if (e.key === 'ArrowLeft') window.updateGallery(currentIndex - 1);
+    if (e.key === 'ArrowRight') window.updateGallery(currentIndex + 1);
+  });
+
+  // Start autoplay
+  if (imageUrls.length > 1) startAutoplay();
 
   // Pricing
   const priceEl = document.getElementById('product-price');
@@ -890,13 +947,6 @@ function renderProduct(product) {
   }
 
   // Global Helpers for this Page
-  window.updateGallery = (url, clickedThumb) => {
-    mainImg.src = url;
-    if (clickedThumb) {
-      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-      clickedThumb.classList.add('active');
-    }
-  };
   window.selectVariant = (id, btn, price) => {
     selectedVariantId = id;
     document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
