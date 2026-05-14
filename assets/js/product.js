@@ -96,24 +96,24 @@ const PRODUCT_COPY = {
     }
   },
   'walking-pad-treadmill-compact-portable-walking-pad-quiet-operation-adjustable-speed-settings': {
-    h1: 'Burn 400 Calories a Day — Without Leaving Your Desk',
-    subtitle: 'The whisper-quiet walking pad that turns your work hours into your workout.',
+    h1: 'Your Body Is Paying For Your Desk Job.',
+    subtitle: 'Move while you work. Burn 400 calories. Change nothing else.',
     eyebrow: '★★★★★ 4.9 · 2,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
     bullets: [
-      { bold: 'BURN 300–500 CAL/HR', rest: '— while you answer emails' },
-      { bold: 'WHISPER QUIET (45 dB)', rest: '— quieter than your AC, no one on Zoom will hear' },
-      { bold: 'SLIDES UNDER ANY DESK', rest: '— folds flat, weighs 55 lbs, holds up to 265 lbs' }
+      { bold: 'Walk & work at the same time', rest: '' },
+      { bold: '45dB — invisible on Zoom', rest: '' },
+      { bold: 'Slides under any desk', rest: '' }
     ],
     wasPrice: 499,
     saveBadge: 'YOU SAVE $200 (40% OFF)',
-    scarcity: 'Only 47 units left at this price · Ships from California in 2–3 days',
+    scarcity: '47 units left at this price · Ships from California in 2–3 days',
     miniReviews: [
-      { stars: '★★★★★', quote: 'I hit 10K steps before lunch.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
+      { stars: '★★★★★', quote: '10K steps before lunch, every day.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
       { stars: '★★★★★', quote: 'Fits under my IKEA desk perfectly.', name: 'Jason K.', thumb: 'images/reviews/walking-pad/review-04.jpg' },
-      { stars: '★★★★★', quote: 'Game changer for working from home.', name: 'Maria L.', thumb: 'images/reviews/walking-pad/review-08.jpg' }
+      { stars: '★★★★★', quote: 'Lost 14 lbs. Didn\'t change my diet.', name: 'Maria L.', thumb: 'images/reviews/walking-pad/review-08.jpg' }
     ],
     problemHeadline: 'YOUR BODY IS KEEPING SCORE.',
-    problemText: 'You sit 8+ hours a day. Your back knows. Your waistline knows. Your doctor knows.\nThe gym never fits. But this does.',
+    problemText: 'You sit 9 hours a day. Your back aches by 3pm. You keep meaning to exercise — but the gym is 20 minutes away, parking is a nightmare, and by 6pm you\'re done.\nThe problem isn\'t willpower. It\'s friction. This removes it.',
     transformations: [
       { icon: 'steps', text: 'Sedentary to Active' },
       { icon: 'quiet', text: 'Noisy to Silent' },
@@ -148,14 +148,22 @@ const PRODUCT_COPY = {
       'User Manual & 14-Day Program PDF'
     ],
     faq: [
-      { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches of clearance." },
-      { q: "Is it loud on Zoom calls?", a: "40dB at walking speed. Quieter than normal conversation. Mic won't pick it up." },
-      { q: "What if I never use it?", a: "30-day guarantee. Full refund if it collects dust." },
-      { q: "How fast does it go?", a: "0.6 to 5 mph. Walking mode for desk use, faster for workouts." }
+      { q: "What are the dimensions?", a: "Pad surface: 40\" × 16\". Height when flat: 4.7 inches. Weight: 55 lbs. Holds up to 265 lbs. Folds vertically in about 3 seconds." },
+      { q: "Will it fit under my desk?", a: "If your desk has 5+ inches of clearance from the floor, it fits. Most standard desks (IKEA, Amazon, VariDesk) clear it with room to spare." },
+      { q: "Is it loud on Zoom calls?", a: "40dB at walking speed — quieter than a normal conversation. Your microphone will not pick it up. Customers use it in back-to-back meetings all day." },
+      { q: "Do I need a standing desk?", a: "No. Works best with one, but many customers use it while on the phone, watching TV, or any activity that doesn't require sitting." },
+      { q: "How fast does it go?", a: "0.6 to 5 mph. Use 0.6–1.5 mph during desk work. Use 3–5 mph for dedicated walking sessions on breaks." },
+      { q: "Can I use it on carpet?", a: "Yes. Works on carpet, hardwood, tile, and laminate. We recommend the included mat on plush carpet to protect the motor belt." },
+      { q: "How hard is assembly?", a: "Zero assembly. Unfold, plug in, step on. No tools, no manual needed. Most people are walking within 2 minutes of opening the box." },
+      { q: "Will it work in an apartment?", a: "Yes. The motor noise is 40dB — your downstairs neighbor won\'t hear it. The belt is rubberized, not metal, so no impact vibration." },
+      { q: "What\'s the weight limit?", a: "265 lbs maximum. The steel frame and commercial-grade motor handle it without strain." },
+      { q: "What\'s the return policy?", a: "30-day money-back guarantee. If you don\'t use it, don\'t love it, or it doesn\'t fit — full refund. No questions, no forms, no hassle." },
+      { q: "What does the warranty cover?", a: "1-year warranty on all mechanical components — motor, belt, frame. US-based support team. Most issues resolved same-day over email." },
+      { q: "How long does shipping take?", a: "Ships within 24–48 hours from our California warehouse. Delivery is typically 2–5 business days. Free standard shipping on all US orders." }
     ],
     objections: [
       { q: "IS IT DIFFICULT TO SET UP?", a: "Zero setup. Open the box, plug it in, and start walking." },
-      { q: "DO I NEED A STANDING DESK?", a: "It works best with one, but many users use it while watching TV or during phone calls." }
+      { q: "DO I NEED A STANDING DESK?", a: "Works best with one, but many users use it watching TV or on phone calls." }
     ],
     detailedReviews: {
       title: "REAL RESULTS FROM REAL CUSTOMERS",

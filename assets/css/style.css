@@ -2350,3 +2350,227 @@ img {
     display: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════
+   SECTION VISUAL SEPARATION — lighting gradient
+══════════════════════════════════════════════ */
+
+.section-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 11px;
+  letter-spacing: .2em;
+  color: var(--emerald);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Subtle top-edge glow on key sections for depth */
+.social-proof-bar,
+.solution-section,
+#comparison-section,
+.faq-section {
+  position: relative;
+}
+
+.solution-section::before,
+#comparison-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16,185,129,.25), transparent);
+  pointer-events: none;
+}
+
+/* Problem section: split layout for visual weight */
+.problem-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #0a0f14 100%);
+}
+
+/* Three steps: brighter separator */
+.hiw-section {
+  background: var(--bg-secondary);
+  border-top: 1px solid rgba(16,185,129,.12);
+  border-bottom: 1px solid rgba(16,185,129,.12);
+}
+
+/* Box section: slight contrast lift */
+#box-section {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+/* Reviews: darkest for contrast with review cards */
+.reviews-customer-section {
+  background: #0a0f14;
+}
+
+/* FAQ: subtle left border on questions */
+.faq-section {
+  background: var(--bg-secondary);
+}
+
+/* Final CTA: deep dark with subtle radial */
+#final-cta-section {
+  background: radial-gradient(ellipse at center top, rgba(16,185,129,.06) 0%, var(--bg-primary) 60%);
+}
+
+/* ══════════════════════════════════════════════
+   WHY HHA BRAND SECTION
+══════════════════════════════════════════════ */
+
+.why-hha-section {
+  background: var(--bg-deep-green);
+  border-top: 1px solid rgba(16,185,129,.2);
+  border-bottom: 1px solid rgba(16,185,129,.2);
+}
+
+.why-hha-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.why-hha-h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: .95;
+  text-transform: none;
+  text-align: left;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -.01em;
+}
+
+.why-hha-body {
+  font-size: 15px;
+  color: rgba(240,246,252,.7);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.why-hha-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.why-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+  background: rgba(16,185,129,.08);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.why-stat-number {
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  color: var(--emerald);
+  line-height: 1;
+}
+
+.why-stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.5);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .why-hha-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER NEWSLETTER
+══════════════════════════════════════════════ */
+
+.footer-newsletter-strip {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0;
+}
+
+.footer-newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.footer-newsletter-form {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.footer-email-input {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-ui);
+  color: white;
+  padding: 0 16px;
+  height: 48px;
+  border-radius: 2px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 260px;
+}
+
+.footer-email-input::placeholder {
+  color: var(--text-muted);
+}
+
+.footer-email-input:focus {
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
+  border-color: var(--emerald);
+}
+
+.footer-mission {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+@media (max-width: 768px) {
+  .footer-newsletter-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .footer-email-input {
+    width: 100%;
+  }
+  .footer-newsletter-form {
+    width: 100%;
+    flex-direction: column;
+  }
+  .footer-newsletter-form .btn {
+    width: 100%;
+    height: 52px;
+  }
+}
+
+/* Hero scarcity inline */
+.hero-scarcity {
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+  display: inline;
+}

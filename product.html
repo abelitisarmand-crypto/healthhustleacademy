@@ -169,37 +169,34 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
             <!-- 3. Subhead -->
             <p id="product-subtitle-p" class="pdp-subtitle">The whisper-quiet walking pad that turns your work hours into your workout.</p>
 
-            <!-- 4. Benefit bullets -->
+            <!-- 4. Benefit bullets (ultra-short) -->
             <ul class="hero-bullets" id="hero-bullets"></ul>
 
-            <!-- 5. Price block with anchor -->
+            <!-- 5. Variant selector -->
+            <div id="variant-selector-pdp"></div>
+
+            <!-- 6. Primary CTA — HIGH in hierarchy -->
+            <button id="add-to-cart-btn" class="btn btn-primary hero-cta-btn">START WALKING TODAY →</button>
+
+            <!-- 7. Price block with anchor — BELOW CTA -->
             <div class="hero-price-block">
               <div class="price-anchor-row">
                 <span class="price-was" id="offer-price-was"></span>
                 <span class="hero-price-now" id="product-price">$0.00</span>
+                <div class="hero-save-badge" id="hero-save-badge" style="display:none;"></div>
               </div>
-              <div class="hero-save-badge" id="hero-save-badge" style="display:none;"></div>
-              <div class="hero-afterpay">or 4 interest-free payments of <span id="payment-split">$0.00</span> with Afterpay</div>
+              <div class="hero-afterpay">or 4 payments of <span id="payment-split">$0.00</span> with Afterpay · <span class="hero-scarcity" id="hero-scarcity"></span></div>
             </div>
 
-            <!-- 6. Scarcity line -->
-            <div class="hero-scarcity" id="hero-scarcity"></div>
-
-            <!-- 7. Variant selector -->
-            <div id="variant-selector-pdp"></div>
-
-            <!-- 8. Primary CTA -->
-            <button id="add-to-cart-btn" class="btn btn-primary hero-cta-btn">START WALKING TODAY →</button>
-
-            <!-- 9. Trust row -->
+            <!-- 8. Trust row (compact) -->
             <div class="hero-trust-row">
               <span>🔒 SSL Secure</span>
-              <span>📦 Free US Shipping</span>
+              <span>📦 Free Shipping</span>
               <span>↩️ 30-Day Returns</span>
-              <span>⭐ 4.9/5 (2,000+ reviews)</span>
+              <span>⭐ 4.9/5</span>
             </div>
 
-            <!-- 10. Inline social proof strip -->
+            <!-- 9. Inline social proof strip -->
             <div class="hero-mini-reviews" id="hero-mini-reviews"></div>
 
           </div>
@@ -265,6 +262,57 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
       </div>
     </section>
 
+    <!-- ═══ VIDEO PLACEHOLDER (replace with UGC embed) ═══ -->
+    <section class="video-section animate-in" id="video-section" style="display:none;">
+      <div class="container" style="max-width:800px; text-align:center;">
+        <p class="section-eyebrow">SEE IT IN ACTION</p>
+        <h2 style="font-family:'Anton';font-size:clamp(28px,5vw,48px);margin-bottom:40px;">WATCH BEFORE YOU DECIDE</h2>
+        <div class="video-placeholder" id="video-embed">
+          <!-- TODO: Replace with real UGC video embed (TikTok / YouTube / native mp4) -->
+          <!-- Suggested clips: POV walking, under-desk shot, Zoom call test, unboxing, noise test -->
+          <div style="aspect-ratio:16/9;background:var(--bg-secondary);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+            <div style="width:64px;height:64px;background:var(--emerald);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="black"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <p style="color:var(--text-muted);font-family:'Barlow Condensed';font-size:13px;letter-spacing:.1em;">VIDEO COMING SOON — FOLLOW US ON TIKTOK @healthhustleacade</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ WHY HHA BRAND SECTION ═══ -->
+    <section class="why-hha-section animate-in" style="padding:80px 0; background:var(--bg-deep-green);">
+      <div class="container" style="max-width:900px;">
+        <div class="why-hha-inner">
+          <div class="why-hha-text">
+            <p class="section-eyebrow" style="color:var(--emerald-light);">WHY HEALTHHUSTLEACADEMY</p>
+            <h2 class="why-hha-h2">We built this because<br>sitting was killing us.</h2>
+            <p class="why-hha-body">Most fitness brands sell you gear for the gym. We built gear for real life — for the 9-hour workday, the back-to-back Zooms, the commute you already dread.</p>
+            <p class="why-hha-body">The walking pad isn't just a treadmill. It's a system. Every purchase includes a 14-day movement plan built around your work schedule — not against it.</p>
+            <p class="why-hha-body" style="color:var(--emerald-light);font-weight:600;">We're an anti-sedentary brand. Our mission: make movement frictionless.</p>
+          </div>
+          <div class="why-hha-stats">
+            <div class="why-stat">
+              <span class="why-stat-number">2,000+</span>
+              <span class="why-stat-label">verified buyers</span>
+            </div>
+            <div class="why-stat">
+              <span class="why-stat-number">4.9★</span>
+              <span class="why-stat-label">average rating</span>
+            </div>
+            <div class="why-stat">
+              <span class="why-stat-number">30</span>
+              <span class="why-stat-label">days risk-free</span>
+            </div>
+            <div class="why-stat">
+              <span class="why-stat-number">14-day</span>
+              <span class="why-stat-label">program included</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══ SECTION 5: THREE STEPS ═══ -->
     <section class="hiw-section animate-in" style="padding:80px 0; background:var(--bg-primary);">
       <div class="container">
@@ -307,17 +355,18 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
               <tr>
                 <th>Feature</th>
                 <th class="col-ours">HHA Walking Pad</th>
-                <th>Amazon Generic</th>
-                <th>Peloton Tread</th>
+                <th>Budget Alternative</th>
+                <th>UREVO / Sperax</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Price</td><td class="col-ours">$299</td><td>$189</td><td>$1,795</td></tr>
-              <tr><td>Warranty</td><td class="col-ours">1 year</td><td>30 days</td><td>1 year</td></tr>
-              <tr><td>Free US Shipping</td><td class="col-ours check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
-              <tr><td>30-Day Returns</td><td class="col-ours check">✓</td><td>varies</td><td class="check">✓</td></tr>
-              <tr><td>US Support</td><td class="col-ours check">✓</td><td class="cross">✗</td><td class="check">✓</td></tr>
+              <tr><td>Price</td><td class="col-ours">$299</td><td>$129–179</td><td>$289–399</td></tr>
+              <tr><td>Warranty</td><td class="col-ours">1 year</td><td>30–90 days</td><td>1 year</td></tr>
+              <tr><td>Free US Shipping</td><td class="col-ours check">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+              <tr><td>30-Day Returns</td><td class="col-ours check">✓</td><td class="cross">✗</td><td>30 days</td></tr>
+              <tr><td>US Support</td><td class="col-ours check">✓</td><td class="cross">✗</td><td>email only</td></tr>
               <tr><td>Free Training PDF</td><td class="col-ours check">✓</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+              <tr><td>Weight Limit</td><td class="col-ours">265 lbs</td><td>220 lbs</td><td>265 lbs</td></tr>
             </tbody>
           </table>
         </div>
@@ -365,8 +414,28 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
     </div>
   </div>
 
-  <footer class="footer" style="padding:100px 0; background:#000; border-top:1px solid var(--border);">
+  <!-- FOOTER NEWSLETTER STRIP -->
+  <div class="footer-newsletter-strip">
     <div class="container">
+      <div class="footer-newsletter-inner">
+        <div>
+          <p class="section-eyebrow" style="text-align:left;">MOVEMENT STARTS WITH ONE STEP</p>
+          <h3 style="font-family:'Anton';font-size:clamp(22px,3vw,32px);line-height:1;text-align:left;text-transform:none;">Get the 14-day movement plan — free.</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">Weekly tips on moving more without changing your schedule.</p>
+        </div>
+        <form class="footer-newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="your@email.com" class="footer-email-input" aria-label="Email address">
+          <button type="submit" class="btn btn-primary" style="height:48px;padding:0 24px;font-size:13px;white-space:nowrap;">GET THE PLAN</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding:80px 0 48px; background:#000; border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="footer-mission">
+        <p>We're an <strong style="color:var(--emerald);">anti-sedentary brand</strong> — built for modern work life. Every product we make removes the friction between you and movement.</p>
+      </div>
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo" style="font-family:'Anton';font-size:24px;margin-bottom:24px;">HEALTHHUSTLE<span style="color:var(--emerald);">ACADEMY</span></div>
@@ -412,8 +481,9 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
           </ul>
         </div>
       </div>
-      <div style="margin-top:80px;padding-top:40px;border-top:1px solid rgba(255,255,255,.05);color:var(--text-muted);font-size:12px;text-align:left;">
-        © 2026 HEALTHHUSTLEACADEMY. ALL RIGHTS RESERVED.
+      <div style="margin-top:64px;padding-top:32px;border-top:1px solid rgba(255,255,255,.05);color:var(--text-muted);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <span>© 2026 HEALTHHUSTLEACADEMY. ALL RIGHTS RESERVED.</span>
+        <span style="color:var(--emerald);font-family:'Barlow Condensed';font-weight:700;letter-spacing:.05em;">DESIGNED FOR MODERN WORK LIFE</span>
       </div>
     </div>
   </footer>
