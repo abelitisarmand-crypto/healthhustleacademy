@@ -82,6 +82,7 @@ h1, h2, h3, h4, .headline {
   font-family: 'Anton', sans-serif;
   font-size: var(--size-hero);
   line-height: 1.0;
+  letter-spacing: 0.02em;
   display: flex;
   flex-direction: column;
 }
@@ -1884,12 +1885,12 @@ img {
 .pdp-h1 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(28px, 3.6vw, 52px);
-  line-height: .95;
+  line-height: 1.0;
   text-transform: none;
   color: var(--text-primary);
   margin: 0;
   text-align: left;
-  letter-spacing: -.01em;
+  letter-spacing: 0.025em;
 }
 
 .pdp-subtitle {
@@ -2179,11 +2180,11 @@ img {
 .solution-h2 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(28px, 3.5vw, 48px);
-  line-height: .95;
+  line-height: 1.0;
   text-transform: none;
   text-align: left;
   margin-bottom: 16px;
-  letter-spacing: -.01em;
+  letter-spacing: 0.025em;
 }
 
 .solution-text {
@@ -2465,12 +2466,12 @@ img {
 .why-hha-h2 {
   font-family: 'Anton', sans-serif;
   font-size: clamp(28px, 3.5vw, 44px);
-  line-height: .95;
+  line-height: 1.0;
   text-transform: none;
   text-align: left;
   color: var(--text-primary);
   margin-bottom: 20px;
-  letter-spacing: -.01em;
+  letter-spacing: 0.025em;
 }
 
 .why-hha-body {
@@ -2956,5 +2957,29 @@ html, body {
     white-space: normal !important;
     overflow: visible !important;
     text-overflow: unset !important;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   HEADLINE TYPOGRAPHY — mobile override
+══════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .pdp-h1,
+  .solution-h2,
+  .why-hha-h2,
+  .reviews-header h2 {
+    letter-spacing: 0.015em;
+    line-height: 1.02;
+  }
+
+  .hero-headline {
+    letter-spacing: 0.015em;
+    line-height: 1.02;
+  }
+
+  h1, h2, h3, h4, .headline {
+    letter-spacing: 0.015em;
+    line-height: 1.05;
   }
 }
