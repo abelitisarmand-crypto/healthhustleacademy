@@ -1,4 +1,4 @@
-import { getProductByHandle, addToCart } from './shopify.js?v=3.1';
+import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
 import { ICONS } from '../icons/icons.js';
 
 window.scrollToATC = () => {
@@ -276,7 +276,7 @@ const PRODUCT_COPY = {
       '1x Remote Control (Battery Included)',
       '1x Safety Magnet Clip',
       '1x Silicone Lubricant Oil',
-      'User Manual & 30-Day Program PDF'
+      'User Manual & 14-Day Program PDF'
     ],
     faq: [
       { q: "Will this fit under my desk?", a: "4.7 inches tall. Fits under any standard desk with 5+ inches of clearance." },
@@ -362,7 +362,7 @@ const PRODUCT_COPY = {
   },
   '5-pc-set-resistance-band-resistance-bands-exercise-bands-exercise-resistance-bands-exercise': {
     h1: 'YOUR ENTIRE HOME GYM. FITS IN A BACKPACK.',
-    subtitle: '5 resistance levels. Door anchor. 30-day program. Real results, zero commute.',
+    subtitle: '5 resistance levels. Door anchor. 14-day program. Real results, zero commute.',
     ctaText: 'BUILD YOUR HOME GYM →',
     eyebrow: '★★★★★ 4.9 · 1,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
     bullets: [
@@ -377,13 +377,13 @@ const PRODUCT_COPY = {
       { stars: '★★★★★', quote: 'Zero signs of wear after 3 months.', name: 'Michael S.', thumb: 'images/reviews/resistance-bands/bands-review-04-1.jpg' }
     ],
     solutionH2: 'Your whole gym.<br>In one bag.',
-    solutionText: 'Five color-coded bands. A door anchor that takes 10 seconds to set up. A 30-day program built for people with 20 minutes max. Whether you\'re in your living room, a hotel room, or your backyard — Day 1 starts today.',
+    solutionText: 'Five color-coded bands. A door anchor that takes 10 seconds to set up. A 14-day program built for people with 20 minutes max. Whether you\'re in your living room, a hotel room, or your backyard — Day 1 starts today.',
     problemEyebrow: 'NO TIME. NO SPACE. NO EXCUSES.',
     problemHeadline: 'THE GYM YOU NEVER GO TO IS COSTING YOU $50 A MONTH.',
     problemText: 'You\'ve tried the gym. Maybe twice. The commute, the crowd, the parking. You bought equipment that became a clothes rack. This is different — because it comes with a system.',
-    whyHhaBody: 'Most home gym equipment collects dust within a month — not because people are lazy, but because there\'s no plan. We ship every kit with a 30-day program because a tool without a system is just clutter.',
+    whyHhaBody: 'Most home gym equipment collects dust within a month — not because people are lazy, but because there\'s no plan. We ship every kit with a 14-day program because a tool without a system is just clutter.',
     whyHhaProgram: 'Twenty minutes per session. Zero experience required. Just open the program and follow Day 1. That\'s the entire plan.',
-    whyHhaStat4: '30-day',
+    whyHhaStat4: '14-day',
     whyHhaStat4Label: 'training program',
     hiwHeadline: 'THREE STEPS. FIRST WORKOUT TODAY.',
     socialProofCount: '1,000+ verified buyers',
@@ -397,11 +397,11 @@ const PRODUCT_COPY = {
     hiw: [
       { t: "PICK YOUR WEIGHT", d: "Combine bands to reach up to 150 lbs of resistance." },
       { t: "ANCHOR & TRAIN", d: "Use the door anchor for rows, chest press, and more." },
-      { t: "FOLLOW DAY 1", d: "Open the 30-day program and just do the work." }
+      { t: "FOLLOW DAY 1", d: "Open the 14-day program and just do the work." }
     ],
     benefits: [
       { icon: 'backpack', title: 'Train in 6 square feet', text: 'Living room, hotel, backyard. Doesn\'t matter.' },
-      { icon: 'program', title: '30-day program included', text: 'No guesswork. Open it and follow Day 1. That\'s it.' },
+      { icon: 'program', title: '14-day program included', text: 'No guesswork. Open it and follow Day 1. That\'s it.' },
       { icon: 'resistance', title: '10 to 50 lbs resistance', text: 'Works for beginners and advanced. Stack them for more.' },
       { icon: 'money', title: 'Less than one gym month', text: 'One-time cost. Lasts for years.' }
     ],
@@ -421,7 +421,7 @@ const PRODUCT_COPY = {
       '2x Cushioned Soft-Grip Handles',
       '2x Ankle Straps',
       '1x Waterproof Carrying Bag',
-      'Digital 30-Day Training Program'
+      'Digital 14-Day Training Program'
     ],
     faq: [
       { q: "Will this work if I'm a beginner?", a: "The 10lb band is genuinely beginner level. Day 1 of the program requires zero experience." },
