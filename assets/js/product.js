@@ -820,6 +820,21 @@ function renderProduct(product) {
     };
     updatePrices(first);
 
+    // Meta Pixel: ViewContent
+    try {
+      if (typeof fbq === 'function') {
+        const numericProductId = product.id?.replace('gid://shopify/Product/', '') || '';
+        const price = parseFloat(first.price?.amount || 0);
+        fbq('track', 'ViewContent', {
+          content_ids:  [numericProductId],
+          content_name: product.title || '',
+          content_type: 'product',
+          value:        price,
+          currency:     'USD'
+        });
+      }
+    } catch (e) { /* pixel not loaded */ }
+
     // Urgency
     const stockEl = document.getElementById('urgency-stock');
     const qty = (first.quantityAvailable !== null && first.quantityAvailable !== undefined)
