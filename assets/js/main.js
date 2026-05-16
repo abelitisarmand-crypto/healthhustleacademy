@@ -1,4 +1,5 @@
 import { getProducts, getProductByHandle, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=2.4';
+import { trackAddToCart, trackBeginCheckout } from './analytics.js';
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
@@ -19,6 +20,12 @@ function fireAddToCartPixel(cart, variantId) {
     });
   } catch (e) {
     console.warn('Meta Pixel AddToCart error:', e);
+  }
+  
+  try {
+    trackAddToCart(variantId, 1, cart);
+  } catch (e) {
+    console.error('GA4 trackAddToCart error:', e);
   }
 }
 
@@ -619,10 +626,34 @@ document.addEventListener('click', (e) => {
     // Check if URL is valid myshopify link
     if (storedUrl && storedUrl.includes('myshopify.com')) {
       console.log('[HARD MODE] Valid Checkout Redirect:', storedUrl);
+      
+      // Fire begin_checkout event
+      const currentCartId = localStorage.getItem('shopify_cart_id');
+      if (currentCartId) {
+        getCart(currentCartId).then(data => {
+          if (data && data.cart) {
+            try {
+              trackBeginCheckout(data.cart);
+            } catch(e) { console.error('GA4 begin_checkout error', e); }
+          }
+        });
+      }
+      
       window.open(storedUrl, '_blank');
     } else {
       // Fallback — build URL from cartId or use root cart
       const currentCartId = localStorage.getItem('shopify_cart_id');
+      
+      if (currentCartId) {
+        getCart(currentCartId).then(data => {
+          if (data && data.cart) {
+            try {
+              trackBeginCheckout(data.cart);
+            } catch(e) { console.error('GA4 begin_checkout error', e); }
+          }
+        });
+      }
+      
       const fallbackUrl = `${SHOPIFY_CHECKOUT_DOMAIN}/cart`;
       console.warn('[HARD MODE] Invalid URL found. Using fallback:', fallbackUrl);
       window.open(fallbackUrl, '_blank');

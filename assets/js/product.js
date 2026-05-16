@@ -1,5 +1,6 @@
 import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
 import { ICONS } from '../icons/icons.js';
+import { trackViewItem } from './analytics.js';
 
 window.scrollToATC = () => {
   document.getElementById('add-to-cart-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -586,6 +587,9 @@ async function init() {
   renderProduct(product);
   setupStickyHeader();
   startShipTimer();
+  
+  // Track view_item in GA4 after product is ready
+  trackViewItem(product, selectedVariantId);
 }
 
 function renderProduct(product) {
