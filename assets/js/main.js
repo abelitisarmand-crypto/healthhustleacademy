@@ -195,6 +195,7 @@ async function renderCart(cartData = null) {
   }
 
   cart = await enforceCartRules(cart);
+  window._currentCart = cart; // Expose for GA4 begin_checkout
 
   if (!cart || !cart.lines || cart.lines.edges.length === 0) {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty.</p>';
@@ -627,36 +628,21 @@ document.addEventListener('click', (e) => {
     if (storedUrl && storedUrl.includes('myshopify.com')) {
       console.log('[HARD MODE] Valid Checkout Redirect:', storedUrl);
       
-      // Fire begin_checkout event
-      const currentCartId = localStorage.getItem('shopify_cart_id');
-      if (currentCartId) {
-        getCart(currentCartId).then(data => {
-          if (data && data.cart) {
-            try {
-              trackBeginCheckout(data.cart);
-            } catch(e) { console.error('GA4 begin_checkout error', e); }
-          }
-        });
+      if (window._currentCart) {
+        try { trackBeginCheckout(window._currentCart); } catch(e) { console.error(e); }
       }
       
-      window.open(storedUrl, '_blank');
+      setTimeout(() => { window.location.href = storedUrl; }, 300);
     } else {
-      // Fallback — build URL from cartId or use root cart
-      const currentCartId = localStorage.getItem('shopify_cart_id');
-      
-      if (currentCartId) {
-        getCart(currentCartId).then(data => {
-          if (data && data.cart) {
-            try {
-              trackBeginCheckout(data.cart);
-            } catch(e) { console.error('GA4 begin_checkout error', e); }
-          }
-        });
+      // Fallback
+      if (window._currentCart) {
+        try { trackBeginCheckout(window._currentCart); } catch(e) { console.error(e); }
       }
       
       const fallbackUrl = `${SHOPIFY_CHECKOUT_DOMAIN}/cart`;
       console.warn('[HARD MODE] Invalid URL found. Using fallback:', fallbackUrl);
-      window.open(fallbackUrl, '_blank');
+      
+      setTimeout(() => { window.location.href = fallbackUrl; }, 300);
     }
   }
 }, true);

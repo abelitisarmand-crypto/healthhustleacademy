@@ -3,11 +3,8 @@
  */
 
 function safeGtag() {
-  if (typeof window.gtag === 'function') {
-    window.gtag.apply(null, arguments);
-  } else {
-    console.warn('GA4 (gtag) is not available. Event not sent:', arguments);
-  }
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(arguments);
 }
 
 /**
@@ -25,7 +22,7 @@ export function trackViewItem(product, selectedVariantId) {
 
   const price = parseFloat(variant.price?.amount || 0);
 
-  safeGtag('event', 'view_item', {
+  const payload = {
     currency: 'USD',
     value: price,
     items: [
@@ -37,7 +34,10 @@ export function trackViewItem(product, selectedVariantId) {
         item_variant: variant.title !== 'Default Title' ? variant.title : undefined
       }
     ]
-  });
+  };
+  
+  console.log('[GA4 DEBUG] view_item fired', payload);
+  safeGtag('event', 'view_item', payload);
 }
 
 /**
@@ -57,7 +57,7 @@ export function trackAddToCart(variantId, quantity, cart) {
   const product = variant.product;
   const price = parseFloat(variant.price?.amount || 0);
 
-  safeGtag('event', 'add_to_cart', {
+  const payload = {
     currency: 'USD',
     value: price * quantity,
     items: [
@@ -69,7 +69,10 @@ export function trackAddToCart(variantId, quantity, cart) {
         item_variant: variant.title !== 'Default Title' ? variant.title : undefined
       }
     ]
-  });
+  };
+
+  console.log('[GA4 DEBUG] add_to_cart fired', payload);
+  safeGtag('event', 'add_to_cart', payload);
 }
 
 /**
@@ -93,9 +96,12 @@ export function trackBeginCheckout(cart) {
 
   const value = parseFloat(cart.cost?.totalAmount?.amount || 0);
 
-  safeGtag('event', 'begin_checkout', {
+  const payload = {
     currency: 'USD',
     value: value,
     items: items
-  });
+  };
+
+  console.log('[GA4 DEBUG] begin_checkout fired', payload);
+  safeGtag('event', 'begin_checkout', payload);
 }
