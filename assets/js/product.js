@@ -1,6 +1,6 @@
 import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
 import { ICONS } from '../icons/icons.js';
-import { trackViewItem } from './analytics.js';
+import { trackViewItem, fireViewContentCAPI } from './analytics.js';
 
 window.scrollToATC = () => {
   document.getElementById('add-to-cart-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -824,20 +824,12 @@ function renderProduct(product) {
     };
     updatePrices(first);
 
-    // Meta Pixel: ViewContent
-    try {
-      if (typeof fbq === 'function') {
-        const numericProductId = product.id?.replace('gid://shopify/Product/', '') || '';
-        const price = parseFloat(first.price?.amount || 0);
-        fbq('track', 'ViewContent', {
-          content_ids:  [numericProductId],
-          content_name: product.title || '',
-          content_type: 'product',
-          value:        price,
-          currency:     'USD'
-        });
-      }
-    } catch (e) { /* pixel not loaded */ }
+    // Meta Pixel + CAPI: ViewContent (deduplicated via event_id)
+    fireViewContentCAPI({
+      content_id:   product.id?.replace('gid://shopify/Product/', '') || '',
+      content_name: product.title || '',
+      value:        parseFloat(first.price?.amount || 0),
+    });
 
     // Urgency
     const stockEl = document.getElementById('urgency-stock');

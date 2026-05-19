@@ -1,27 +1,25 @@
 import { getProducts, getProductByHandle, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=2.4';
-import { trackAddToCart, trackBeginCheckout } from './analytics.js';
+import { trackAddToCart, trackBeginCheckout, fireAddToCartCAPI } from './analytics.js';
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
 
 function fireAddToCartPixel(cart, variantId) {
   try {
-    if (typeof fbq !== 'function') return;
     const line = cart.lines?.edges?.find(({ node }) => node.merchandise?.id === variantId);
     if (!line) return;
     const { merchandise } = line.node;
     const numericProductId = merchandise.product?.id?.replace('gid://shopify/Product/', '') || '';
     const numericVariantId = merchandise.id?.replace('gid://shopify/ProductVariant/', '') || '';
-    fbq('track', 'AddToCart', {
-      content_ids:  [numericProductId || numericVariantId],
+    // Meta Pixel + CAPI with deduplication via shared event_id
+    fireAddToCartCAPI({
+      content_id:   numericProductId || numericVariantId,
       content_name: merchandise.product?.title || merchandise.title || '',
-      content_type: 'product',
       value:        parseFloat(merchandise.price?.amount || 0),
-      currency:     'USD'
     });
   } catch (e) {
-    console.warn('Meta Pixel AddToCart error:', e);
+    console.warn('Meta AddToCart error:', e);
   }
-  
+
   try {
     trackAddToCart(variantId, 1, cart);
   } catch (e) {

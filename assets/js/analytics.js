@@ -105,3 +105,63 @@ export function trackBeginCheckout(cart) {
   console.log('[GA4 DEBUG] begin_checkout fired', payload);
   safeGtag('event', 'begin_checkout', payload);
 }
+
+// ── META CONVERSIONS API (CAPI) ───────────────────────────────────────────────
+
+function generateEventId() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0;
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
+function getFbCookie(name) {
+  const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+function sendCAPI(event_name, event_id, custom_data) {
+  try {
+    fetch('/api/meta-capi', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_name,
+        event_id,
+        event_source_url: window.location.href,
+        user_data: {
+          fbp: getFbCookie('_fbp'),
+          fbc: getFbCookie('_fbc'),
+        },
+        custom_data,
+      }),
+    }).catch(() => {});
+  } catch (e) { /* non-blocking */ }
+}
+
+export function fireViewContentCAPI({ content_id, content_name, value }) {
+  const event_id = generateEventId();
+  const params = {
+    content_ids:  [content_id],
+    content_name,
+    content_type: 'product',
+    value,
+    currency:     'USD',
+  };
+  if (typeof fbq === 'function') fbq('track', 'ViewContent', params, { eventID: event_id });
+  sendCAPI('ViewContent', event_id, params);
+}
+
+export function fireAddToCartCAPI({ content_id, content_name, value }) {
+  const event_id = generateEventId();
+  const params = {
+    content_ids:  [content_id],
+    content_name,
+    content_type: 'product',
+    value,
+    currency:     'USD',
+  };
+  if (typeof fbq === 'function') fbq('track', 'AddToCart', params, { eventID: event_id });
+  sendCAPI('AddToCart', event_id, params);
+}
