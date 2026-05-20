@@ -24,7 +24,12 @@ export default async function handler(req) {
     return new Response('Method Not Allowed', { status: 405 });
   }
 
+  // ── DEBUG: env vars ──────────────────────────────────────
+  console.log('[CAPI] TOKEN exists:', !!ACCESS_TOKEN);
+  console.log('[CAPI] PIXEL_ID:', PIXEL_ID);
+
   if (!PIXEL_ID || !ACCESS_TOKEN) {
+    console.log('[CAPI] ERROR: missing env vars');
     return new Response(
       JSON.stringify({ error: 'CAPI not configured — add META_PIXEL_ID and META_ACCESS_TOKEN to Vercel env vars' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -42,6 +47,9 @@ export default async function handler(req) {
   }
 
   const { event_name, event_id, event_source_url, user_data = {}, custom_data = {} } = body;
+
+  // ── DEBUG: incoming event ────────────────────────────────
+  console.log('[CAPI] called:', event_name, '| event_id:', event_id);
 
   if (!event_name || !event_id) {
     return new Response(JSON.stringify({ error: 'Missing event_name or event_id' }), {
@@ -80,21 +88,31 @@ export default async function handler(req) {
     access_token: ACCESS_TOKEN,
   };
 
+  const graphUrl = `https://graph.facebook.com/v19.0/${PIXEL_ID}/events`;
+
+  // ── DEBUG: outgoing request ──────────────────────────────
+  console.log('[CAPI] POST →', graphUrl);
+  console.log('[CAPI] payload:', JSON.stringify({ ...payload, access_token: '[REDACTED]' }));
+
   try {
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/${PIXEL_ID}/events`,
-      {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
-      }
-    );
+    const res = await fetch(graphUrl, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+
     const data = await res.json();
+
+    // ── DEBUG: Meta response ─────────────────────────────
+    console.log('[CAPI] Meta status:', res.status);
+    console.log('[CAPI] Meta response:', JSON.stringify(data));
+
     return new Response(JSON.stringify(data), {
       status:  res.ok ? 200 : 400,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (err) {
+    console.log('[CAPI] fetch error:', err.message);
     return new Response(JSON.stringify({ error: err.message }), {
       status:  500,
       headers: { 'Content-Type': 'application/json' },
