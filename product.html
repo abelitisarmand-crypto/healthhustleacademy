@@ -11,8 +11,10 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '801722669432885');
-fbq('track', 'PageView');
+var _hhHash = typeof localStorage !== 'undefined' ? localStorage.getItem('hha_uid_hash') : null;
+var _pvId = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36);
+fbq('init', '801722669432885', _hhHash ? { external_id: _hhHash } : {});
+fbq('track', 'PageView', {}, { eventID: _pvId });
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"

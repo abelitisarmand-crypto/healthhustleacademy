@@ -146,7 +146,10 @@ let _hashedUserId = null;
 export async function initPixelExternalId() {
   try {
     const uid = getOrCreateUserId();
-    _hashedUserId = await sha256browser(uid);
+    _hashedUserId = localStorage.getItem('hha_uid_hash') || await sha256browser(uid);
+    if (!localStorage.getItem('hha_uid_hash')) {
+      localStorage.setItem('hha_uid_hash', _hashedUserId);
+    }
     if (typeof fbq === 'function') {
       fbq('init', '801722669432885', { external_id: _hashedUserId });
     }
