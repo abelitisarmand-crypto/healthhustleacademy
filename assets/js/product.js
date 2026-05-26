@@ -1,6 +1,6 @@
 import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
 import { ICONS } from '../icons/icons.js';
-import { trackViewItem, fireViewContentCAPI } from './analytics.js';
+import { trackViewItem, fireViewContentCAPI, initPixelExternalId } from './analytics.js';
 
 window.scrollToATC = () => {
   document.getElementById('add-to-cart-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -559,7 +559,8 @@ const handle = urlParams.get('handle');
 
 async function init() {
   if (!handle) { window.location.href = 'index.html'; return; }
-  
+  await initPixelExternalId();
+
   let product = null;
   try {
     const data = await getProductByHandle(handle);

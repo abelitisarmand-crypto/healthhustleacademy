@@ -58,9 +58,9 @@ export default async function handler(req) {
     });
   }
 
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-           || req.headers.get('x-real-ip')
-           || '';
+  const forwarded = req.headers.get('x-forwarded-for') ?? '';
+  const ips = forwarded.split(',').map(s => s.trim()).filter(Boolean);
+  const ip = ips[0] ?? req.headers.get('cf-connecting-ip') ?? req.headers.get('x-real-ip') ?? '';
   const ua = req.headers.get('user-agent') || '';
 
   const em = await sha256hex(user_data.email);
@@ -77,10 +77,11 @@ export default async function handler(req) {
         user_data: {
           client_ip_address: ip,
           client_user_agent: ua,
-          ...(em              && { em:  [em] }),
-          ...(ph              && { ph:  [ph] }),
-          ...(user_data.fbp   && { fbp: user_data.fbp }),
-          ...(user_data.fbc   && { fbc: user_data.fbc }),
+          ...(em                      && { em:          [em] }),
+          ...(ph                      && { ph:          [ph] }),
+          ...(user_data.external_id   && { external_id: [user_data.external_id] }),
+          ...(user_data.fbp           && { fbp: user_data.fbp }),
+          ...(user_data.fbc           && { fbc: user_data.fbc }),
         },
         custom_data,
       },

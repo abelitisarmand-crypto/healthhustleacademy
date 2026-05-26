@@ -121,6 +121,40 @@ function getFbCookie(name) {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
+async function sha256browser(str) {
+  if (!str) return null;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function getOrCreateUserId() {
+  let uid = localStorage.getItem('hha_uid');
+  if (!uid) {
+    uid = crypto.randomUUID
+      ? crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+          const r = Math.random() * 16 | 0;
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    localStorage.setItem('hha_uid', uid);
+  }
+  return uid;
+}
+
+let _hashedUserId = null;
+
+export async function initPixelExternalId() {
+  try {
+    const uid = getOrCreateUserId();
+    _hashedUserId = await sha256browser(uid);
+    if (typeof fbq === 'function') {
+      fbq('init', '801722669432885', { external_id: _hashedUserId });
+    }
+  } catch (e) {
+    console.warn('[Meta] external_id init failed:', e);
+  }
+}
+
 function sendCAPI(event_name, event_id, custom_data) {
   try {
     fetch('/api/meta-capi', {
@@ -133,6 +167,7 @@ function sendCAPI(event_name, event_id, custom_data) {
         user_data: {
           fbp: getFbCookie('_fbp'),
           fbc: getFbCookie('_fbc'),
+          ...(_hashedUserId && { external_id: _hashedUserId }),
         },
         custom_data,
       }),
