@@ -14,14 +14,20 @@ async function sha256hex(str) {
     .join('');
 }
 
+const CORS = {
+  'Access-Control-Allow-Origin':  '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 export default async function handler(req) {
   // CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response(null, { status: 204 });
+    return new Response(null, { status: 204, headers: CORS });
   }
 
   if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+    return new Response('Method Not Allowed', { status: 405, headers: CORS });
   }
 
   // ── DEBUG: env vars ──────────────────────────────────────
@@ -32,7 +38,7 @@ export default async function handler(req) {
     console.log('[CAPI] ERROR: missing env vars');
     return new Response(
       JSON.stringify({ error: 'CAPI not configured — add META_PIXEL_ID and META_ACCESS_TOKEN to Vercel env vars' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } }
     );
   }
 
@@ -42,7 +48,7 @@ export default async function handler(req) {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     });
   }
 
@@ -54,7 +60,7 @@ export default async function handler(req) {
   if (!event_name || !event_id) {
     return new Response(JSON.stringify({ error: 'Missing event_name or event_id' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     });
   }
 
@@ -110,13 +116,13 @@ export default async function handler(req) {
 
     return new Response(JSON.stringify(data), {
       status:  res.ok ? 200 : 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     });
   } catch (err) {
     console.log('[CAPI] fetch error:', err.message);
     return new Response(JSON.stringify({ error: err.message }), {
       status:  500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { ...CORS, 'Content-Type': 'application/json' },
     });
   }
 }
