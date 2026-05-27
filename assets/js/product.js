@@ -16,7 +16,7 @@ const MOCK_PRODUCTS = {
   },
   'walking-pad-for-home-office-quiet-under-desk-treadmill': {
     title: "Under-Desk Walking Pad",
-    price: "299.00",
+    price: "199.00",
     image: "https://m.media-amazon.com/images/I/71z7XmK-j7L._AC_SL1500_.jpg",
     quantity: 37
   },
@@ -129,8 +129,8 @@ const PRODUCT_COPY = {
       { bold: '45dB — invisible on Zoom', rest: '' },
       { bold: 'Slides under any desk', rest: '' }
     ],
-    wasPrice: 499,
-    saveBadge: 'YOU SAVE $200 (40% OFF)',
+    wasPrice: 399,
+    saveBadge: 'YOU SAVE $200 — 50% OFF TODAY',
     scarcity: '47 units left at this price · Ships from California in 2–3 days',
     miniReviews: [
       { stars: '★★★★★', quote: '10K steps before lunch, every day.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
@@ -211,7 +211,7 @@ const PRODUCT_COPY = {
         { name: "Maria L.", location: "Austin, TX", stars: 5, headline: "Game changer for WFH life", body: "I work from home and was gaining weight from sitting all day. I walk 2-3 hours a day now while working. Assembly was straightforward — just unbox and go.", photos: ["review-08.jpg","review-09.jpg","review-10.jpg"] },
         { name: "Amanda T.", location: "Denver, CO", stars: 5, headline: "Unboxing was exciting!", body: "Everything came double-boxed and protected. Plugged it in and started walking within 5 minutes. It's whisper quiet — I use it while watching TV at night.", photos: ["review-15.jpg","review-16.jpg","review-17.jpg"] },
         { name: "Chris W.", location: "Boston, MA", stars: 5, headline: "Fits perfectly under my desk", body: "Measured my desk clearance before ordering and it fits with room to spare. I've been averaging 12,000 steps a day since I got it.", photos: ["review-18.jpg","review-19.jpg","review-20.jpg"] },
-        { name: "Nicole P.", location: "Miami, FL", stars: 5, headline: "Surprised by the quality", body: "For under $300 I expected flimsy. This thing is solid. Motor is quiet, surface has good grip, and it stores vertically.", photos: ["review-21.jpg","review-22.jpg","review-23.jpg","review-24.jpg"] },
+        { name: "Nicole P.", location: "Miami, FL", stars: 5, headline: "Surprised by the quality", body: "For under $200 I expected flimsy. This thing is solid. Motor is quiet, surface has good grip, and it stores vertically.", photos: ["review-21.jpg","review-22.jpg","review-23.jpg","review-24.jpg"] },
         { name: "Tyler B.", location: "Portland, OR", stars: 4, headline: "Does exactly what it promises", body: "Reliable walking pad that works. Speed goes up to 6 km/h which is plenty. Solid purchase.", photos: ["review-25.jpg","review-26.jpg","review-27.jpg","review-28.jpg","review-29.jpg","review-30.jpg"] }
       ]
     }
@@ -226,7 +226,7 @@ const PRODUCT_COPY = {
       { bold: '40dB — invisible on Zoom calls', rest: '' },
       { bold: 'Slides under any desk in 3 seconds', rest: '' }
     ],
-    saveBadge: 'YOU SAVE $100 (33% OFF)',
+    saveBadge: 'YOU SAVE $200 — 50% OFF TODAY',
     scarcity: 'Limited stock · Ships from California in 2–3 days',
     miniReviews: [
       { stars: '★★★★★', quote: '10K steps before lunch, every day.', name: 'Sarah M.', thumb: 'images/reviews/walking-pad/review-01.jpg' },
@@ -268,7 +268,7 @@ const PRODUCT_COPY = {
       { name: 'Tom H.', city: 'California', quote: 'My doctor told me to move more. This was the answer. Blood pressure is down.', badge: 'DOCTOR RECOMMENDED' }
     ],
     wasPrice: 399,
-    savingsText: 'YOU SAVE $100 TODAY',
+    savingsText: 'YOU SAVE $200 TODAY',
     bundleHandle: 'massage-gun-deep-tissue-percussion-massager-for-athletes-handheld-body-back-muscle-massager-gun-with-8-massage-heads',
     bundleTitle: 'Move & Recover Bundle',
     bundlePrice: 349,
@@ -347,7 +347,7 @@ const PRODUCT_COPY = {
           location: "Miami, FL",
           stars: 5,
           headline: "Surprised by the quality",
-          body: "For under $300 I expected flimsy. This thing is solid. The motor is quiet, the surface has good grip, and it stores vertically when I need floor space. Packing was professional — every piece wrapped separately.",
+          body: "For under $200 I expected flimsy. This thing is solid. The motor is quiet, the surface has good grip, and it stores vertically when I need floor space. Packing was professional — every piece wrapped separately.",
           photos: ["review-21.jpg", "review-22.jpg", "review-23.jpg", "review-24.jpg"]
         },
         {
@@ -981,7 +981,7 @@ const WALKING_PAD_REVIEWS = [
   { author: "David R.", rating: 4, body: "Great value, minor learning curve. Build quality is legit.", date: "2024-12-10" },
   { author: "Amanda T.", rating: 5, body: "Unboxing was exciting. Whisper quiet. Best health purchase this year.", date: "2025-01-05" },
   { author: "Chris W.", rating: 5, body: "Fits perfectly under my desk. Averaging 12,000 steps a day.", date: "2025-01-12" },
-  { author: "Nicole P.", rating: 5, body: "For under $300 I expected flimsy. This thing is solid.", date: "2025-01-20" },
+  { author: "Nicole P.", rating: 5, body: "For under $200 I expected flimsy. This thing is solid.", date: "2025-01-20" },
   { author: "Tyler B.", rating: 4, body: "Does exactly what it promises. Reliable walking pad that works.", date: "2025-02-01" }
 ];
 
