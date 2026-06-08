@@ -1,4 +1,4 @@
-import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
+import { getProductByHandle, addToCart } from './shopify.js?v=3.3';
 import { ICONS } from '../icons/icons.js';
 import { trackViewItem, fireViewContentCAPI, initPixelExternalId } from './analytics.js?v=2.1';
 
