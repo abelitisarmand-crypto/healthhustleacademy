@@ -583,7 +583,10 @@ async function init() {
     }
   }
 
-  if (!product) return;
+  if (!product) {
+    window.location.href = '404.html';
+    return;
+  }
   currentProduct = product;
   renderProduct(product);
   setupStickyHeader();
