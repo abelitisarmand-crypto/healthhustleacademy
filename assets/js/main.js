@@ -1,4 +1,4 @@
-import { getProducts, getProductByHandle, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=2.4';
+import { getProducts, getProductByHandle, getCollectionByHandle, createCart, addToCart, getCart, updateCartLines, removeCartLines } from './shopify.js?v=3.3';
 import { trackAddToCart, trackBeginCheckout, fireAddToCartCAPI, initPixelExternalId } from './analytics.js?v=2.1';
 
 const SHOPIFY_CHECKOUT_DOMAIN = 'https://5e2bf2-59.myshopify.com';
