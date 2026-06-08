@@ -1,6 +1,6 @@
 import { getProductByHandle, addToCart } from './shopify.js?v=3.2';
 import { ICONS } from '../icons/icons.js';
-import { trackViewItem, fireViewContentCAPI, initPixelExternalId } from './analytics.js';
+import { trackViewItem, fireViewContentCAPI, initPixelExternalId } from './analytics.js?v=2.1';
 
 window.scrollToATC = () => {
   document.getElementById('add-to-cart-btn')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
