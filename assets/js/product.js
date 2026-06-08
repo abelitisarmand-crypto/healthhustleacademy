@@ -121,13 +121,13 @@ const PRODUCT_COPY = {
     }
   },
   'walking-pad-treadmill-compact-portable-walking-pad-quiet-operation-adjustable-speed-settings': {
-    h1: 'Your Body Is Paying For Your Desk Job.',
-    subtitle: 'Move while you work. Burn 400 calories. Change nothing else.',
+    h1: 'Walk 8,000 Steps Without Leaving Home.',
+    subtitle: 'Burn 400 calories watching your favorite show. No gym. No commute. No excuses.',
     eyebrow: '★★★★★ 4.9 · 2,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK',
     bullets: [
-      { bold: 'Walk & work at the same time', rest: '' },
-      { bold: '45dB — invisible on Zoom', rest: '' },
-      { bold: 'Slides under any desk', rest: '' }
+      { bold: 'Burns 400 calories per hour', rest: '' },
+      { bold: 'Quiet enough for any room — <45dB', rest: '' },
+      { bold: 'Folds flat under your couch or bed', rest: '' }
     ],
     wasPrice: 399,
     saveBadge: 'YOU SAVE $200 — 50% OFF TODAY',
