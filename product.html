@@ -45,9 +45,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- LCP: preload hero image -->
-    <link rel="preload" as="image" href="images/reviews/walking-pad/review-18.jpg" fetchpriority="high">
-    <!-- TODO: replace with UGC lifestyle hero photo at images/products/walking-pad/walking-pad-lifestyle-hero.jpg -->
+    <!-- LCP: preload hero image — injected dynamically by product.js after handle is known -->
 
     <!-- Critical inline CSS: hero above-the-fold -->
     <style>
@@ -133,9 +131,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
       </div>
     </div>
   </nav>
-
-  <main>
-
+  <main id="main-content" style="opacity: 0; transition: opacity 0.4s ease;">
     <!-- ═══ SECTION 1: HERO ═══ -->
     <section class="pdp-hero animate-in" id="pdp-hero">
       <div class="hero-glow"></div>
@@ -147,12 +143,12 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
             <div id="main-image-container" style="position:relative;margin-bottom:0;">
               <picture>
                 <img id="main-product-image"
-                     src="images/reviews/walking-pad/review-18.jpg"
+                     src=""
                      alt="Product"
                      width="800" height="800"
                      loading="eager"
                      fetchpriority="high"
-                     style="width:100%;height:100%;object-fit:cover;">
+                     style="width:100%;height:100%;object-fit:cover;visibility:hidden;">
               </picture>
               <button id="gallery-prev" class="gallery-arrow gallery-arrow--prev" aria-label="Previous product image">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -171,10 +167,10 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
             <div class="hero-eyebrow" id="hero-eyebrow">★★★★★ 4.9 · 2,000+ VERIFIED BUYERS · AS SEEN ON TIKTOK</div>
 
             <!-- 2. H1 -->
-            <h1 id="product-h1" class="pdp-h1">Burn 400 Calories a Day — Without Leaving Your Desk</h1>
+            <h1 id="product-h1" class="pdp-h1"></h1>
 
             <!-- 3. Subhead -->
-            <p id="product-subtitle-p" class="pdp-subtitle">The whisper-quiet walking pad that turns your work hours into your workout.</p>
+            <p id="product-subtitle-p" class="pdp-subtitle"></p>
 
             <!-- 4. Benefit bullets (ultra-short) -->
             <ul class="hero-bullets" id="hero-bullets"></ul>
@@ -183,7 +179,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
             <div id="variant-selector-pdp"></div>
 
             <!-- 6. Primary CTA — HIGH in hierarchy -->
-            <button id="add-to-cart-btn" class="btn btn-primary hero-cta-btn">START WALKING TODAY →</button>
+            <button id="add-to-cart-btn" class="btn btn-primary hero-cta-btn" disabled style="opacity:0.5;cursor:not-allowed;"></button>
 
             <!-- 7. Price block with anchor — BELOW CTA -->
             <div class="hero-price-block">
@@ -253,12 +249,12 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
       <div class="container">
         <div class="solution-inner">
           <div class="solution-image">
-            <!-- TODO: replace with real UGC photo, see image brief -->
             <picture>
               <img id="solution-img"
-                   src="images/reviews/walking-pad/TVWP.png"
-                   alt="Woman walking on walking pad while working at desk"
-                   loading="lazy">
+                   src=""
+                   alt=""
+                   loading="lazy"
+                   style="visibility:hidden;">
             </picture>
           </div>
           <div class="solution-content">
@@ -414,7 +410,7 @@ src="https://www.facebook.com/tr?id=801722669432885&ev=PageView&noscript=1"
         <img id="mobile-sticky-thumb" src="" alt="" width="40" height="40" loading="lazy" decoding="async">
         <div class="mobile-sticky-price-stack">
           <span class="mobile-sticky-was" id="mobile-sticky-was"></span>
-          <span class="mobile-sticky-price" id="mobile-sticky-price">$0</span>
+          <span class="mobile-sticky-price" id="mobile-sticky-price"></span>
         </div>
       </div>
       <button class="btn btn-primary mobile-sticky-btn" onclick="document.getElementById('add-to-cart-btn').click()">

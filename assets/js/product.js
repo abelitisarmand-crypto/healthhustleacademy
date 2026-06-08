@@ -589,6 +589,16 @@ async function init() {
   }
   currentProduct = product;
   renderProduct(product);
+  // Reveal page only after product content is ready — eliminates placeholder flash
+  const mainEl = document.getElementById('main-content');
+  if (mainEl) mainEl.style.opacity = '1';
+  // Unlock ATC button
+  const atcBtn = document.getElementById('add-to-cart-btn');
+  if (atcBtn) {
+    atcBtn.disabled = false;
+    atcBtn.style.opacity = '';
+    atcBtn.style.cursor = '';
+  }
   setupStickyHeader();
   startShipTimer();
   
@@ -666,6 +676,7 @@ function renderProduct(product) {
   if (solutionTextEl && copy?.solutionText) solutionTextEl.textContent = copy.solutionText;
   if (solutionImgEl && copy?.solutionImage) {
     solutionImgEl.src = copy.solutionImage;
+    solutionImgEl.style.visibility = '';
   }
 
   // Why HHA section body paragraphs
@@ -718,10 +729,10 @@ function renderProduct(product) {
   const stickyImg = document.getElementById('sticky-img');
   const mobileStickyThumb = document.getElementById('mobile-sticky-thumb');
   const fallbackImg = product.images?.edges[0]?.node?.url || 'assets/images/placeholder.jpg';
-  if (mainImg) mainImg.src = fallbackImg;
+  if (mainImg) { mainImg.src = fallbackImg; mainImg.style.visibility = ''; }
   if (stickyImg) stickyImg.src = fallbackImg;
   if (mobileStickyThumb) mobileStickyThumb.src = fallbackImg;
-  if (solutionImgEl && !copy?.solutionImage) solutionImgEl.src = fallbackImg;
+  if (solutionImgEl && !copy?.solutionImage) { solutionImgEl.src = fallbackImg; solutionImgEl.style.visibility = ''; }
 
   const thumbs = document.getElementById('thumbnails');
   const imageUrls = product.images.edges.map(e => e.node.url);
